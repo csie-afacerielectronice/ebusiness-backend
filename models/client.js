@@ -9,18 +9,20 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         allowNull: false
       },
+      avatar: DataTypes.STRING,
       name: DataTypes.STRING,
       surname: DataTypes.STRING,
-      addressId: DataTypes.UUID,
-      isPrimary: DataTypes.BOOLEAN,
-      city: DataTypes.STRING,
-      county: DataTypes.STRING,
-      postalCode: DataTypes.STRING
+      userId: {
+        type: DataTypes.UUID,
+        allowNull: false
+      }
     },
     {}
   );
   client.associate = function(models) {
-    // associations can be defined here
+    client.hasMany(models.address);
+    client.hasMany(models.review);
+    client.belongsTo(models.user);
   };
   return client;
 };

@@ -9,12 +9,16 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         allowNull: false
       },
-      name: DataTypes.STRING
+      name: DataTypes.STRING,
+      userId: {
+        type: DataTypes.UUID,
+        allowNull: false
+      }
     },
     {}
   );
   admin.associate = function(models) {
-    // associations can be defined here
+    admin.belongsTo(models.user);
   };
   return admin;
 };

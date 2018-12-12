@@ -14,20 +14,19 @@ module.exports = {
       surname: {
         type: Sequelize.STRING
       },
-      addressId: {
-        type: Sequelize.UUID
-      },
-      isPrimary: {
-        type: Sequelize.BOOLEAN
-      },
-      city: {
+      avatar: {
         type: Sequelize.STRING
       },
-      county: {
+      telephone: {
         type: Sequelize.STRING
       },
-      postalCode: {
-        type: Sequelize.STRING
+      userId: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        references: {
+          model: 'users',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,

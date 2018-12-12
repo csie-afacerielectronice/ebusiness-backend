@@ -18,7 +18,6 @@ passport.use(
 );
 
 passport.use(
-  'login',
   new LocalStrategy(
     {
       usernameField: 'email',

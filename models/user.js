@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
       id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
-        primaryKey: true
+        primaryKey: true,
+        allowNull: false
       },
       email: {
         type: DataTypes.STRING,
@@ -19,11 +20,19 @@ module.exports = (sequelize, DataTypes) => {
       password: {
         type: DataTypes.STRING,
         allowNull: false
+      },
+      roleId: {
+        type: DataTypes.UUID,
+        allowNull: false
       }
     },
     {}
   );
-  user.associate = function(models) {};
+  user.associate = function(models) {
+    user.hasOne(models.client);
+    user.belongsTo(models.role);
+    user.hasOne(models.admin);
+  };
 
   user.beforeCreate(async user => {
     const hash = await bcrypt.hash(user.password, 10);

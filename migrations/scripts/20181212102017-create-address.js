@@ -1,20 +1,39 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('reviews', {
+    return queryInterface.createTable('addresses', {
       id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
         allowNull: false
       },
-      productId: {
-        type: Sequelize.UUID,
-        allowNull: false,
-        references: {
-          model: 'products',
-          key: 'id'
-        }
+      name: {
+        type: Sequelize.STRING
+      },
+      surname: {
+        type: Sequelize.STRING
+      },
+      telephone: {
+        type: Sequelize.STRING
+      },
+      isPrimary: {
+        type: Sequelize.BOOLEAN
+      },
+      city: {
+        type: Sequelize.STRING
+      },
+      county: {
+        type: Sequelize.STRING
+      },
+      postalCode: {
+        type: Sequelize.STRING
+      },
+      lat: {
+        type: Sequelize.FLOAT
+      },
+      lng: {
+        type: Sequelize.FLOAT
       },
       clientId: {
         type: Sequelize.UUID,
@@ -23,12 +42,6 @@ module.exports = {
           model: 'clients',
           key: 'id'
         }
-      },
-      content: {
-        type: Sequelize.STRING
-      },
-      score: {
-        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -41,6 +54,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('reviews');
+    return queryInterface.dropTable('addresses');
   }
 };

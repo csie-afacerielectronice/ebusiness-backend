@@ -1,13 +1,21 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const review = sequelize.define(
-    'review',
+  const order_product = sequelize.define(
+    'order_product',
     {
       id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
         allowNull: false
+      },
+      orderId: {
+        type: DataTypes.UUID,
+        allowNull: false,
+        references: {
+          model: 'orders',
+          key: 'id'
+        }
       },
       productId: {
         type: DataTypes.UUID,
@@ -17,22 +25,15 @@ module.exports = (sequelize, DataTypes) => {
           key: 'id'
         }
       },
-      clientId: {
-        type: DataTypes.UUID,
-        allowNull: false,
-        references: {
-          model: 'clients',
-          key: 'id'
-        }
-      },
-      content: DataTypes.STRING,
-      score: DataTypes.INTEGER
+      quantity: {
+        type: DataTypes.INTEGER
+      }
     },
     {}
   );
-  review.associate = function(models) {
-    review.belongsTo(models.client);
-    review.belongsTo(models.product);
+  order_product.associate = function(models) {
+    order_product.belongsTo(models.order);
+    order_product.belongsTo(models.product);
   };
-  return review;
+  return order_product;
 };
