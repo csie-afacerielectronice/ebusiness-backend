@@ -56,7 +56,6 @@ module.exports = (sequelize, DataTypes) => {
     );
 
     return {
-      email: this.email,
       token
     };
   };

@@ -2,9 +2,9 @@
   "name": "ie-x-ebusiness-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "./src/app.js",
   "scripts": {
-    "dev": "nodemon --exec ./node_modules/.bin/babel-node app.js",
+    "dev": "nodemon src/app.js",
     "model:create": "./node_modules/.bin/sequelize model:generate",
     "db:migrate": "./node_modules/.bin/sequelize db:migrate"
   },
@@ -26,9 +26,6 @@
     "yup": "^0.26.6"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-stage-2": "^6.24.1",
     "eslint": "^5.9.0",
     "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-prettier": "^3.0.0",

@@ -7,8 +7,8 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 const app = express();
 
-require('./src/models');
-const passport = require('./src/config/passport');
+require('./models');
+const passport = require('./config/passport');
 
 app.use(passport.initialize());
 
@@ -45,6 +45,8 @@ app.use(function (err, req, res, next) {
     error: {}
   });
 });
+
+app.use(require('./routes/product.routes'));
 
 const server = app.listen(process.env.PORT || 3000, () => {
   console.log('Listening on port ' + server.address().port);

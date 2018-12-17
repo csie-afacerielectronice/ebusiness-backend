@@ -8,13 +8,34 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
       },
-      name: DataTypes.STRING,
-      isPrimary: DataTypes.BOOLEAN,
-      city: DataTypes.STRING,
-      county: DataTypes.STRING,
-      postalCode: DataTypes.STRING,
-      lat: DataTypes.FLOAT,
-      lng: DataTypes.FLOAT,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      isPrimary: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false
+      },
+      city: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      county: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      postalCode: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      lat: {
+        type: DataTypes.FLOAT,
+        allowNull: false
+      },
+      lng: {
+        type: DataTypes.FLOAT,
+        allowNull: false
+      },
       clientId: {
         type: DataTypes.UUID,
         allowNull: false
