@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "nodemon src/app.js",
     "model:create": "./node_modules/.bin/sequelize model:generate",
-    "db:migrate": "./node_modules/.bin/sequelize db:migrate"
+    "db:migrate": "./node_modules/.bin/sequelize db:migrate",
+    "test": "jest",
+    "coverage": "jest --coverage"
   },
   "dependencies": {
     "bcrypt": "^3.0.2",
