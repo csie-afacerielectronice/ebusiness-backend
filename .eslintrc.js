@@ -1,9 +1,11 @@
 module.exports = {
   env: {
     es6: true,
-    node: true
+    node: true,
+    'jest/globals': true
   },
   extends: ['eslint:recommended', 'plugin:prettier/recommended'],
+  plugins: ['jest'],
   parserOptions: {
     ecmaVersion: 2018
   },
@@ -12,6 +14,6 @@ module.exports = {
     'linebreak-style': ['error', 'unix'],
     quotes: ['error', 'single'],
     semi: ['error', 'always'],
-    'no-console': 'off',
+    'no-console': 'off'
   }
 };
