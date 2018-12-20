@@ -2,12 +2,15 @@ require('dotenv').config();
 
 module.exports = {
   [process.env.NODE_ENV]: {
-    host: process.env.DB_HOST || 'localhost',
-    port: process.env.DB_PORT || 3306,
-    database: process.env.DB_NAME || '',
-    username: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || '',
+    host: eval(`process.env.DB_HOST_${process.env.NODE_ENV}`) || 'localhost',
+    port: eval(`process.env.DB_PORT_${process.env.NODE_ENV}`) || '',
+    database: eval(`process.env.DB_NAME_${process.env.NODE_ENV}`) || '',
+    username: eval(`process.env.DB_USER_${process.env.NODE_ENV}`) || 'root',
+    password: eval(`process.env.DB_PASSWORD_${process.env.NODE_ENV}`) || '',
     migrationStorageTableName: 'migrations',
-    dialect: process.env.DB_DIALECT || 'mysql'
+    dialect: eval(`process.env.DB_DIALECT_${process.env.NODE_ENV}`) || 'sqlite',
+    storage:
+      eval(`process.env.DB_STORAGE_${process.env.NODE_ENV}`) ||
+      `./db_${process.env.NODE_ENV.toLowerCase()}.sqlite`
   }
 };

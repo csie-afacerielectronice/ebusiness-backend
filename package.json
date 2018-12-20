@@ -4,11 +4,11 @@
   "description": "",
   "main": "./src/app.js",
   "scripts": {
-    "dev": "nodemon src/app.js",
-    "model:create": "./node_modules/.bin/sequelize model:generate",
-    "db:migrate": "./node_modules/.bin/sequelize db:migrate",
-    "test": "jest",
-    "coverage": "jest --coverage"
+    "dev": "cross-env NODE_ENV=DEV nodemon src/app.js",
+    "model:create": "cross-env NODE_ENV=DEV ./node_modules/.bin/sequelize model:generate",
+    "db:migrate": "cross-env NODE_ENV=DEV ./node_modules/.bin/sequelize db:migrate",
+    "test": "cross-env NODE_ENV=TEST jest",
+    "coverage": "cross-env NODE_ENV=TEST jest --coverage"
   },
   "dependencies": {
     "bcrypt": "^3.0.2",
@@ -26,9 +26,11 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "sequelize": "^4.41.2",
+    "sqlite3": "^4.0.4",
     "yup": "^0.26.6"
   },
   "devDependencies": {
+    "cross-env": "^5.2.0",
     "eslint": "^5.9.0",
     "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-prettier": "^3.0.0",
