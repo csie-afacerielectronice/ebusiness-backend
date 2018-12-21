@@ -16,12 +16,8 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      roleId: {
-        type: Sequelize.UUID,
-        references: {
-          model: 'roles',
-          key: 'id'
-        }
+      role: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

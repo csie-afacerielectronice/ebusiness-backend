@@ -20,8 +20,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false
       },
-      roleId: {
-        type: DataTypes.UUID
+      role: {
+        type: DataTypes.STRING
       }
     },
     {}
