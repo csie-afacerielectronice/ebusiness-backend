@@ -1,0 +1,50 @@
+{
+  "name": "ie-x-ebusiness-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon --exec ./node_modules/.bin/babel-node app.js",
+    "model:create": "./node_modules/.bin/sequelize model:generate",
+    "db:migrate": "./node_modules/.bin/sequelize db:migrate"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.2",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "dotenv": "^6.1.0",
+    "errorhandler": "^1.5.0",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.4.0",
+    "method-override": "^3.0.0",
+    "morgan": "^1.9.1",
+    "mysql2": "^1.6.4",
+    "nodeadmin": "^0.1.2",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "sequelize": "^4.41.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "eslint": "^5.9.0",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "nodemon": "^1.18.6",
+    "prettier": "^1.15.2",
+    "sequelize-cli": "^5.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/epr3/ie-x-ebusiness-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/epr3/ie-x-ebusiness-backend/issues"
+  },
+  "homepage": "https://github.com/epr3/ie-x-ebusiness-backend#readme"
+}
