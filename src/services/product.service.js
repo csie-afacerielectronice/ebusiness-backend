@@ -12,10 +12,17 @@ module.exports = {
   },
   updateProduct: async (id, data) => {
     try {
-      const productObj = await product.findByPk(id);
-      return await productObj.update({
-        ...data
-      });
+      await product.update(
+        {
+          ...data
+        },
+        {
+          where: {
+            id
+          }
+        }
+      );
+      return await product.findByPk(id);
     } catch (e) {
       throw new Error(e.message);
     }
