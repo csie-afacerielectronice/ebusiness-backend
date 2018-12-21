@@ -1,5 +1,20 @@
+const yup = require('yup');
 const productService = require('../services/product.service');
 const errorHandler = require('../utils/errorHandler');
+
+const postSchema = yup.object().shape({
+  name: yup.string().required(),
+  description: yup.string().required(),
+  price: yup.number().required(),
+  categoryId: yup.string().required()
+});
+
+const updateSchema = yup.object().shape({
+  name: yup.string(),
+  description: yup.string(),
+  price: yup.number(),
+  categoryId: yup.string()
+});
 
 module.exports = {
   getProducts: async (req, res) => {
@@ -12,14 +27,16 @@ module.exports = {
   },
   postProduct: async (req, res) => {
     try {
+      await postSchema.validate(req.body);
       const product = await productService.createProduct(req.body);
-      res.status(200).send(product);
+      res.status(201).send(product);
     } catch (e) {
       errorHandler(res, e);
     }
   },
   patchProduct: async (req, res) => {
     try {
+      await updateSchema.validate(req.body);
       const product = await productService.updateProduct(
         req.params.id,
         req.body
