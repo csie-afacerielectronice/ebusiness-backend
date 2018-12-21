@@ -11,7 +11,6 @@ describe('Product service', () => {
     image: '/path'
   };
   beforeAll(async () => {
-    await db.sequelize.sync();
     categoryObj = await new db.category({
       name: 'category'
     }).save();
@@ -23,7 +22,6 @@ describe('Product service', () => {
   afterAll(async done => {
     await db.product.destroy({ truncate: true });
     await db.category.destroy({ truncate: true });
-    await db.sequelize.close();
     done();
   });
   test('it should get all products', async done => {

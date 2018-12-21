@@ -11,6 +11,7 @@ module.exports = {
     dialect: eval(`process.env.DB_DIALECT_${process.env.NODE_ENV}`) || 'sqlite',
     storage:
       eval(`process.env.DB_STORAGE_${process.env.NODE_ENV}`) ||
-      `./db_${process.env.NODE_ENV.toLowerCase()}.sqlite`
+      `./db_${process.env.NODE_ENV.toLowerCase()}.sqlite`,
+    logging: process.env.NODE_ENV === 'DEV' ? true : false
   }
 };

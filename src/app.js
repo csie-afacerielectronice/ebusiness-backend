@@ -25,7 +25,7 @@ if (!isProduction) {
 
 if (process.env.NODE_ENV === 'development') {
   // eslint-disable-next-line
-  app.use(function (err, req, res, next) {
+  app.use(function(err, req, res, next) {
     console.log('error');
     res.status(err.status || 500);
     res.render('error', {
@@ -38,7 +38,7 @@ if (process.env.NODE_ENV === 'development') {
 // production error handler
 // no stacktraces leaked to user
 // eslint-disable-next-line
-app.use(function (err, req, res, next) {
+app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,
@@ -47,9 +47,12 @@ app.use(function (err, req, res, next) {
 });
 
 app.use(require('./routes/product.routes'));
+app.use(require('./routes/auth.routes'));
 
-const server = app.listen(process.env.PORT || 3000, () => {
-  console.log('Listening on port ' + server.address().port);
-});
+if (process.env.NODE_ENV !== 'TEST') {
+  const server = app.listen(process.env.PORT || 3000, () => {
+    console.log('Listening on port ' + server.address().port);
+  });
+}
 
-module.exports = server;
+module.exports = app;
