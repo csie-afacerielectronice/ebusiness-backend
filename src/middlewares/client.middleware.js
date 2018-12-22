@@ -5,7 +5,7 @@ const clientService = require('../services/client.service');
 module.exports = async (req, res, next) => {
   try {
     const user = await userService.getUser(req.user.id);
-    if (user && user.role === role.CLIENT) {
+    if (user && (user.role === role.CLIENT || user.role === role.ADMIN)) {
       const client = await clientService.findClient({ userId: user.id });
       req.client = client;
       next();
