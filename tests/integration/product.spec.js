@@ -11,8 +11,8 @@ describe('Product controller', () => {
     price: 14.99,
     image: '/path'
   };
+  let token;
   beforeAll(async done => {
-    await db.sequelize.sync({ force: true });
     categoryObj = await new db.category({
       name: 'category'
     }).save();
@@ -20,12 +20,15 @@ describe('Product controller', () => {
     productObj = await new db.product({
       ...data
     }).save();
+    const userObj = await db.user.findOne({
+      where: { email: 'test@test.com' }
+    });
+    token = userObj.authJSON().token;
     done();
   });
   afterAll(async done => {
     await db.product.destroy({ truncate: true });
     await db.category.destroy({ truncate: true });
-    await db.sequelize.close();
     done();
   });
 
@@ -52,6 +55,7 @@ describe('Product controller', () => {
   test('it should return a product on post', done => {
     return request(app)
       .post('/products')
+      .set('Authorization', `JWT ${token}`)
       .send(data)
       .expect(201)
       .then(response => {
@@ -63,29 +67,41 @@ describe('Product controller', () => {
   test('it should return a product on patch', done => {
     return request(app)
       .patch(`/products/${productObj.id}`)
+      .set('Authorization', `JWT ${token}`)
       .send({
         name: 'ceva2'
       })
       .expect(200)
       .then(response => {
         expect(response.body).toMatchObject({ ...data, name: 'ceva2' });
-        done()
+        done();
       });
   });
 
   test('it should return no content on delete', done => {
-    return request(app).delete(`/products/${productObj.id}`).expect(204, done);
+    return request(app)
+      .delete(`/products/${productObj.id}`)
+      .set('Authorization', `JWT ${token}`)
+      .expect(204, done);
   });
 
   test('it should return 404 on delete inexisting product', done => {
-    return request(app).delete('/products/random').expect(404,done);
+    return request(app)
+      .delete('/products/random')
+      .set('Authorization', `JWT ${token}`)
+      .expect(404, done);
   });
 
   test('it should return 404 on patch inexisting product', done => {
-    return request(app).patch('/products/random').expect(404, done);
+    return request(app)
+      .patch('/products/random')
+      .set('Authorization', `JWT ${token}`)
+      .expect(404, done);
   });
 
   test('it should return 404 on get inexisting product', done => {
-    return request(app).get('/products/random').expect(404, done);
+    return request(app)
+      .get('/products/random')
+      .expect(404, done);
   });
 });

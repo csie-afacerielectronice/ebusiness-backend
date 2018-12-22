@@ -1,13 +1,7 @@
 const app = require('../../src/app');
 const request = require('supertest');
-const db = require('../../src/models');
 
 describe('Auth controller', () => {
-  afterAll(async done => {
-    await db.user.destroy({ truncate: true });
-    done();
-  });
-
   test('it should return a token on register', done => {
     return request(app)
       .post('/register')
