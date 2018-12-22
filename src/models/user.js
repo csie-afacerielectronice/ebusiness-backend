@@ -28,7 +28,6 @@ module.exports = (sequelize, DataTypes) => {
   );
   user.associate = function(models) {
     user.hasOne(models.client);
-    user.belongsTo(models.role);
     user.hasOne(models.admin);
   };
 
@@ -37,8 +36,8 @@ module.exports = (sequelize, DataTypes) => {
     user.password = hash;
   });
 
-  user.prototype.isPasswordValid = async function(password) {
-    return await bcrypt.compare(this.password, password);
+  user.prototype.isPasswordValid = function(password) {
+    return bcrypt.compareSync(password, this.password);
   };
 
   user.prototype.authJSON = function() {

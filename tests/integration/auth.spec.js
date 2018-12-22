@@ -29,4 +29,11 @@ describe('Auth controller', () => {
         done();
       });
   });
+
+  test('it should return an token on invalid password', done => {
+    return request(app)
+      .post('/login')
+      .send({ email: 'ceva@ceva.com', password: '12345678' })
+      .expect(401, done);
+  });
 });
