@@ -19,14 +19,9 @@ describe('Product service', () => {
       ...data
     }).save();
   });
-  afterAll(async done => {
-    await db.product.destroy({ truncate: true });
-    await db.category.destroy({ truncate: true });
-    done();
-  });
   test('it should get all products', async done => {
     const result = await productService.getProducts();
-    expect(result).toHaveLength(1);
+    expect(result).not.toHaveLength(0);
     done();
   });
   test('it should create a new product', async done => {
@@ -46,6 +41,7 @@ describe('Product service', () => {
     expect(result).toMatchObject({ ...data, name: 'ceva2' });
     done();
   });
+
   test('it should delete a product', async done => {
     const result = await productService.deleteProduct(productObj.id);
     expect(result).toBeTruthy();
@@ -53,20 +49,29 @@ describe('Product service', () => {
   });
 
   test('it should return null when getting an inexistent product', async done => {
-    const result = await productService.getProduct(productObj.id);
-    expect(result).toBeFalsy();
+    try {
+      await productService.getProduct(productObj.id);
+    } catch (e) {
+      expect(e).toHaveProperty('status', 404);
+    }
     done();
   });
 
   test('it should return null when updating an inexistent product', async done => {
-    const result = await productService.updateProduct(productObj.id);
-    expect(result).toBeFalsy();
+    try {
+      await productService.updateProduct(productObj.id);
+    } catch (e) {
+      expect(e).toHaveProperty('status', 404);
+    }
     done();
   });
 
   test('it should return null when deleting an inexistent product', async done => {
-    const result = await productService.deleteProduct(productObj.id);
-    expect(result).toBeFalsy();
+    try {
+      await productService.deleteProduct(productObj.id);
+    } catch (e) {
+      expect(e).toHaveProperty('status', 404);
+    }
     done();
   });
 });

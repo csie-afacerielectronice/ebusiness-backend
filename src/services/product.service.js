@@ -22,27 +22,49 @@ module.exports = {
           }
         }
       );
-      return await product.findByPk(id);
+      const productObj = await product.findByPk(id);
+      if (productObj) {
+        return productObj;
+      } else {
+        let err = new Error('Not Found');
+        err.status = 404;
+        throw err;
+      }
     } catch (e) {
-      throw new Error(e.message);
+      if (e.status) throw e;
+      else throw new Error(e.message);
     }
   },
   deleteProduct: async id => {
     try {
-      return await product.destroy({
+      const result = await product.destroy({
         where: {
           id: id
         }
       });
+      if (result) return result;
+      else {
+        let err = new Error('Not Found');
+        err.status = 404;
+        throw err;
+      }
     } catch (e) {
-      throw new Error(e.message);
+      if (e.status) throw e;
+      else throw new Error(e.message);
     }
   },
   getProduct: async id => {
     try {
-      return await product.findByPk(id);
+      const result = await product.findByPk(id);
+      if (result) return result;
+      else {
+        let err = new Error('Not Found');
+        err.status = 404;
+        throw err;
+      }
     } catch (e) {
-      throw new Error(e.message);
+      if (e.status) throw e;
+      else throw new Error(e.message);
     }
   },
   getProducts: async () => {

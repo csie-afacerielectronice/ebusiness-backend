@@ -21,14 +21,10 @@ describe('Product controller', () => {
       ...data
     }).save();
     const userObj = await db.user.findOne({
-      where: { email: 'test@test.com' }
+      where: { email: 'admin@test.com' }
     });
+    await new db.admin({ name: 'ceva', userId: userObj.id }).save();
     token = userObj.authJSON().token;
-    done();
-  });
-  afterAll(async done => {
-    await db.product.destroy({ truncate: true });
-    await db.category.destroy({ truncate: true });
     done();
   });
 
@@ -37,7 +33,7 @@ describe('Product controller', () => {
       .get('/products')
       .expect(200)
       .then(response => {
-        expect(response.body).toHaveLength(1);
+        expect(response.body).not.toHaveLength(0);
         done();
       });
   });

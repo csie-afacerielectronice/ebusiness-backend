@@ -1,9 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const errorhandler = require('errorhandler');
-
-const isProduction = process.env.NODE_ENV === 'production';
 
 const app = express();
 
@@ -19,16 +16,10 @@ app.use(require('morgan')('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-if (!isProduction) {
-  app.use(errorhandler());
-}
-
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'DEV') {
   // eslint-disable-next-line
-  app.use(function(err, req, res, next) {
-    console.log('error');
-    res.status(err.status || 500);
-    res.render('error', {
+  app.use((err, req, res, next) => {
+    res.status(err.status || 500).send('error', {
       message: err.message,
       error: err
     });
@@ -39,8 +30,7 @@ if (process.env.NODE_ENV === 'development') {
 // no stacktraces leaked to user
 // eslint-disable-next-line
 app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
+  res.status(err.status || 500).send('error', {
     message: err.message,
     error: {}
   });
@@ -48,6 +38,7 @@ app.use(function(err, req, res, next) {
 
 app.use(require('./routes/product.routes'));
 app.use(require('./routes/auth.routes'));
+app.use(require('./routes/client.routes'));
 
 if (process.env.NODE_ENV !== 'TEST') {
   const server = app.listen(process.env.PORT || 3000, () => {

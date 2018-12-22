@@ -8,13 +8,22 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
       },
-      name: DataTypes.STRING,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
       categoryId: {
         type: DataTypes.UUID,
         allowNull: false
       },
-      description: DataTypes.STRING,
-      price: DataTypes.FLOAT,
+      description: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      price: {
+        type: DataTypes.FLOAT,
+        allowNull: false
+      },
       image: DataTypes.STRING
     },
     {}

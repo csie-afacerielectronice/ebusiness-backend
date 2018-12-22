@@ -6,7 +6,7 @@ module.exports = {
   ],
   collectCoverageFrom: [
     'src/**/*.js',
-    '!src/(models|config|routes)/**.js',
+    '!src/(models|config|routes|middlewares)/**.js',
     '!src/app.js'
   ],
   coverageDirectory: './tests/coverage',

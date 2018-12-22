@@ -1,6 +1,5 @@
 const yup = require('yup');
 const productService = require('../services/product.service');
-const errorHandler = require('../utils/errorHandler');
 
 const postSchema = yup.object().shape({
   name: yup.string().required(),
@@ -17,54 +16,49 @@ const updateSchema = yup.object().shape({
 });
 
 module.exports = {
-  getProducts: async (req, res) => {
+  getProducts: async (req, res, next) => {
     try {
       const products = await productService.getProducts();
       res.status(200).send(products);
     } catch (e) {
-      errorHandler(res, e);
+      next(e);
     }
   },
-  postProduct: async (req, res) => {
+  postProduct: async (req, res, next) => {
     try {
       await postSchema.validate(req.body);
       const product = await productService.createProduct(req.body);
       res.status(201).send(product);
     } catch (e) {
-      errorHandler(res, e);
+      next(e);
     }
   },
-  patchProduct: async (req, res) => {
+  patchProduct: async (req, res, next) => {
     try {
       await updateSchema.validate(req.body);
       const product = await productService.updateProduct(
         req.params.id,
         req.body
       );
-      if (product) res.status(200).send(product);
-      else res.sendStatus(404);
+      res.status(200).send(product);
     } catch (e) {
-      errorHandler(res, e);
+      next(e);
     }
   },
-  deleteProduct: async (req, res) => {
+  deleteProduct: async (req, res, next) => {
     try {
-      const product = await productService.deleteProduct(req.params.id);
-      if (product) {
-        res.sendStatus(204);
-      } else res.sendStatus(404);
+      await productService.deleteProduct(req.params.id);
+      res.sendStatus(204);
     } catch (e) {
-      errorHandler(res, e);
+      next(e);
     }
   },
-  getProduct: async (req, res) => {
+  getProduct: async (req, res, next) => {
     try {
       const product = await productService.getProduct(req.params.id);
-      if (product) {
-        res.status(200).send(product);
-      } else res.sendStatus(404);
+      res.status(200).send(product);
     } catch (e) {
-      errorHandler(res, e);
+      next(e);
     }
   }
 };

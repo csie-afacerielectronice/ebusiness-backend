@@ -10,6 +10,13 @@ module.exports = {
       throw new Error(e.message);
     }
   },
+  findClient: async data => {
+    try {
+      return await client.findOne({ where: { ...data } });
+    } catch (e) {
+      throw new Error(e.message);
+    }
+  },
   updateClient: async (id, data) => {
     try {
       await client.update(

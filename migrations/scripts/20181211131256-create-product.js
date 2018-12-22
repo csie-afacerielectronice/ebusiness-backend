@@ -8,7 +8,8 @@ module.exports = {
         primaryKey: true
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       categoryId: {
         type: Sequelize.UUID,
@@ -19,14 +20,14 @@ module.exports = {
         }
       },
       description: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       price: {
-        type: Sequelize.FLOAT
+        type: Sequelize.FLOAT,
+        allowNull: false
       },
-      image: {
-        type: Sequelize.STRING
-      },
+      image: Sequelize.STRING,
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

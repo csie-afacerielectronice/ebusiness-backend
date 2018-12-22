@@ -10,6 +10,13 @@ module.exports = {
       throw new Error(e.message);
     }
   },
+  findAdmin: async data => {
+    try {
+      return await admin.findOne({ where: { ...data } });
+    } catch (e) {
+      throw new Error(e.message);
+    }
+  },
   updateAdmin: async (id, data) => {
     try {
       await admin.update(
