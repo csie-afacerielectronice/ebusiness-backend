@@ -7,7 +7,7 @@ module.exports = {
         ...data
       }).save();
     } catch (e) {
-      throw new Error(e.message);
+      throw e;
     }
   },
   updateProduct: async (id, data) => {
@@ -31,8 +31,7 @@ module.exports = {
         throw err;
       }
     } catch (e) {
-      if (e.status) throw e;
-      else throw new Error(e.message);
+      throw e;
     }
   },
   deleteProduct: async id => {
@@ -49,8 +48,7 @@ module.exports = {
         throw err;
       }
     } catch (e) {
-      if (e.status) throw e;
-      else throw new Error(e.message);
+      throw e;
     }
   },
   getProduct: async id => {
@@ -63,15 +61,14 @@ module.exports = {
         throw err;
       }
     } catch (e) {
-      if (e.status) throw e;
-      else throw new Error(e.message);
+      throw e;
     }
   },
   getProducts: async () => {
     try {
       return await product.findAll();
     } catch (e) {
-      throw new Error(e.message);
+      throw e;
     }
   }
 };

@@ -30,6 +30,7 @@ if (process.env.NODE_ENV === 'DEV') {
 // no stacktraces leaked to user
 // eslint-disable-next-line
 app.use(function(err, req, res, next) {
+  console.log(err);
   res.status(err.status || 500).send('error', {
     message: err.message,
     error: {}

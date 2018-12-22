@@ -16,72 +16,64 @@ const updateSchema = yup.object().shape({
 });
 
 module.exports = {
-  getClients: async (req, res) => {
+  getClients: async (req, res, next) => {
     try {
       const clients = await clientService.getClients();
       res.status(200).send(clients);
     } catch (e) {
-      errorHandler(res, e);
+      errorHandler(e, next);
     }
   },
-  postClient: async (req, res) => {
+  postClient: async (req, res, next) => {
     try {
       await postSchema.validate(req.body);
       const client = await clientService.createClient(req.body);
       await userService.updateUser(client.userId, { role: role.CLIENT });
       res.status(201).send(client);
     } catch (e) {
-      errorHandler(res, e);
+      errorHandler(e, next);
     }
   },
-  patchClient: async (req, res) => {
+  patchClient: async (req, res, next) => {
     try {
       await updateSchema.validate(req.body);
       const client = await clientService.updateClient(req.params.id, req.body);
-      if (client) res.status(200).send(client);
-      else res.sendStatus(404);
+      res.status(200).send(client);
     } catch (e) {
-      errorHandler(res, e);
+      errorHandler(e, next);
     }
   },
-  deleteClient: async (req, res) => {
+  deleteClient: async (req, res, next) => {
     try {
-      const client = await clientService.deleteClient(req.params.id);
-      if (client) {
-        res.sendStatus(204);
-      } else res.sendStatus(404);
+      await clientService.deleteClient(req.params.id);
+      res.sendStatus(204);
     } catch (e) {
-      errorHandler(res, e);
+      errorHandler(e, next);
     }
   },
-  getClient: async (req, res) => {
+  getClient: async (req, res, next) => {
     try {
       const client = await clientService.getClient(req.params.id);
-      if (client) {
-        res.status(200).send(client);
-      } else res.sendStatus(404);
+      res.status(200).send(client);
     } catch (e) {
-      errorHandler(res, e);
+      errorHandler(e, next);
     }
   },
-  getClientProfile: async (req, res) => {
+  getClientProfile: async (req, res, next) => {
     try {
       const client = await clientService.getClient(req.client.id);
-      if (client) {
-        res.status(200).send(client);
-      } else res.sendStatus(404);
+      res.status(200).send(client);
     } catch (e) {
-      errorHandler(res, e);
+      errorHandler(e, next);
     }
   },
-  updateClientProfile: async (req, res) => {
+  updateClientProfile: async (req, res, next) => {
     try {
       await updateSchema.validate(req.body);
       const client = await clientService.updateClient(req.client.id, req.body);
-      if (client) res.status(200).send(client);
-      else res.sendStatus(404);
+      res.status(200).send(client);
     } catch (e) {
-      errorHandler(res, e);
+      errorHandler(e, next);
     }
   }
 };

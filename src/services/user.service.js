@@ -7,7 +7,7 @@ module.exports = {
         ...data
       }).save();
     } catch (e) {
-      throw new Error(e.message);
+      throw e;
     }
   },
   updateUser: async (id, data) => {
@@ -22,34 +22,52 @@ module.exports = {
           }
         }
       );
-      return await user.findByPk(id);
+      const result = await user.findByPk(id);
+      if (result) return result;
+      else {
+        let err = new Error('Not Found');
+        err.status = 404;
+        throw err;
+      }
     } catch (e) {
-      throw new Error(e.message);
+      throw e;
     }
   },
   deleteUser: async id => {
     try {
-      return await user.destroy({
+      const result = await user.destroy({
         where: {
           id: id
         }
       });
+      if (result) return result;
+      else {
+        let err = new Error('Not Found');
+        err.status = 404;
+        throw err;
+      }
     } catch (e) {
-      throw new Error(e.message);
+      throw e;
     }
   },
   getUser: async id => {
     try {
-      return await user.findByPk(id);
+      const result = await user.findByPk(id);
+      if (result) return result;
+      else {
+        let err = new Error('Not Found');
+        err.status = 404;
+        throw err;
+      }
     } catch (e) {
-      throw new Error(e.message);
+      throw e;
     }
   },
   getUsers: async () => {
     try {
       return await user.findAll();
     } catch (e) {
-      throw new Error(e.message);
+      throw e;
     }
   }
 };

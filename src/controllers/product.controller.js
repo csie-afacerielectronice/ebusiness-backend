@@ -1,5 +1,6 @@
 const yup = require('yup');
 const productService = require('../services/product.service');
+const errorHandler = require('../utils/errorHandler');
 
 const postSchema = yup.object().shape({
   name: yup.string().required(),
@@ -21,7 +22,7 @@ module.exports = {
       const products = await productService.getProducts();
       res.status(200).send(products);
     } catch (e) {
-      next(e);
+      errorHandler(e, next);
     }
   },
   postProduct: async (req, res, next) => {
@@ -30,7 +31,7 @@ module.exports = {
       const product = await productService.createProduct(req.body);
       res.status(201).send(product);
     } catch (e) {
-      next(e);
+      errorHandler(e, next);
     }
   },
   patchProduct: async (req, res, next) => {
@@ -42,7 +43,7 @@ module.exports = {
       );
       res.status(200).send(product);
     } catch (e) {
-      next(e);
+      errorHandler(e, next);
     }
   },
   deleteProduct: async (req, res, next) => {
@@ -50,7 +51,7 @@ module.exports = {
       await productService.deleteProduct(req.params.id);
       res.sendStatus(204);
     } catch (e) {
-      next(e);
+      errorHandler(e, next);
     }
   },
   getProduct: async (req, res, next) => {
@@ -58,7 +59,7 @@ module.exports = {
       const product = await productService.getProduct(req.params.id);
       res.status(200).send(product);
     } catch (e) {
-      next(e);
+      errorHandler(e, next);
     }
   }
 };

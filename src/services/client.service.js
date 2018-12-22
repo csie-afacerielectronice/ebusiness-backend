@@ -7,14 +7,20 @@ module.exports = {
         ...data
       }).save();
     } catch (e) {
-      throw new Error(e.message);
+      throw e;
     }
   },
   findClient: async data => {
     try {
-      return await client.findOne({ where: { ...data } });
+      const result = await client.findOne({ where: { ...data } });
+      if (result) return result;
+      else {
+        let err = new Error('Not Found');
+        err.status = 404;
+        throw err;
+      }
     } catch (e) {
-      throw new Error(e.message);
+      throw e;
     }
   },
   updateClient: async (id, data) => {
@@ -29,34 +35,52 @@ module.exports = {
           }
         }
       );
-      return await client.findByPk(id);
+      const result = await client.findByPk(id);
+      if (result) return result;
+      else {
+        let err = new Error('Not Found');
+        err.status = 404;
+        throw err;
+      }
     } catch (e) {
-      throw new Error(e.message);
+      throw e;
     }
   },
   deleteClient: async id => {
     try {
-      return await client.destroy({
+      const result = await client.destroy({
         where: {
           id: id
         }
       });
+      if (result) return result;
+      else {
+        let err = new Error('Not Found');
+        err.status = 404;
+        throw err;
+      }
     } catch (e) {
-      throw new Error(e.message);
+      throw e;
     }
   },
   getClient: async id => {
     try {
-      return await client.findByPk(id);
+      const result = await client.findByPk(id);
+      if (result) return result;
+      else {
+        let err = new Error('Not Found');
+        err.status = 404;
+        throw err;
+      }
     } catch (e) {
-      throw new Error(e.message);
+      throw e;
     }
   },
   getClients: async () => {
     try {
       return await client.findAll();
     } catch (e) {
-      throw new Error(e.message);
+      throw e;
     }
   }
 };
