@@ -11,6 +11,7 @@ module.exports = async (req, res, next) => {
       next();
     } else throw new Error('Forbidden');
   } catch (e) {
-    res.status(403).send({ message: e.message });
+    e.status = 403;
+    next(e);
   }
 };
