@@ -1,11 +1,9 @@
 module.exports = {
   env: {
     es6: true,
-    node: true,
-    'jest/globals': true
+    node: true
   },
   extends: ['eslint:recommended', 'plugin:prettier/recommended'],
-  plugins: ['jest'],
   parserOptions: {
     ecmaVersion: 2018
   },
