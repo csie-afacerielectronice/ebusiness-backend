@@ -7,8 +7,8 @@
     "dev": "cross-env NODE_ENV=DEV nodemon src/app.js",
     "model:create": "cross-env NODE_ENV=DEV ./node_modules/.bin/sequelize model:generate",
     "db:migrate": "cross-env NODE_ENV=DEV ./node_modules/.bin/sequelize db:migrate",
-    "test": "cross-env NODE_ENV=TEST jest",
-    "coverage": "cross-env NODE_ENV=TEST jest --coverage"
+    "test:unit": "cross-env NODE_ENV=TEST jest ./tests/unit",
+    "test:e2e": "cross-env NODE_ENV=TEST jest --coverage"
   },
   "dependencies": {
     "bcrypt": "^3.0.2",
