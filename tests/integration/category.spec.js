@@ -2,25 +2,15 @@ const app = require('../../src/app');
 const request = require('supertest');
 const db = require('../../src/models');
 
-describe('Product controller', () => {
+describe('Category controller', () => {
   let categoryObj;
-  let productObj;
   const data = {
-    name: 'product',
-    description: 'description',
-    price: 14.99,
-    image: '/path'
+    name: 'category',
+    description: 'description'
   };
   let token;
   beforeAll(async done => {
-    categoryObj = await new db.category({
-      name: 'category',
-      description: 'description'
-    }).save();
-    data.categoryId = categoryObj.id;
-    productObj = await new db.product({
-      ...data
-    }).save();
+    categoryObj = await new db.category(data).save();
     const userObj = await db.user.findOne({
       where: { email: 'admin@test.com' }
     });
@@ -29,9 +19,9 @@ describe('Product controller', () => {
     done();
   });
 
-  test('it should return all products on get', done => {
+  test('it should return all categories on get', done => {
     return request(app)
-      .get('/products')
+      .get('/categories')
       .expect(200)
       .then(response => {
         expect(response.body).not.toHaveLength(0);
@@ -39,9 +29,9 @@ describe('Product controller', () => {
       });
   });
 
-  test('it should return a product on get by id', done => {
+  test('it should return a category on get by id', done => {
     return request(app)
-      .get(`/products/${productObj.id}`)
+      .get(`/categories/${categoryObj.id}`)
       .expect(200)
       .then(response => {
         expect(response.body).toMatchObject(data);
@@ -49,9 +39,9 @@ describe('Product controller', () => {
       });
   });
 
-  test('it should return a product on post', done => {
+  test('it should return a category on post', done => {
     return request(app)
-      .post('/products')
+      .post('/categories')
       .set('Authorization', `JWT ${token}`)
       .send(data)
       .expect(201)
@@ -61,9 +51,9 @@ describe('Product controller', () => {
       });
   });
 
-  test('it should return a product on patch', done => {
+  test('it should return a category on patch', done => {
     return request(app)
-      .patch(`/products/${productObj.id}`)
+      .patch(`/categories/${categoryObj.id}`)
       .set('Authorization', `JWT ${token}`)
       .send({
         name: 'ceva2'
@@ -77,28 +67,28 @@ describe('Product controller', () => {
 
   test('it should return no content on delete', done => {
     return request(app)
-      .delete(`/products/${productObj.id}`)
+      .delete(`/categories/${categoryObj.id}`)
       .set('Authorization', `JWT ${token}`)
       .expect(204, done);
   });
 
-  test('it should return 404 on delete inexisting product', done => {
+  test('it should return 404 on delete inexisting category', done => {
     return request(app)
-      .delete('/products/random')
+      .delete('/categories/random')
       .set('Authorization', `JWT ${token}`)
       .expect(404, done);
   });
 
-  test('it should return 404 on patch inexisting product', done => {
+  test('it should return 404 on patch inexisting category', done => {
     return request(app)
-      .patch('/products/random')
+      .patch('/categories/random')
       .set('Authorization', `JWT ${token}`)
       .expect(404, done);
   });
 
-  test('it should return 404 on get inexisting product', done => {
+  test('it should return 404 on get inexisting category', done => {
     return request(app)
-      .get('/products/random')
+      .get('/categories/random')
       .expect(404, done);
   });
 });

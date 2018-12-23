@@ -2,7 +2,7 @@ const app = require('../../src/app');
 const request = require('supertest');
 const db = require('../../src/models');
 
-describe('Review controller', () => {
+describe('Address controller', () => {
   let addressObj;
   let clientObj;
   let token;

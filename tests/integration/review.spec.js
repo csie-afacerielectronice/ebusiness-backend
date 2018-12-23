@@ -12,7 +12,8 @@ describe('Review controller', () => {
   };
   beforeAll(async done => {
     const categoryObj = await new db.category({
-      name: 'category'
+      name: 'category',
+      description: 'description'
     }).save();
     productObj = await new db.product({
       name: 'product',
