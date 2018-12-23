@@ -7,7 +7,7 @@
     "dev": "cross-env NODE_ENV=DEV nodemon src/app.js",
     "model:create": "cross-env NODE_ENV=DEV ./node_modules/.bin/sequelize model:generate",
     "db:migrate": "cross-env NODE_ENV=DEV ./node_modules/.bin/sequelize db:migrate",
-    "test:unit": "cross-env NODE_ENV=TEST jest --coverage ./tests/unit",
+    "test:unit": "cross-env NODE_ENV=TEST jest ./tests/unit",
     "test:e2e": "cross-env NODE_ENV=TEST jest --coverage ./tests/integration"
   },
   "dependencies": {
