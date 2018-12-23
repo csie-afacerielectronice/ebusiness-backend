@@ -10,6 +10,7 @@ module.exports = {
       productId: {
         type: Sequelize.UUID,
         allowNull: false,
+        onDelete: 'CASCADE',
         references: {
           model: 'products',
           key: 'id'
@@ -18,6 +19,7 @@ module.exports = {
       clientId: {
         type: Sequelize.UUID,
         allowNull: false,
+        onDelete: 'CASCADE',
         references: {
           model: 'clients',
           key: 'id'

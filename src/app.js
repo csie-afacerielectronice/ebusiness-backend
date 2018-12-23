@@ -43,6 +43,7 @@ app.use(require('./routes/client.routes'));
 app.use(require('./routes/review.routes'));
 app.use(require('./routes/address.routes'));
 app.use(require('./routes/category.routes'));
+app.use(require('./routes/order.routes'));
 
 if (process.env.NODE_ENV !== 'TEST') {
   const server = app.listen(process.env.PORT || 3000, () => {

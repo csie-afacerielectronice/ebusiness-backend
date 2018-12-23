@@ -24,14 +24,22 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.UUID,
         allowNull: false
       },
-      status: DataTypes.STRING
+      status: {
+        type: DataTypes.STRING,
+        default: 'received'
+      }
     },
     {}
   );
   order.associate = function(models) {
     order.hasMany(models.address, { foreignKey: 'deliveryAddressId' });
     order.hasMany(models.address, { foreignKey: 'receiptAddressId' });
-    order.hasMany(models.order_product);
+    order.belongsToMany(models.product, {
+      through: {
+        model: models.order_product,
+        as: 'products'
+      }
+    });
   };
   return order;
 };

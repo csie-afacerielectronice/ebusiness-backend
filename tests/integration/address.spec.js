@@ -87,21 +87,21 @@ describe('Address controller', () => {
 
   test('it should return 404 on delete inexisting address', done => {
     return request(app)
-      .delete(`/clients/${clientObj.id}/addresses/${addressObj.id}`)
+      .delete(`/clients/${clientObj.id}/addresses/random`)
       .set('Authorization', `JWT ${token}`)
       .expect(404, done);
   });
 
   test('it should return 404 on patch inexisting address', done => {
     return request(app)
-      .patch(`/clients/${clientObj.id}/addresses/${addressObj.id}`)
+      .patch(`/clients/${clientObj.id}/addresses/random`)
       .set('Authorization', `JWT ${token}`)
       .expect(404, done);
   });
 
   test('it should return 404 on get inexisting address', done => {
     return request(app)
-      .get(`/clients/${clientObj.id}/addresses/${addressObj.id}`)
+      .get(`/clients/${clientObj.id}/addresses/random`)
       .set('Authorization', `JWT ${token}`)
       .expect(404, done);
   });

@@ -12,6 +12,7 @@ module.exports = {
       },
       userId: {
         type: Sequelize.UUID,
+        onDelete: 'CASCADE',
         allowNull: false,
         references: {
           model: 'users',

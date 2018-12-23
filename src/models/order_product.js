@@ -32,8 +32,8 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   order_product.associate = function(models) {
-    order_product.belongsTo(models.order);
-    order_product.belongsTo(models.product);
+    order_product.belongsTo(models.order, { onDelete: 'CASCADE' });
+    order_product.belongsTo(models.product, { onDelete: 'CASCADE' });
   };
   return order_product;
 };

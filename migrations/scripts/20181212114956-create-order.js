@@ -32,7 +32,8 @@ module.exports = {
         }
       },
       status: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        default: 'received'
       },
       createdAt: {
         allowNull: false,

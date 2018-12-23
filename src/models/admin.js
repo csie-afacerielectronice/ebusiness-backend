@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   admin.associate = function(models) {
-    admin.belongsTo(models.user);
+    admin.belongsTo(models.user, { onDelete: 'CASCADE' });
   };
   return admin;
 };

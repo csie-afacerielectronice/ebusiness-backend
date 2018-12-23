@@ -9,6 +9,7 @@ module.exports = {
       },
       orderId: {
         type: Sequelize.UUID,
+        onDelete: 'CASCADE',
         allowNull: false,
         references: {
           model: 'orders',
@@ -17,6 +18,7 @@ module.exports = {
       },
       productId: {
         type: Sequelize.UUID,
+        onDelete: 'CASCADE',
         allowNull: false,
         references: {
           model: 'products',

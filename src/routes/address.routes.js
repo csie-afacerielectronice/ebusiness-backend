@@ -7,12 +7,14 @@ const addressMiddleware = require('../middlewares/address.middleware');
 router.get(
   '/clients/:clientId/addresses',
   passport.authenticate('jwt'),
+  clientMiddleware,
   addressMiddleware,
   addressController.getAddresses
 );
 router.get(
   '/clients/:clientId/addresses/:id',
   passport.authenticate('jwt'),
+  clientMiddleware,
   addressMiddleware,
   addressController.getAddress
 );
@@ -25,12 +27,14 @@ router.post(
 router.patch(
   '/clients/:clientId/addresses/:id',
   passport.authenticate('jwt'),
+  clientMiddleware,
   addressMiddleware,
   addressController.patchAddress
 );
 router.delete(
   '/clients/:clientId/addresses/:id',
   passport.authenticate('jwt'),
+  clientMiddleware,
   addressMiddleware,
   addressController.deleteAddress
 );

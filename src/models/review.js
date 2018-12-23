@@ -25,8 +25,8 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   review.associate = function(models) {
-    review.belongsTo(models.client);
-    review.belongsTo(models.product);
+    review.belongsTo(models.client, { onDelete: 'CASCADE' });
+    review.belongsTo(models.product, { onDelete: 'CASCADE' });
   };
   return review;
 };

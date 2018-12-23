@@ -1,13 +1,13 @@
 const role = require('../utils/role');
-const addressService = require('../services/address.service');
+const orderService = require('../services/order.service');
 
 module.exports = async (req, res, next) => {
   try {
     let err;
-    const address = await addressService.findAddress({
+    const order = await orderService.findOrder({
       clientId: req.client.id
     });
-    if (!!address || req.user.role === role.ADMIN) {
+    if (!!order || req.user.role === role.ADMIN) {
       next();
     } else {
       err = new Error('Not Found');

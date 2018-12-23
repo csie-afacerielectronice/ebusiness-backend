@@ -44,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   address.associate = function(models) {
-    address.belongsTo(models.client);
+    address.belongsTo(models.client), { onDelete: 'CASCADE' };
     address.belongsTo(models.order, { foreignKey: 'deliveryAddressId' });
     address.belongsTo(models.order, { foreignKey: 'receiptAddressId' });
   };
