@@ -10,7 +10,7 @@ describe('Product service', () => {
     price: 14.99,
     image: '/path'
   };
-  beforeAll(async () => {
+  beforeAll(async done => {
     categoryObj = await new db.category({
       name: 'category'
     }).save();
@@ -18,6 +18,7 @@ describe('Product service', () => {
     productObj = await new db.product({
       ...data
     }).save();
+    done();
   });
   test('it should get all products', async done => {
     const result = await productService.getProducts();

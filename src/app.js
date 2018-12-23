@@ -40,6 +40,8 @@ app.use(function(err, req, res, next) {
 app.use(require('./routes/product.routes'));
 app.use(require('./routes/auth.routes'));
 app.use(require('./routes/client.routes'));
+app.use(require('./routes/review.routes'));
+app.use(require('./routes/address.routes'));
 
 if (process.env.NODE_ENV !== 'TEST') {
   const server = app.listen(process.env.PORT || 3000, () => {

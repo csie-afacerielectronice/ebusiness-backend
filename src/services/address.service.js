@@ -3,59 +3,88 @@ const { address } = require('../models');
 module.exports = {
   createAddress: async data => {
     try {
-      return await new address({ ...data }).save();
+      return await new address({
+        ...data
+      }).save();
     } catch (e) {
-      throw new Error(e.message);
+      throw e;
+    }
+  },
+  findAddress: async data => {
+    try {
+      const result = await address.findOne({ where: { ...data } });
+      if (result) return result;
+      else {
+        let err = new Error('Not Found');
+        err.status = 404;
+        throw err;
+      }
+    } catch (e) {
+      throw e;
     }
   },
   updateAddress: async (id, data) => {
     try {
-      return await address.update(
+      await address.update(
         {
           ...data
         },
         {
           where: {
-            id: id
+            id
           }
         }
       );
+      const result = await address.findByPk(id);
+      if (result) return result;
+      else {
+        let err = new Error('Not Found');
+        err.status = 404;
+        throw err;
+      }
     } catch (e) {
-      throw new Error(e.message);
+      throw e;
     }
   },
-  deleteAddress: async (id, data) => {
+  deleteAddress: async id => {
     try {
-      return await address.destroy({
+      const result = await address.destroy({
         where: {
-          id: id,
-          clientId: data.clientId
+          id: id
         }
       });
+      if (result) return result;
+      else {
+        let err = new Error('Not Found');
+        err.status = 404;
+        throw err;
+      }
     } catch (e) {
-      throw new Error(e.message);
+      throw e;
     }
   },
-  getAddress: async (id, data) => {
+  getAddress: async id => {
     try {
-      return await address.findByPk(id, {
-        where: {
-          clientId: data.clientId
-        }
-      });
+      const result = await address.findByPk(id);
+      if (result) return result;
+      else {
+        let err = new Error('Not Found');
+        err.status = 404;
+        throw err;
+      }
     } catch (e) {
-      throw new Error(e.message);
+      throw e;
     }
   },
-  getAddresses: async (id, data) => {
+  getAddresses: async id => {
     try {
       return await address.findAll({
         where: {
-          clientId: data.clientId
+          clientId: id
         }
       });
     } catch (e) {
-      throw new Error(e.message);
+      throw e;
     }
   }
 };

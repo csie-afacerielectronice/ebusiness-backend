@@ -10,22 +10,17 @@ module.exports = (sequelize, DataTypes) => {
       },
       productId: {
         type: DataTypes.UUID,
-        allowNull: false,
-        references: {
-          model: 'products',
-          key: 'id'
-        }
+        allowNull: false
       },
       clientId: {
         type: DataTypes.UUID,
-        allowNull: false,
-        references: {
-          model: 'clients',
-          key: 'id'
-        }
+        allowNull: false
       },
       content: DataTypes.STRING,
-      score: DataTypes.INTEGER
+      score: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      }
     },
     {}
   );
