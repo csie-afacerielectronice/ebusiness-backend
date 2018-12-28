@@ -10,7 +10,10 @@ module.exports = {
         err.status = 422;
         throw err;
       }
-      await clientService.updateClient(req.client.id, { image: req.file.path });
+      const client = await clientService.updateClient(req.client.id, {
+        image: req.file.path
+      });
+      res.status(200).send(client);
     } catch (e) {
       errorHandler(e, next);
     }
@@ -22,9 +25,10 @@ module.exports = {
         err.status = 422;
         throw err;
       }
-      await productService.updateProduct(req.client.id, {
+      const product = await productService.updateProduct(req.client.id, {
         image: req.file.path
       });
+      res.status(200).send(product);
     } catch (e) {
       errorHandler(e, next);
     }
