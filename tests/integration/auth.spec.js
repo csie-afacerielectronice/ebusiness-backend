@@ -24,7 +24,7 @@ describe('Auth controller', () => {
       });
   });
 
-  test('it should return an token on invalid password', done => {
+  test('it should return an error on invalid password', done => {
     return request(app)
       .post('/login')
       .send({ email: 'ceva@ceva.com', password: '12345678' })

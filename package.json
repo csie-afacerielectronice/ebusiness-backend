@@ -9,7 +9,7 @@
     "db:migrate": "cross-env NODE_ENV=DEV ./node_modules/.bin/sequelize db:migrate",
     "test:unit": "cross-env NODE_ENV=TEST jest ./tests/unit",
     "test:e2e": "cross-env NODE_ENV=TEST jest --runInBand ./tests/integration",
-    "test:all":"cross-env NODE_ENV=TEST jest --runInBand --coverage"
+    "test:all": "cross-env NODE_ENV=TEST jest --runInBand --coverage"
   },
   "dependencies": {
     "bcrypt": "^3.0.2",
@@ -22,6 +22,7 @@
     "jsonwebtoken": "^8.4.0",
     "method-override": "^3.0.0",
     "morgan": "^1.9.1",
+    "multer": "^1.4.1",
     "mysql2": "^1.6.4",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",

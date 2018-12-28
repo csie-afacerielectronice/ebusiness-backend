@@ -10,8 +10,8 @@ module.exports = async (req, res, next) => {
     if (!!address || req.user.role === role.ADMIN) {
       next();
     } else {
-      err = new Error('Not Found');
-      err.status = 404;
+      err = new Error('Forbidden');
+      err.status = 403;
       throw err;
     }
   } catch (e) {
