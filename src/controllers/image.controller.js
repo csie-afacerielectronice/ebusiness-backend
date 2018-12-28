@@ -11,7 +11,7 @@ module.exports = {
         throw err;
       }
       const client = await clientService.updateClient(req.client.id, {
-        image: req.file.path
+        avatar: req.file.path
       });
       res.status(200).send(client);
     } catch (e) {
