@@ -13,18 +13,18 @@ describe('Product controller', () => {
   };
   let token;
   beforeAll(async done => {
-    categoryObj = await new db.category({
+    categoryObj = await db.category.create({
       name: 'category',
       description: 'description'
-    }).save();
+    });
     data.categoryId = categoryObj.id;
-    productObj = await new db.product({
+    productObj = await db.product.create({
       ...data
-    }).save();
+    });
     const userObj = await db.user.findOne({
       where: { email: 'admin@test.com' }
     });
-    await new db.admin({ name: 'ceva', userId: userObj.id }).save();
+    await db.admin.create({ name: 'ceva', userId: userObj.id });
     token = userObj.authJSON().token;
     done();
   });

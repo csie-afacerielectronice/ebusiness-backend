@@ -17,26 +17,26 @@ describe('Order controller', () => {
         email: 'admin@test.com'
       }
     });
-    clientObj = await new db.client({
+    clientObj = await db.client.create({
       name: 'Ion',
       surname: 'Ion',
       userId: userClientObj.id
-    }).save();
+    });
     await new db.admin({
       name: 'ceva',
       userId: userAdminObj.id
     });
-    const categoryObj = await new db.category({
+    const categoryObj = await db.category.create({
       name: 'ceva',
       description: 'ceva'
-    }).save();
-    productObj = await new db.product({
+    });
+    productObj = await db.product.create({
       name: 'ceva',
       description: 'ceva',
       price: 12.99,
       categoryId: categoryObj.id
-    }).save();
-    const addressObj = await new db.address({
+    });
+    const addressObj = await db.address.create({
       name: 'ceva',
       isPrimary: true,
       city: 'ceva',
@@ -45,12 +45,12 @@ describe('Order controller', () => {
       lat: 22.22,
       lng: 22.22,
       clientId: clientObj.id
-    }).save();
-    orderObj = await new db.order({
+    });
+    orderObj = await db.order.create({
       deliveryAddressId: addressObj.id,
       receiptAddressId: addressObj.id,
       clientId: clientObj.id
-    }).save();
+    });
     tokenClient = userClientObj.authJSON().token;
     tokenAdmin = userAdminObj.authJSON().token;
     done();

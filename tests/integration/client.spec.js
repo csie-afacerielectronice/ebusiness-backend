@@ -18,8 +18,8 @@ describe('Client controller', () => {
       where: { email: 'client@test.com' }
     });
     data.userId = userClientObj.id;
-    clientObj = await new db.client(data).save();
-    await new db.admin({ name: 'ceva', userId: userAdminObj.id }).save();
+    clientObj = await db.client.create(data);
+    await db.admin.create({ name: 'ceva', userId: userAdminObj.id });
     clientToken = userClientObj.authJSON().token;
     adminToken = userAdminObj.authJSON().token;
     done();

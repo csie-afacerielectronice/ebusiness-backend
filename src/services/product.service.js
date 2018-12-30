@@ -3,9 +3,9 @@ const { product } = require('../models');
 module.exports = {
   createProduct: async data => {
     try {
-      return await new product({
+      return await product.create({
         ...data
-      }).save();
+      });
     } catch (e) {
       throw e;
     }

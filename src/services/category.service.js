@@ -3,9 +3,9 @@ const { category } = require('../models');
 module.exports = {
   createCategory: async data => {
     try {
-      return await new category({
+      return await category.create({
         ...data
-      }).save();
+      });
     } catch (e) {
       throw e;
     }

@@ -3,9 +3,9 @@ const { review } = require('../models');
 module.exports = {
   createReview: async data => {
     try {
-      return await new review({
+      return await review.create({
         ...data
-      }).save();
+      });
     } catch (e) {
       throw e;
     }

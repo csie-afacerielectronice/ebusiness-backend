@@ -3,9 +3,9 @@ const { address } = require('../models');
 module.exports = {
   createAddress: async data => {
     try {
-      return await new address({
+      return await address.create({
         ...data
-      }).save();
+      });
     } catch (e) {
       throw e;
     }

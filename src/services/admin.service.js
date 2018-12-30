@@ -3,9 +3,9 @@ const { admin } = require('../models');
 module.exports = {
   createAdmin: async data => {
     try {
-      return await new admin({
+      return await admin.create({
         ...data
-      }).save();
+      });
     } catch (e) {
       throw new Error(e.message);
     }

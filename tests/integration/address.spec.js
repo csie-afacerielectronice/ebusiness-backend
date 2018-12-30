@@ -19,13 +19,13 @@ describe('Address controller', () => {
     const userObj = await db.user.findOne({
       where: { email: 'client@test.com' }
     });
-    clientObj = await new db.client({
+    clientObj = await db.client.create({
       name: 'Ion',
       surname: 'Ion',
       userId: userObj.id
-    }).save();
+    });
     data.clientId = clientObj.id;
-    addressObj = await new db.address({ ...data }).save();
+    addressObj = await db.address.create({ ...data });
     token = userObj.authJSON().token;
     done();
   });

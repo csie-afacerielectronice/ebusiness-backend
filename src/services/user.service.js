@@ -3,9 +3,9 @@ const { user } = require('../models');
 module.exports = {
   createUser: async data => {
     try {
-      return await new user({
+      return await user.create({
         ...data
-      }).save();
+      });
     } catch (e) {
       throw e;
     }

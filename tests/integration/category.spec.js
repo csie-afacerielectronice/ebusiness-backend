@@ -10,11 +10,11 @@ describe('Category controller', () => {
   };
   let token;
   beforeAll(async done => {
-    categoryObj = await new db.category(data).save();
+    categoryObj = await db.category.create(data);
     const userObj = await db.user.findOne({
       where: { email: 'admin@test.com' }
     });
-    await new db.admin({ name: 'ceva', userId: userObj.id }).save();
+    await db.admin.create({ name: 'ceva', userId: userObj.id });
     token = userObj.authJSON().token;
     done();
   });

@@ -3,9 +3,9 @@ const { order } = require('../models');
 module.exports = {
   createOrder: async data => {
     try {
-      return await new order({
+      return await order.create({
         ...data
-      }).save();
+      });
     } catch (e) {
       throw e;
     }

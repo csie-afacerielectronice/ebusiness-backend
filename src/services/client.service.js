@@ -3,9 +3,9 @@ const { client } = require('../models');
 module.exports = {
   createClient: async data => {
     try {
-      return await new client({
+      return await client.create({
         ...data
-      }).save();
+      });
     } catch (e) {
       throw e;
     }
