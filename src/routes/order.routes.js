@@ -2,9 +2,9 @@ const router = require('express').Router();
 const yup = require('yup');
 const passport = require('./../config/passport');
 const orderController = require('../controllers/order.controller');
-const clientMiddleware = require('../middlewares/client.middleware');
+const role = require('../utils/role');
 const orderMiddleware = require('../middlewares/order.middleware');
-const adminMiddleware = require('../middlewares/admin.middleware');
+const roleMiddleware = require('../middlewares/role.middleware');
 const validationMiddleware = require('../middlewares/validation.middleware');
 
 const postSchema = yup.object().shape({
@@ -24,38 +24,38 @@ const updateSchema = yup.object().shape({
 });
 
 router.get(
-  '/clients/:clientId/orders',
+  '/orders',
   passport.authenticate('jwt'),
-  clientMiddleware,
+  roleMiddleware([role.ADMIN, role.CLIENT]),
   orderMiddleware,
   orderController.getOrders
 );
 router.get(
-  '/clients/:clientId/orders/:id',
+  '/orders/:id',
   passport.authenticate('jwt'),
-  clientMiddleware,
+  roleMiddleware([role.ADMIN, role.CLIENT]),
   orderMiddleware,
   orderController.getOrder
 );
 router.post(
-  '/clients/:clientId/orders',
+  '/orders',
   validationMiddleware(postSchema),
   passport.authenticate('jwt'),
-  clientMiddleware,
+  roleMiddleware([role.ADMIN, role.CLIENT]),
   orderController.postOrder
 );
 router.patch(
-  '/clients/:clientId/orders/:id',
+  '/orders/:id',
   validationMiddleware(updateSchema),
   passport.authenticate('jwt'),
-  clientMiddleware,
+  roleMiddleware([role.ADMIN]),
   orderMiddleware,
   orderController.patchOrder
 );
 router.delete(
-  '/clients/:clientId/orders/:id',
+  '/orders/:id',
   passport.authenticate('jwt'),
-  adminMiddleware,
+  roleMiddleware([role.ADMIN]),
   orderController.deleteOrder
 );
 

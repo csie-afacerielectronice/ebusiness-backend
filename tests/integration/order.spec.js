@@ -4,7 +4,6 @@ const db = require('../../src/models');
 
 describe('Order controller', () => {
   let orderObj;
-  let clientObj;
   let productObj;
   let tokenClient;
   let tokenAdmin;
@@ -17,14 +16,14 @@ describe('Order controller', () => {
         email: 'admin@test.com'
       }
     });
-    clientObj = await db.client.create({
-      name: 'Ion',
-      surname: 'Ion',
-      userId: userClientObj.id
-    });
     await db.admin.create({
       name: 'ceva',
       userId: userAdminObj.id
+    });
+    await db.client.create({
+      name: 'Ion',
+      surname: 'Ion',
+      userId: userClientObj.id
     });
     const categoryObj = await db.category.create({
       name: 'ceva',
@@ -46,21 +45,21 @@ describe('Order controller', () => {
       postalCode: '291312',
       lat: 22.22,
       lng: 22.22,
-      clientId: clientObj.id
+      userId: userClientObj.id
     });
     orderObj = await db.order.create({
       deliveryAddressId: addressObj.id,
       receiptAddressId: addressObj.id,
-      clientId: clientObj.id
+      userId: userClientObj.id
     });
-    tokenClient = userClientObj.authJSON().token;
-    tokenAdmin = userAdminObj.authJSON().token;
+    tokenClient = userClientObj.token().token;
+    tokenAdmin = userAdminObj.token().token;
     done();
   });
 
   test('it should return all orders on get', done => {
     return request(app)
-      .get(`/clients/${clientObj.id}/orders`)
+      .get('/orders')
       .set('Authorization', `JWT ${tokenClient}`)
       .expect(200)
       .then(response => {
@@ -71,7 +70,7 @@ describe('Order controller', () => {
 
   test('it should return an order on get by id', done => {
     return request(app)
-      .get(`/clients/${clientObj.id}/orders/${orderObj.id}`)
+      .get(`/orders/${orderObj.id}`)
       .set('Authorization', `JWT ${tokenClient}`)
       .expect(200)
       .then(response => {
@@ -82,12 +81,11 @@ describe('Order controller', () => {
 
   test('it should return an order on post', done => {
     return request(app)
-      .post(`/clients/${clientObj.id}/orders`)
+      .post('/orders')
       .set('Authorization', `JWT ${tokenClient}`)
       .send({
         deliveryAddressId: orderObj.deliveryAddressId,
         receiptAddressId: orderObj.receiptAddressId,
-        clientId: clientObj.id,
         products: [
           {
             productId: productObj.id,
@@ -104,8 +102,8 @@ describe('Order controller', () => {
 
   test('it should return an order on patch', done => {
     return request(app)
-      .patch(`/clients/${clientObj.id}/orders/${orderObj.id}`)
-      .set('Authorization', `JWT ${tokenClient}`)
+      .patch(`/orders/${orderObj.id}`)
+      .set('Authorization', `JWT ${tokenAdmin}`)
       .send({
         status: 'sent'
       })
@@ -118,28 +116,28 @@ describe('Order controller', () => {
 
   test('it should return no content on delete', done => {
     return request(app)
-      .delete(`/clients/${clientObj.id}/orders/${orderObj.id}`)
+      .delete(`/orders/${orderObj.id}`)
       .set('Authorization', `JWT ${tokenAdmin}`)
       .expect(204, done);
   });
 
   test('it should return 404 on delete inexisting order', done => {
     return request(app)
-      .delete(`/clients/${clientObj.id}/orders/random`)
+      .delete('/orders/random')
       .set('Authorization', `JWT ${tokenAdmin}`)
       .expect(404, done);
   });
 
   test('it should return 404 on patch inexisting order', done => {
     return request(app)
-      .patch(`/clients/${clientObj.id}/orders/random`)
-      .set('Authorization', `JWT ${tokenClient}`)
+      .patch('/orders/random')
+      .set('Authorization', `JWT ${tokenAdmin}`)
       .expect(404, done);
   });
 
   test('it should return 404 on get inexisting order', done => {
     return request(app)
-      .get(`/clients/${clientObj.id}/orders/random`)
+      .get('/orders/random')
       .set('Authorization', `JWT ${tokenClient}`)
       .expect(404, done);
   });

@@ -13,7 +13,8 @@ module.exports = {
     try {
       const review = await reviewService.createReview({
         ...req.body,
-        productId: req.params.productId
+        productId: req.params.productId,
+        userId: req.user.id
       });
       res.status(201).send(review);
     } catch (e) {

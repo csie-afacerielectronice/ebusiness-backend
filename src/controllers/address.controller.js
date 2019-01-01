@@ -3,7 +3,7 @@ const addressService = require('../services/address.service');
 module.exports = {
   getAddresses: async (req, res, next) => {
     try {
-      const addresses = await addressService.getAddresses(req.params.clientId);
+      const addresses = await addressService.getAddresses(req.params.userId);
       res.status(200).send(addresses);
     } catch (e) {
       next(e);
@@ -13,7 +13,7 @@ module.exports = {
     try {
       const address = await addressService.createAddress({
         ...req.body,
-        clientId: req.params.clientId
+        userId: req.params.userId
       });
       res.status(201).send(address);
     } catch (e) {

@@ -27,7 +27,7 @@ describe('Product controller', () => {
       where: { email: 'admin@test.com' }
     });
     await db.admin.create({ name: 'ceva', userId: userObj.id });
-    token = userObj.authJSON().token;
+    token = userObj.token().token;
     done();
   });
 

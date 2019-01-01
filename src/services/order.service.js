@@ -63,11 +63,13 @@ module.exports = {
   },
   getOrders: async id => {
     try {
-      return await order.findAll({
-        where: {
-          clientId: id
-        }
-      });
+      if (id)
+        return await order.findAll({
+          where: {
+            userId: id
+          }
+        });
+      return await order.findAll();
     } catch (e) {
       throw e;
     }

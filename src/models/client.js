@@ -19,8 +19,6 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   client.associate = function(models) {
-    client.hasMany(models.address);
-    client.hasMany(models.review);
     client.belongsTo(models.user, { onDelete: 'CASCADE' });
   };
   return client;

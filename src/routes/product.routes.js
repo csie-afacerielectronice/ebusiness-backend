@@ -2,7 +2,8 @@ const router = require('express').Router();
 const yup = require('yup');
 const passport = require('./../config/passport');
 const productController = require('../controllers/product.controller');
-const adminMiddleware = require('../middlewares/admin.middleware');
+const role = require('../utils/role');
+const roleMiddleware = require('../middlewares/role.middleware');
 const validationMiddleware = require('../middlewares/validation.middleware');
 
 const postSchema = yup.object().shape({
@@ -25,20 +26,20 @@ router.post(
   '/products',
   validationMiddleware(postSchema),
   passport.authenticate('jwt'),
-  adminMiddleware,
+  roleMiddleware([role.ADMIN]),
   productController.postProduct
 );
 router.patch(
   '/products/:id',
   validationMiddleware(updateSchema),
   passport.authenticate('jwt'),
-  adminMiddleware,
+  roleMiddleware([role.ADMIN]),
   productController.patchProduct
 );
 router.delete(
   '/products/:id',
   passport.authenticate('jwt'),
-  adminMiddleware,
+  roleMiddleware([role.ADMIN]),
   productController.deleteProduct
 );
 

@@ -40,7 +40,6 @@ app.use(function(err, req, res, next) {
 
 app.use(require('./routes/product.routes'));
 app.use(require('./routes/auth.routes'));
-app.use(require('./routes/client.routes'));
 app.use(require('./routes/review.routes'));
 app.use(require('./routes/address.routes'));
 app.use(require('./routes/category.routes'));

@@ -34,7 +34,7 @@ module.exports = {
     try {
       const result = await review.destroy({
         where: {
-          id: id
+          id
         }
       });
       if (result) return result;

@@ -1,4 +1,4 @@
-const { user } = require('../models');
+const { user, admin, client } = require('../models');
 const { NOT_FOUND } = require('../utils/errors');
 
 module.exports = {
@@ -45,7 +45,16 @@ module.exports = {
   },
   getUser: async id => {
     try {
-      const result = await user.findByPk(id);
+      const result = await user.findByPk(id, {
+        include: [
+          {
+            model: client
+          },
+          {
+            model: admin
+          }
+        ]
+      });
       if (result) return result;
       else NOT_FOUND();
     } catch (e) {
@@ -54,7 +63,16 @@ module.exports = {
   },
   getUsers: async () => {
     try {
-      return await user.findAll();
+      return await user.findAll({
+        include: [
+          {
+            model: client
+          },
+          {
+            model: admin
+          }
+        ]
+      });
     } catch (e) {
       throw e;
     }

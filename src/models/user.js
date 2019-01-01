@@ -27,6 +27,8 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   user.associate = function(models) {
+    user.hasMany(models.address);
+    user.hasMany(models.review);
     user.hasOne(models.client);
     user.hasOne(models.admin);
   };
@@ -40,7 +42,14 @@ module.exports = (sequelize, DataTypes) => {
     return bcrypt.compareSync(password, this.password);
   };
 
-  user.prototype.authJSON = function() {
+  user.prototype.toJSON = function() {
+    const values = { ...this.get() };
+
+    delete values.password;
+    return values;
+  };
+
+  user.prototype.token = function() {
     const today = new Date();
     const exp = new Date(today);
 
@@ -48,6 +57,7 @@ module.exports = (sequelize, DataTypes) => {
     const token = jwt.sign(
       {
         context: {
+          id: this.id,
           email: this.email,
           role: this.role
         },

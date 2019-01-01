@@ -43,7 +43,7 @@ module.exports = {
     try {
       const result = await address.destroy({
         where: {
-          id: id
+          id
         }
       });
       if (result) return result;
@@ -65,7 +65,7 @@ module.exports = {
     try {
       return await address.findAll({
         where: {
-          clientId: id
+          userId: id
         }
       });
     } catch (e) {

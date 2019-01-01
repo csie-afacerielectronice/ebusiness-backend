@@ -4,7 +4,7 @@ const db = require('../../src/models');
 
 describe('Address controller', () => {
   let addressObj;
-  let clientObj;
+  let userObj;
   let token;
   const data = {
     name: 'ceva',
@@ -16,23 +16,23 @@ describe('Address controller', () => {
     lng: 22.22
   };
   beforeAll(async done => {
-    const userObj = await db.user.findOne({
+    userObj = await db.user.findOne({
       where: { email: 'client@test.com' }
     });
-    clientObj = await db.client.create({
+    await db.client.create({
       name: 'Ion',
       surname: 'Ion',
       userId: userObj.id
     });
-    data.clientId = clientObj.id;
+    data.userId = userObj.id;
     addressObj = await db.address.create({ ...data });
-    token = userObj.authJSON().token;
+    token = userObj.token().token;
     done();
   });
 
   test('it should return all addresses on get', done => {
     return request(app)
-      .get(`/clients/${clientObj.id}/addresses`)
+      .get(`/users/${userObj.id}/addresses`)
       .set('Authorization', `JWT ${token}`)
       .expect(200)
       .then(response => {
@@ -43,7 +43,7 @@ describe('Address controller', () => {
 
   test('it should return an address on get by id', done => {
     return request(app)
-      .get(`/clients/${clientObj.id}/addresses/${addressObj.id}`)
+      .get(`/users/${userObj.id}/addresses/${addressObj.id}`)
       .set('Authorization', `JWT ${token}`)
       .expect(200)
       .then(response => {
@@ -54,7 +54,7 @@ describe('Address controller', () => {
 
   test('it should return an address on post', done => {
     return request(app)
-      .post(`/clients/${clientObj.id}/addresses`)
+      .post(`/users/${userObj.id}/addresses`)
       .set('Authorization', `JWT ${token}`)
       .send(data)
       .expect(201)
@@ -66,7 +66,7 @@ describe('Address controller', () => {
 
   test('it should return an address on patch', done => {
     return request(app)
-      .patch(`/clients/${clientObj.id}/addresses/${addressObj.id}`)
+      .patch(`/users/${userObj.id}/addresses/${addressObj.id}`)
       .set('Authorization', `JWT ${token}`)
       .send({
         name: 'ceva2'
@@ -80,28 +80,28 @@ describe('Address controller', () => {
 
   test('it should return no content on delete', done => {
     return request(app)
-      .delete(`/clients/${clientObj.id}/addresses/${addressObj.id}`)
+      .delete(`/users/${userObj.id}/addresses/${addressObj.id}`)
       .set('Authorization', `JWT ${token}`)
       .expect(204, done);
   });
 
   test('it should return 404 on delete inexisting address', done => {
     return request(app)
-      .delete(`/clients/${clientObj.id}/addresses/random`)
+      .delete(`/users/${userObj.id}/addresses/random`)
       .set('Authorization', `JWT ${token}`)
       .expect(404, done);
   });
 
   test('it should return 404 on patch inexisting address', done => {
     return request(app)
-      .patch(`/clients/${clientObj.id}/addresses/random`)
+      .patch(`/users/${userObj.id}/addresses/random`)
       .set('Authorization', `JWT ${token}`)
       .expect(404, done);
   });
 
   test('it should return 404 on get inexisting address', done => {
     return request(app)
-      .get(`/clients/${clientObj.id}/addresses/random`)
+      .get(`/users/${userObj.id}/addresses/random`)
       .set('Authorization', `JWT ${token}`)
       .expect(404, done);
   });

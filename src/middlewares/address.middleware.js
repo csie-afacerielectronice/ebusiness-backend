@@ -1,16 +1,17 @@
-const role = require('../utils/role');
 const addressService = require('../services/address.service');
 const { FORBIDDEN } = require('../utils/errors');
+const role = require('../utils/role');
 
 module.exports = async (req, res, next) => {
   try {
-    const address = await addressService.findAddress({
-      clientId: req.client.id
-    });
-    if (!!address || req.user.role === role.ADMIN) {
-      next();
-    } else FORBIDDEN();
+    if (req.user.role !== role.ADMIN) return next();
+    const findParams = {
+      userId: req.user.id
+    };
+    if (req.params.id) findParams.id = req.params.id;
+    await addressService.findAddress(findParams);
+    if (req.params.userId !== req.user.id) FORBIDDEN();
   } catch (e) {
-    next(e);
+    return next(e);
   }
 };

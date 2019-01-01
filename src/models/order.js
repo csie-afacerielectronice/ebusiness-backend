@@ -8,13 +8,9 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
       },
-      clientId: {
+      userId: {
         type: DataTypes.UUID,
-        allowNull: false,
-        references: {
-          model: 'clients',
-          key: 'id'
-        }
+        allowNull: false
       },
       deliveryAddressId: {
         type: DataTypes.UUID,
@@ -34,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
   order.associate = function(models) {
     order.hasMany(models.address, { foreignKey: 'deliveryAddressId' });
     order.hasMany(models.address, { foreignKey: 'receiptAddressId' });
+    order.belongsTo(models.user);
     order.belongsToMany(models.product, {
       through: {
         model: models.order_product,

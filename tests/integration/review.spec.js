@@ -11,6 +11,9 @@ describe('Review controller', () => {
     score: 2
   };
   beforeAll(async done => {
+    const userObj = await db.user.findOne({
+      where: { email: 'client@test.com' }
+    });
     const categoryObj = await db.category.create({
       name: 'category',
       description: 'description'
@@ -24,18 +27,15 @@ describe('Review controller', () => {
       image: '/path',
       categoryId: categoryObj.id
     });
-    data.productId = productObj.id;
-    const userObj = await db.user.findOne({
-      where: { email: 'client@test.com' }
-    });
-    const clientObj = await db.client.create({
+    await db.client.create({
       name: 'Ion',
       surname: 'Ion',
       userId: userObj.id
     });
-    data.clientId = clientObj.id;
+    data.productId = productObj.id;
+    data.userId = userObj.id;
     reviewObj = await db.review.create({ ...data });
-    token = userObj.authJSON().token;
+    token = userObj.token().token;
     done();
   });
 

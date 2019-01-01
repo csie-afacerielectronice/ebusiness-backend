@@ -1,21 +1,21 @@
 const router = require('express').Router();
 const passport = require('../config/passport');
 const multer = require('../config/multer');
-const clientMiddleware = require('../middlewares/client.middleware');
-const adminMiddleware = require('../middlewares/admin.middleware');
+const roleMiddleware = require('../middlewares/role.middleware');
+const role = require('../utils/role');
 const imageController = require('../controllers/image.controller');
 
 router.post(
   '/profile',
   passport.authenticate('jwt'),
-  clientMiddleware,
+  roleMiddleware([role.ADMIN, role.CLIENT]),
   multer.avatar.single('avatar'),
   imageController.uploadAvatar
 );
 router.post(
   '/products/:id/image',
   passport.authenticate('jwt'),
-  adminMiddleware,
+  roleMiddleware([role.ADMIN]),
   multer.product.single('product'),
   imageController.uploadProduct
 );

@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const yup = require('yup');
-const passport = require('./../config/passport');
+const passport = require('../config/passport');
+const role = require('../utils/role');
 const addressController = require('../controllers/address.controller');
-const clientMiddleware = require('../middlewares/client.middleware');
+const roleMiddleware = require('../middlewares/role.middleware');
 const addressMiddleware = require('../middlewares/address.middleware');
 const validationMiddleware = require('../middlewares/validation.middleware');
 
@@ -27,38 +28,37 @@ const updateSchema = yup.object().shape({
 });
 
 router.get(
-  '/clients/:clientId/addresses',
+  '/users/:userId/addresses',
   passport.authenticate('jwt'),
-  clientMiddleware,
-  addressMiddleware,
+  roleMiddleware([role.ADMIN, role.CLIENT]),
   addressController.getAddresses
 );
 router.get(
-  '/clients/:clientId/addresses/:id',
+  '/users/:userId/addresses/:id',
   passport.authenticate('jwt'),
-  clientMiddleware,
+  roleMiddleware([role.ADMIN, role.CLIENT]),
   addressMiddleware,
   addressController.getAddress
 );
 router.post(
-  '/clients/:clientId/addresses',
+  '/users/:userId/addresses',
   validationMiddleware(postSchema),
   passport.authenticate('jwt'),
-  clientMiddleware,
+  roleMiddleware([role.ADMIN, role.CLIENT]),
   addressController.postAddress
 );
 router.patch(
-  '/clients/:clientId/addresses/:id',
+  '/users/:userId/addresses/:id',
   validationMiddleware(updateSchema),
   passport.authenticate('jwt'),
-  clientMiddleware,
+  roleMiddleware([role.ADMIN, role.CLIENT]),
   addressMiddleware,
   addressController.patchAddress
 );
 router.delete(
-  '/clients/:clientId/addresses/:id',
+  '/users/:userId/addresses/:id',
   passport.authenticate('jwt'),
-  clientMiddleware,
+  roleMiddleware([role.ADMIN, role.CLIENT]),
   addressMiddleware,
   addressController.deleteAddress
 );

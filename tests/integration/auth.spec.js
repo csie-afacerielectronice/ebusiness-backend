@@ -4,8 +4,11 @@ const request = require('supertest');
 describe('Auth controller', () => {
   test('it should return a token on register', done => {
     return request(app)
-      .post('/register')
-      .send({ email: 'ceva@ceva.com', password: '123456' })
+      .post('/register/client')
+      .send({
+        user: { email: 'ceva@ceva.com', password: '123456' },
+        client: { name: 'Ion', surname: 'Ion' }
+      })
       .expect(201)
       .then(response => {
         expect(response.body).toHaveProperty('token');
