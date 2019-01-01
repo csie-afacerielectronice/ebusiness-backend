@@ -47,7 +47,10 @@ module.exports = (sequelize, DataTypes) => {
     exp.setDate(today.getDate() + 60);
     const token = jwt.sign(
       {
-        id: this.id,
+        context: {
+          email: this.email,
+          role: this.role
+        },
         exp: parseInt(exp.getTime() / 1000)
       },
       process.env.JWT_SECRET

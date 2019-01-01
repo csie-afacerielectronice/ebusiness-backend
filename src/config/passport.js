@@ -11,7 +11,9 @@ const opts = {
 
 passport.use(
   new JWTStrategy(opts, async (jwt_payload, done) => {
-    const userObj = await user.findOne({ where: { id: jwt_payload.id } });
+    const userObj = await user.findOne({
+      where: { email: jwt_payload.context.email }
+    });
     if (!userObj) done(null, false, { message: 'token is not valid' });
     done(null, userObj);
   })
