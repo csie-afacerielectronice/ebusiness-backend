@@ -7,6 +7,8 @@ describe('Product controller', () => {
   let productObj;
   const data = {
     name: 'product',
+    author: 'author',
+    stock: 2,
     description: 'description',
     price: 14.99,
     image: '/path'

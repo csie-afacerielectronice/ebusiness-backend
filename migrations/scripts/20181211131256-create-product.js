@@ -24,6 +24,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      author: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       price: {
         type: Sequelize.FLOAT,
         allowNull: false
@@ -32,6 +36,10 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      stock: {
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
       updatedAt: {
         allowNull: false,

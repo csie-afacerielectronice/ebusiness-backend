@@ -19,6 +19,8 @@ describe('Review controller', () => {
       name: 'product',
       description: 'description',
       price: 14.99,
+      author: 'ceva',
+      stock: 2,
       image: '/path',
       categoryId: categoryObj.id
     });

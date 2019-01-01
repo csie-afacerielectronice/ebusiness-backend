@@ -33,6 +33,8 @@ describe('Order controller', () => {
     productObj = await db.product.create({
       name: 'ceva',
       description: 'ceva',
+      author: 'author',
+      stock: 2,
       price: 12.99,
       categoryId: categoryObj.id
     });
