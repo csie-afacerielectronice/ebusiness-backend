@@ -1,4 +1,5 @@
 const { order } = require('../models');
+const { NOT_FOUND } = require('../utils/errors');
 
 module.exports = {
   createOrder: async data => {
@@ -14,11 +15,7 @@ module.exports = {
     try {
       const result = await order.findOne({ where: { ...data } });
       if (result) return result;
-      else {
-        let err = new Error('Not Found');
-        err.status = 404;
-        throw err;
-      }
+      else NOT_FOUND();
     } catch (e) {
       throw e;
     }
@@ -35,14 +32,9 @@ module.exports = {
           }
         }
       );
-      const orderObj = await order.findByPk(id);
-      if (orderObj) {
-        return orderObj;
-      } else {
-        let err = new Error('Not Found');
-        err.status = 404;
-        throw err;
-      }
+      const result = await order.findByPk(id);
+      if (result) return result;
+      else NOT_FOUND();
     } catch (e) {
       throw e;
     }
@@ -55,11 +47,7 @@ module.exports = {
         }
       });
       if (result) return result;
-      else {
-        let err = new Error('Not Found');
-        err.status = 404;
-        throw err;
-      }
+      else NOT_FOUND();
     } catch (e) {
       throw e;
     }
@@ -68,11 +56,7 @@ module.exports = {
     try {
       const result = await order.findByPk(id);
       if (result) return result;
-      else {
-        let err = new Error('Not Found');
-        err.status = 404;
-        throw err;
-      }
+      else NOT_FOUND();
     } catch (e) {
       throw e;
     }

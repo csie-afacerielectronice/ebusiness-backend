@@ -1,4 +1,5 @@
 const { product } = require('../models');
+const { NOT_FOUND } = require('../utils/errors');
 
 module.exports = {
   createProduct: async data => {
@@ -22,14 +23,9 @@ module.exports = {
           }
         }
       );
-      const productObj = await product.findByPk(id);
-      if (productObj) {
-        return productObj;
-      } else {
-        let err = new Error('Not Found');
-        err.status = 404;
-        throw err;
-      }
+      const result = await product.findByPk(id);
+      if (result) return result;
+      else NOT_FOUND();
     } catch (e) {
       throw e;
     }
@@ -42,11 +38,7 @@ module.exports = {
         }
       });
       if (result) return result;
-      else {
-        let err = new Error('Not Found');
-        err.status = 404;
-        throw err;
-      }
+      else NOT_FOUND();
     } catch (e) {
       throw e;
     }
@@ -55,11 +47,7 @@ module.exports = {
     try {
       const result = await product.findByPk(id);
       if (result) return result;
-      else {
-        let err = new Error('Not Found');
-        err.status = 404;
-        throw err;
-      }
+      else NOT_FOUND();
     } catch (e) {
       throw e;
     }

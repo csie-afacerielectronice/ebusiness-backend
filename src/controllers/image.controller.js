@@ -1,6 +1,5 @@
 const clientService = require('../services/client.service');
 const productService = require('../services/product.service');
-const errorHandler = require('../utils/errorHandler');
 
 module.exports = {
   uploadAvatar: async (req, res, next) => {
@@ -15,7 +14,7 @@ module.exports = {
       });
       res.status(200).send(client);
     } catch (e) {
-      errorHandler(e, next);
+      next(e);
     }
   },
   uploadProduct: async (req, res, next) => {
@@ -30,7 +29,7 @@ module.exports = {
       });
       res.status(200).send(product);
     } catch (e) {
-      errorHandler(e, next);
+      next(e);
     }
   }
 };

@@ -22,7 +22,7 @@ describe('Order controller', () => {
       surname: 'Ion',
       userId: userClientObj.id
     });
-    await new db.admin({
+    await db.admin.create({
       name: 'ceva',
       userId: userAdminObj.id
     });

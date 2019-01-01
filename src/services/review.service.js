@@ -1,4 +1,5 @@
 const { review } = require('../models');
+const { NOT_FOUND } = require('../utils/errors');
 
 module.exports = {
   createReview: async data => {
@@ -22,14 +23,9 @@ module.exports = {
           }
         }
       );
-      const reviewObj = await review.findByPk(id);
-      if (reviewObj) {
-        return reviewObj;
-      } else {
-        let err = new Error('Not Found');
-        err.status = 404;
-        throw err;
-      }
+      const result = await review.findByPk(id);
+      if (result) return result;
+      else NOT_FOUND();
     } catch (e) {
       throw e;
     }
@@ -42,11 +38,7 @@ module.exports = {
         }
       });
       if (result) return result;
-      else {
-        let err = new Error('Not Found');
-        err.status = 404;
-        throw err;
-      }
+      else NOT_FOUND();
     } catch (e) {
       throw e;
     }
@@ -55,11 +47,7 @@ module.exports = {
     try {
       const result = await review.findByPk(id);
       if (result) return result;
-      else {
-        let err = new Error('Not Found');
-        err.status = 404;
-        throw err;
-      }
+      else NOT_FOUND();
     } catch (e) {
       throw e;
     }

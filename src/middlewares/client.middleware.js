@@ -1,6 +1,7 @@
 const role = require('../utils/role');
 const userService = require('../services/user.service');
 const clientService = require('../services/client.service');
+const { FORBIDDEN } = require('../utils/errors');
 
 module.exports = async (req, res, next) => {
   try {
@@ -9,9 +10,8 @@ module.exports = async (req, res, next) => {
       const client = await clientService.findClient({ userId: user.id });
       req.client = client;
       next();
-    } else throw new Error('Forbidden');
+    } else FORBIDDEN();
   } catch (e) {
-    e.status = 403;
     next(e);
   }
 };

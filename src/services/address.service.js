@@ -1,4 +1,5 @@
 const { address } = require('../models');
+const { NOT_FOUND } = require('../utils/errors');
 
 module.exports = {
   createAddress: async data => {
@@ -14,11 +15,7 @@ module.exports = {
     try {
       const result = await address.findOne({ where: { ...data } });
       if (result) return result;
-      else {
-        let err = new Error('Not Found');
-        err.status = 404;
-        throw err;
-      }
+      else NOT_FOUND();
     } catch (e) {
       throw e;
     }
@@ -37,11 +34,7 @@ module.exports = {
       );
       const result = await address.findByPk(id);
       if (result) return result;
-      else {
-        let err = new Error('Not Found');
-        err.status = 404;
-        throw err;
-      }
+      else NOT_FOUND();
     } catch (e) {
       throw e;
     }
@@ -54,11 +47,7 @@ module.exports = {
         }
       });
       if (result) return result;
-      else {
-        let err = new Error('Not Found');
-        err.status = 404;
-        throw err;
-      }
+      else NOT_FOUND();
     } catch (e) {
       throw e;
     }
@@ -67,11 +56,7 @@ module.exports = {
     try {
       const result = await address.findByPk(id);
       if (result) return result;
-      else {
-        let err = new Error('Not Found');
-        err.status = 404;
-        throw err;
-      }
+      else NOT_FOUND();
     } catch (e) {
       throw e;
     }

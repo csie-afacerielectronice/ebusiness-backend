@@ -1,23 +1,5 @@
-const yup = require('yup');
 const orderService = require('../services/order.service');
 const orderProductService = require('../services/order_product.service');
-const errorHandler = require('../utils/errorHandler');
-
-const postSchema = yup.object().shape({
-  deliveryAddressId: yup.string().required(),
-  receiptAddressId: yup.string().required(),
-  products: yup.array().of(
-    yup.object().shape({
-      productId: yup.string().required(),
-      quantity: yup.number().required()
-    })
-  )
-});
-
-const updateSchema = yup.object().shape({
-  deliveryAddressId: yup.string(),
-  receiptAddressId: yup.string()
-});
 
 module.exports = {
   getOrders: async (req, res, next) => {
@@ -25,12 +7,11 @@ module.exports = {
       const orders = await orderService.getOrders(req.params.clientId);
       res.status(200).send(orders);
     } catch (e) {
-      errorHandler(e, next);
+      next(e);
     }
   },
   postOrder: async (req, res, next) => {
     try {
-      await postSchema.validate(req.body);
       const orderObj = await orderService.createOrder({
         deliveryAddressId: req.body.deliveryAddressId,
         receiptAddressId: req.body.receiptAddressId,
@@ -46,16 +27,15 @@ module.exports = {
       });
       res.status(201).send({ order: orderObj, products: [...products] });
     } catch (e) {
-      errorHandler(e, next);
+      next(e);
     }
   },
   patchOrder: async (req, res, next) => {
     try {
-      await updateSchema.validate(req.body);
       const order = await orderService.updateOrder(req.params.id, req.body);
       res.status(200).send(order);
     } catch (e) {
-      errorHandler(e, next);
+      next(e);
     }
   },
   deleteOrder: async (req, res, next) => {
@@ -63,7 +43,7 @@ module.exports = {
       await orderService.deleteOrder(req.params.id);
       res.sendStatus(204);
     } catch (e) {
-      errorHandler(e, next);
+      next(e);
     }
   },
   getOrder: async (req, res, next) => {
@@ -71,7 +51,7 @@ module.exports = {
       const order = await orderService.getOrder(req.params.id);
       res.status(200).send(order);
     } catch (e) {
-      errorHandler(e, next);
+      next(e);
     }
   }
 };
