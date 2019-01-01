@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
+const crypto = require('crypto');
 const mkdirp = require('mkdirp');
 const storageAvatar = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -11,7 +12,12 @@ const storageAvatar = multer.diskStorage({
     cb(null, dest);
   },
   filename: function(req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));
+    cb(
+      null,
+      crypto.randomBytes(18).toString('hex') +
+        Date.now() +
+        path.extname(file.originalname)
+    );
   }
 });
 const storageProduct = multer.diskStorage({
@@ -23,7 +29,12 @@ const storageProduct = multer.diskStorage({
     cb(null, dest);
   },
   filename: function(req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));
+    cb(
+      null,
+      crypto.randomBytes(18).toString('hex') +
+        Date.now() +
+        path.extname(file.originalname)
+    );
   }
 });
 const uploadAvatar = multer({ storage: storageAvatar });
