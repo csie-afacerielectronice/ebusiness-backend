@@ -45,7 +45,9 @@
     "supertest": "^3.3.0"
   },
   "husky": {
-    "pre-push": "npm run test:e2e"
+    "hooks": {
+      "pre-push": "npm run test:e2e"
+    }
   },
   "repository": {
     "type": "git",
