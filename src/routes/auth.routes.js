@@ -89,17 +89,11 @@ router.get(
   authController.getUser
 );
 
-router.get(
-  '/profile',
-  passport.authenticate('jwt'),
-  userMiddleware,
-  authController.getUser
-);
+router.get('/profile', passport.authenticate('jwt'), authController.getUser);
 
 router.patch(
   '/profile',
   passport.authenticate('jwt'),
-  userMiddleware,
   authController.patchUser
 );
 
