@@ -47,7 +47,9 @@ module.exports = {
   },
   patchUser: async (req, res, next) => {
     try {
-      const user = await userService.updateUser(req.params.id, req.body.user);
+      let id = req.user.id;
+      if (req.params.id) id = req.params.id;
+      const user = await userService.updateUser(id, req.body.user);
       let client = null;
       let admin = null;
       switch (user.role) {
@@ -73,7 +75,9 @@ module.exports = {
   },
   getUser: async (req, res, next) => {
     try {
-      const user = await userService.getUser(req.params.id);
+      let id = req.user.id;
+      if (req.params.id) id = req.params.id;
+      const user = await userService.getUser(id);
       res.status(200).send(user);
     } catch (e) {
       next(e);

@@ -89,6 +89,20 @@ router.get(
   authController.getUser
 );
 
+router.get(
+  '/profile',
+  passport.authenticate('jwt'),
+  userMiddleware,
+  authController.getUser
+);
+
+router.patch(
+  '/profile',
+  passport.authenticate('jwt'),
+  userMiddleware,
+  authController.patchUser
+);
+
 router.patch(
   '/users/:id',
   validationMiddleware(updateSchema),
