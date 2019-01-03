@@ -47,7 +47,6 @@ app.use(require('./routes/order.routes'));
 app.use(require('./routes/image.routes'));
 
 const dir = path.join(__dirname, '..', 'uploads');
-console.log(dir);
 app.use(express.static(dir));
 
 if (process.env.NODE_ENV !== 'TEST') {

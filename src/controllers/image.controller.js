@@ -24,8 +24,9 @@ module.exports = {
         err.status = 422;
         throw err;
       }
-      const product = await productService.updateProduct(req.client.id, {
-        image: req.file.path
+      const path = req.file.path.split('/');
+      const product = await productService.updateProduct(req.params.id, {
+        image: `${path[1]}/${path[2]}`
       });
       res.status(200).send(product);
     } catch (e) {
