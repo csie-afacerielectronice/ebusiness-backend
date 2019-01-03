@@ -52,9 +52,13 @@ module.exports = {
       throw e;
     }
   },
-  getProducts: async () => {
+  getProducts: async (options = null) => {
     try {
-      return await product.findAll();
+      return await product.findAll({
+        where: {
+          ...options
+        }
+      });
     } catch (e) {
       throw e;
     }
