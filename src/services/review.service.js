@@ -25,7 +25,7 @@ module.exports = {
       );
       const result = await review.findByPk(id);
       if (result) return result;
-      else NOT_FOUND();
+      else throw NOT_FOUND();
     } catch (e) {
       throw e;
     }
@@ -38,7 +38,7 @@ module.exports = {
         }
       });
       if (result) return result;
-      else NOT_FOUND();
+      else throw NOT_FOUND();
     } catch (e) {
       throw e;
     }
@@ -47,7 +47,7 @@ module.exports = {
     try {
       const result = await review.findByPk(id);
       if (result) return result;
-      else NOT_FOUND();
+      else throw NOT_FOUND();
     } catch (e) {
       throw e;
     }

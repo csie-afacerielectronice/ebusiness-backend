@@ -15,7 +15,7 @@ module.exports = {
     try {
       const result = await client.findOne({ where: { ...data } });
       if (result) return result;
-      else NOT_FOUND();
+      else throw NOT_FOUND();
     } catch (e) {
       throw e;
     }
@@ -34,7 +34,7 @@ module.exports = {
       );
       const result = await client.findByPk(id);
       if (result) return result;
-      else NOT_FOUND();
+      else throw NOT_FOUND();
     } catch (e) {
       throw e;
     }
@@ -47,7 +47,7 @@ module.exports = {
         }
       });
       if (result) return result;
-      else NOT_FOUND();
+      else throw NOT_FOUND();
     } catch (e) {
       throw e;
     }
@@ -56,7 +56,7 @@ module.exports = {
     try {
       const result = await client.findByPk(id);
       if (result) return result;
-      else NOT_FOUND();
+      else throw NOT_FOUND();
     } catch (e) {
       throw e;
     }
