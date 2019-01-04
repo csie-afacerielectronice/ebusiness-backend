@@ -27,8 +27,6 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   user.associate = function(models) {
-    user.hasMany(models.address);
-    user.hasMany(models.review);
     user.hasOne(models.client);
     user.hasOne(models.admin);
   };

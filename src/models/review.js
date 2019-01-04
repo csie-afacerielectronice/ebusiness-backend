@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.UUID,
         allowNull: false
       },
-      userId: {
+      clientId: {
         type: DataTypes.UUID,
         allowNull: false
       },
@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   review.associate = function(models) {
-    review.belongsTo(models.user, { onDelete: 'CASCADE' });
+    review.belongsTo(models.client, { onDelete: 'CASCADE' });
     review.belongsTo(models.product, { onDelete: 'CASCADE' });
   };
   return review;

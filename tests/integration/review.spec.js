@@ -27,13 +27,11 @@ describe('Review controller', () => {
       image: '/path',
       categoryId: categoryObj.id
     });
-    await db.client.create({
-      name: 'Ion',
-      surname: 'Ion',
-      userId: userObj.id
+    const clientObj = await db.client.findOne({
+      where: { userId: userObj.id }
     });
     data.productId = productObj.id;
-    data.userId = userObj.id;
+    data.clientId = clientObj.id;
     reviewObj = await db.review.create({ ...data });
     token = userObj.token().token;
     done();

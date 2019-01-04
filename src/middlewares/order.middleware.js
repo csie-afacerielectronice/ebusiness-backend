@@ -5,7 +5,7 @@ module.exports = async (req, res, next) => {
   try {
     if (req.user.role === role.ADMIN) return next();
     const findObject = {
-      userId: req.user.id
+      clientId: req.client.id
     };
     if (req.params.id) findObject.id = req.params.id;
     await orderService.findOrder(findObject);

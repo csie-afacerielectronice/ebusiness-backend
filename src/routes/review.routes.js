@@ -7,7 +7,6 @@ const roleMiddleware = require('../middlewares/role.middleware');
 const validationMiddleware = require('../middlewares/validation.middleware');
 
 const postSchema = yup.object().shape({
-  userId: yup.string().required(),
   score: yup.number().required(),
   content: yup.string()
 });

@@ -16,12 +16,12 @@ module.exports = {
           key: 'id'
         }
       },
-      userId: {
+      clientId: {
         type: Sequelize.UUID,
         allowNull: false,
         onDelete: 'CASCADE',
         references: {
-          model: 'users',
+          model: 'clients',
           key: 'id'
         }
       },

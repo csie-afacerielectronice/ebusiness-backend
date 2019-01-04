@@ -4,7 +4,9 @@ const orderProductService = require('../services/order_product.service');
 module.exports = {
   getOrders: async (req, res, next) => {
     try {
-      const orders = await orderService.getOrders(req.user.id);
+      const orders = await orderService.getOrders(
+        req.client ? req.client.id : null
+      );
       res.status(200).send(orders);
     } catch (e) {
       next(e);
@@ -15,7 +17,7 @@ module.exports = {
       const orderObj = await orderService.createOrder({
         deliveryAddressId: req.body.deliveryAddressId,
         receiptAddressId: req.body.receiptAddressId,
-        userId: req.user.id
+        clientId: req.client.id
       });
       const products = [];
       req.body.products.forEach(async item => {

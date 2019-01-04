@@ -16,14 +16,8 @@ describe('Order controller', () => {
         email: 'admin@test.com'
       }
     });
-    await db.admin.create({
-      name: 'ceva',
-      userId: userAdminObj.id
-    });
-    await db.client.create({
-      name: 'Ion',
-      surname: 'Ion',
-      userId: userClientObj.id
+    const clientObj = await db.client.findOne({
+      where: { userId: userClientObj.id }
     });
     const categoryObj = await db.category.create({
       name: 'ceva',
@@ -45,12 +39,12 @@ describe('Order controller', () => {
       postalCode: '291312',
       lat: 22.22,
       lng: 22.22,
-      userId: userClientObj.id
+      clientId: clientObj.id
     });
     orderObj = await db.order.create({
       deliveryAddressId: addressObj.id,
       receiptAddressId: addressObj.id,
-      userId: userClientObj.id
+      clientId: clientObj.id
     });
     tokenClient = userClientObj.token().token;
     tokenAdmin = userAdminObj.token().token;

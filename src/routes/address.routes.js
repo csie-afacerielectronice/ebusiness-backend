@@ -28,27 +28,27 @@ const updateSchema = yup.object().shape({
 });
 
 router.get(
-  '/users/:userId/addresses',
+  '/addresses',
   passport.authenticate('jwt'),
   roleMiddleware([role.ADMIN, role.CLIENT]),
   addressController.getAddresses
 );
 router.get(
-  '/users/:userId/addresses/:id',
+  '/addresses/:id',
   passport.authenticate('jwt'),
   roleMiddleware([role.ADMIN, role.CLIENT]),
   addressMiddleware,
   addressController.getAddress
 );
 router.post(
-  '/users/:userId/addresses',
+  '/addresses',
   validationMiddleware(postSchema),
   passport.authenticate('jwt'),
   roleMiddleware([role.ADMIN, role.CLIENT]),
   addressController.postAddress
 );
 router.patch(
-  '/users/:userId/addresses/:id',
+  '/addresses/:id',
   validationMiddleware(updateSchema),
   passport.authenticate('jwt'),
   roleMiddleware([role.ADMIN, role.CLIENT]),
@@ -56,7 +56,7 @@ router.patch(
   addressController.patchAddress
 );
 router.delete(
-  '/users/:userId/addresses/:id',
+  '/addresses/:id',
   passport.authenticate('jwt'),
   roleMiddleware([role.ADMIN, role.CLIENT]),
   addressMiddleware,

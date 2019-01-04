@@ -14,7 +14,6 @@ describe('Category controller', () => {
     const userObj = await db.user.findOne({
       where: { email: 'admin@test.com' }
     });
-    await db.admin.create({ name: 'ceva', userId: userObj.id });
     token = userObj.token().token;
     done();
   });

@@ -66,7 +66,7 @@ module.exports = {
       if (id)
         return await order.findAll({
           where: {
-            userId: id
+            clientId: id
           }
         });
       return await order.findAll();

@@ -65,7 +65,7 @@ module.exports = {
     try {
       return await address.findAll({
         where: {
-          userId: id
+          clientId: id
         }
       });
     } catch (e) {

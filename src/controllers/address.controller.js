@@ -3,7 +3,9 @@ const addressService = require('../services/address.service');
 module.exports = {
   getAddresses: async (req, res, next) => {
     try {
-      const addresses = await addressService.getAddresses(req.params.userId);
+      const addresses = await addressService.getAddresses(
+        req.client ? req.client.id : null
+      );
       res.status(200).send(addresses);
     } catch (e) {
       next(e);
@@ -13,7 +15,7 @@ module.exports = {
     try {
       const address = await addressService.createAddress({
         ...req.body,
-        userId: req.params.userId
+        clientId: req.client.id
       });
       res.status(201).send(address);
     } catch (e) {

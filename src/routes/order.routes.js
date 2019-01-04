@@ -34,7 +34,6 @@ router.get(
   '/orders/:id',
   passport.authenticate('jwt'),
   roleMiddleware([role.ADMIN, role.CLIENT]),
-  orderMiddleware,
   orderController.getOrder
 );
 router.post(
