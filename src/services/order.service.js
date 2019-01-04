@@ -1,12 +1,25 @@
-const { order } = require('../models');
+const { order, product, order_product, client, address } = require('../models');
 const { NOT_FOUND } = require('../utils/errors');
 
 module.exports = {
   createOrder: async data => {
     try {
-      return await order.create({
-        ...data
-      });
+      return await order.create(
+        {
+          ...data
+        },
+        {
+          include: [
+            {
+              model: product,
+              through: {
+                model: order_product,
+                attributes: []
+              }
+            }
+          ]
+        }
+      );
     } catch (e) {
       throw e;
     }
@@ -54,7 +67,17 @@ module.exports = {
   },
   getOrder: async id => {
     try {
-      const result = await order.findByPk(id);
+      const result = await order.findByPk(id, {
+        include: [
+          {
+            model: product,
+            through: {
+              model: order_product,
+              attributes: []
+            }
+          }
+        ]
+      });
       if (result) return result;
       else throw NOT_FOUND();
     } catch (e) {
@@ -67,9 +90,39 @@ module.exports = {
         return await order.findAll({
           where: {
             clientId: id
-          }
+          },
+          include: [
+            {
+              model: product,
+              through: {
+                model: order_product,
+                attributes: ['quantity']
+              }
+            }
+          ]
         });
-      return await order.findAll();
+      return await order.findAll({
+        include: [
+          {
+            model: client
+          },
+          {
+            model: product,
+            through: {
+              model: order_product,
+              attributes: ['quantity']
+            }
+          },
+          {
+            model: address,
+            as: 'delivery'
+          },
+          {
+            model: address,
+            as: 'receipt'
+          }
+        ]
+      });
     } catch (e) {
       throw e;
     }

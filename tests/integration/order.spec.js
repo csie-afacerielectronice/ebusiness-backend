@@ -32,13 +32,10 @@ describe('Order controller', () => {
       categoryId: categoryObj.id
     });
     const addressObj = await db.address.create({
-      name: 'ceva',
-      isPrimary: true,
+      street: 'ceva',
       city: 'ceva',
       county: 'ceva',
       postalCode: '291312',
-      lat: 22.22,
-      lng: 22.22,
       clientId: clientObj.id
     });
     orderObj = await db.order.create({

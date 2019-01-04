@@ -17,9 +17,10 @@ module.exports = roles => async (req, res, next) => {
           req.client = await clientService.findClient({ userId: req.user.id });
           break;
       }
-      return next();
-    } else FORBIDDEN();
+      next();
+    } else next(FORBIDDEN());
   } catch (e) {
-    return next(e);
+    console.log(e);
+    next(e);
   }
 };

@@ -54,13 +54,16 @@ module.exports = {
       let admin = null;
       switch (user.role) {
         case role.CLIENT:
-          client = await clientService.updateClient(req.body.client);
+          client = await clientService.updateClient(
+            req.client.id,
+            req.body.client
+          );
           break;
         case role.ADMIN:
-          admin = await adminService.updateAdmin(req.body.admin);
+          admin = await adminService.updateAdmin(req.admin.id, req.body.admin);
           break;
       }
-      res.status(200).send({ ...user, client, admin });
+      res.status(200).send({ client, admin, ...user.token() });
     } catch (e) {
       next(e);
     }

@@ -8,12 +8,8 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
       },
-      name: {
+      street: {
         type: DataTypes.STRING,
-        allowNull: false
-      },
-      isPrimary: {
-        type: DataTypes.BOOLEAN,
         allowNull: false
       },
       city: {
@@ -28,14 +24,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false
       },
-      lat: {
-        type: DataTypes.FLOAT,
-        allowNull: false
-      },
-      lng: {
-        type: DataTypes.FLOAT,
-        allowNull: false
-      },
+      // lat: {
+      //   type: DataTypes.FLOAT,
+      //   allowNull: false
+      // },
+      // lng: {
+      //   type: DataTypes.FLOAT,
+      //   allowNull: false
+      // },
       clientId: {
         type: DataTypes.UUID,
         allowNull: false
@@ -45,8 +41,8 @@ module.exports = (sequelize, DataTypes) => {
   );
   address.associate = function(models) {
     address.belongsTo(models.client, { onDelete: 'CASCADE' });
-    address.belongsTo(models.order, { foreignKey: 'deliveryAddressId' });
-    address.belongsTo(models.order, { foreignKey: 'receiptAddressId' });
+    address.hasMany(models.order, { foreignKey: 'deliveryAddressId' });
+    address.hasMany(models.order, { foreignKey: 'receiptAddressId' });
   };
   return address;
 };

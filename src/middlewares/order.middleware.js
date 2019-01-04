@@ -9,8 +9,8 @@ module.exports = async (req, res, next) => {
     };
     if (req.params.id) findObject.id = req.params.id;
     await orderService.findOrder(findObject);
-    return next();
+    next();
   } catch (e) {
-    return next(e);
+    next(e);
   }
 };

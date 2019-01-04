@@ -1,4 +1,4 @@
-const { review } = require('../models');
+const { review, client } = require('../models');
 const { NOT_FOUND } = require('../utils/errors');
 
 module.exports = {
@@ -57,7 +57,12 @@ module.exports = {
       return await review.findAll({
         where: {
           productId: id
-        }
+        },
+        include: [
+          {
+            model: client
+          }
+        ]
       });
     } catch (e) {
       throw e;

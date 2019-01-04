@@ -28,8 +28,14 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   order.associate = function(models) {
-    order.hasMany(models.address, { foreignKey: 'deliveryAddressId' });
-    order.hasMany(models.address, { foreignKey: 'receiptAddressId' });
+    order.belongsTo(models.address, {
+      foreignKey: 'deliveryAddressId',
+      as: 'delivery'
+    });
+    order.belongsTo(models.address, {
+      foreignKey: 'receiptAddressId',
+      as: 'receipt'
+    });
     order.belongsTo(models.client);
     order.belongsToMany(models.product, {
       through: {

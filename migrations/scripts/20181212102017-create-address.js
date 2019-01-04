@@ -7,12 +7,8 @@ module.exports = {
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true
       },
-      name: {
+      street: {
         type: Sequelize.STRING,
-        allowNull: false
-      },
-      isPrimary: {
-        type: Sequelize.BOOLEAN,
         allowNull: false
       },
       city: {
@@ -27,14 +23,14 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      lat: {
-        type: Sequelize.FLOAT,
-        allowNull: false
-      },
-      lng: {
-        type: Sequelize.FLOAT,
-        allowNull: false
-      },
+      // lat: {
+      //   type: Sequelize.FLOAT,
+      //   allowNull: false
+      // },
+      // lng: {
+      //   type: Sequelize.FLOAT,
+      //   allowNull: false
+      // },
       clientId: {
         type: Sequelize.UUID,
         allowNull: false,

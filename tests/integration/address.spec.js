@@ -7,13 +7,10 @@ describe('Address controller', () => {
   let userObj;
   let token;
   const data = {
-    name: 'ceva',
-    isPrimary: true,
+    street: 'ceva',
     city: 'ceva',
     county: 'ceva',
-    postalCode: '291312',
-    lat: 22.22,
-    lng: 22.22
+    postalCode: '291312'
   };
   beforeAll(async done => {
     userObj = await db.user.findOne({
@@ -67,11 +64,11 @@ describe('Address controller', () => {
       .patch(`/addresses/${addressObj.id}`)
       .set('Authorization', `JWT ${token}`)
       .send({
-        name: 'ceva2'
+        street: 'ceva2'
       })
       .expect(200)
       .then(response => {
-        expect(response.body).toMatchObject({ ...data, name: 'ceva2' });
+        expect(response.body).toMatchObject({ ...data, street: 'ceva2' });
         done();
       });
   });

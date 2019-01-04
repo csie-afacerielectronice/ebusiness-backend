@@ -14,20 +14,20 @@ module.exports = {
   },
   postOrder: async (req, res, next) => {
     try {
-      const orderObj = await orderService.createOrder({
+      const order = await orderService.createOrder({
         deliveryAddressId: req.body.deliveryAddressId,
         receiptAddressId: req.body.receiptAddressId,
-        clientId: req.client.id
+        clientId: req.client.id,
+        status: 'received'
       });
-      const products = [];
       req.body.products.forEach(async item => {
-        const product = await orderProductService.createOrderProduct({
+        await orderProductService.createOrderProduct({
           ...item,
-          orderId: orderObj.id
+          orderId: order.id
         });
-        products.push(product);
       });
-      res.status(201).send({ order: orderObj, products: [...products] });
+      const orderObj = await orderService.getOrder(order.id);
+      res.status(201).send({ order: orderObj });
     } catch (e) {
       next(e);
     }

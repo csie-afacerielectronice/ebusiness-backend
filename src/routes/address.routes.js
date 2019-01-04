@@ -8,23 +8,23 @@ const addressMiddleware = require('../middlewares/address.middleware');
 const validationMiddleware = require('../middlewares/validation.middleware');
 
 const postSchema = yup.object().shape({
-  name: yup.string().required(),
-  isPrimary: yup.boolean().required(),
+  street: yup.string().required(),
+  // isPrimary: yup.boolean().required(),
   city: yup.string().required(),
   county: yup.string().required(),
-  postalCode: yup.string().required(),
-  lat: yup.number().required(),
-  lng: yup.number().required()
+  postalCode: yup.string().required()
+  // lat: yup.number().required(),
+  // lng: yup.number().required()
 });
 
 const updateSchema = yup.object().shape({
-  name: yup.string(),
-  isPrimary: yup.boolean(),
+  street: yup.string(),
+  // isPrimary: yup.boolean(),
   city: yup.string(),
   county: yup.string(),
-  postalCode: yup.string(),
-  lat: yup.number(),
-  lng: yup.number()
+  postalCode: yup.string()
+  // lat: yup.number(),
+  // lng: yup.number()
 });
 
 router.get(
