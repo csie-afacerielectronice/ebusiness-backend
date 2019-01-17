@@ -45,7 +45,13 @@ module.exports = {
   },
   getReview: async id => {
     try {
-      const result = await review.findByPk(id);
+      const result = await review.findByPk(id, {
+        include: [
+          {
+            model: client
+          }
+        ]
+      });
       if (result) return result;
       else throw NOT_FOUND();
     } catch (e) {

@@ -16,7 +16,8 @@ module.exports = {
         productId: req.params.productId,
         clientId: req.client.id
       });
-      res.status(201).send(review);
+      const reviewObj = await reviewService.getReview(review.id);
+      res.status(201).send(reviewObj);
     } catch (e) {
       next(e);
     }
