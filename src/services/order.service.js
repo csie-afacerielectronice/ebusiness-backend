@@ -73,7 +73,7 @@ module.exports = {
             model: product,
             through: {
               model: order_product,
-              attributes: []
+              attributes: ['quantity']
             }
           }
         ]
