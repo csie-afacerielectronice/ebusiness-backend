@@ -1,0 +1,15 @@
+version: '3.5'
+services:
+  app:
+    container_name: node_app
+    build:
+      dockerfile: Dockerfile
+      context: .
+    user: node
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app
+    env_file: .env
+    ports:
+      - '3000:3000'
