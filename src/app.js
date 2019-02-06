@@ -48,8 +48,12 @@ app.use(require('./routes/image.routes'));
 const dir = path.join(__dirname, '..', 'uploads');
 app.use(express.static(dir));
 
+app.get('/healthz', (req, res) => {
+  res.status(200).send('OK');
+});
+
 if (process.env.NODE_ENV !== 'TEST') {
-  const server = app.listen(process.env.PORT || 3000, () => {
+  const server = app.listen(5000, () => {
     console.log('Listening on port ' + server.address().port);
   });
 }

@@ -6,19 +6,11 @@ services:
     build:
       dockerfile: Dockerfile
       context: .
-    volumes:
-      - .:/app
-      - /app/node_modules
-      - /app
     ports:
-      - '3000:3000'
+      - '${PORT}:5000'
   test:
     env_file: .env
     container_name: node_app_test
     build:
       dockerfile: Dockerfile-test
       context: .
-    volumes:
-      - .:/app
-      - /app/node_modules
-      - /app
