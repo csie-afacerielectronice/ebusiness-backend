@@ -1,0 +1,16 @@
+version: '3.5'
+services:
+  dev:
+    env_file: .env
+    container_name: node_app_dev
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - '${PORT}:5000'
+  test:
+    env_file: .env
+    container_name: node_app_test
+    build:
+      dockerfile: Dockerfile-test
+      context: .
