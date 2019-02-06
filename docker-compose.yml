@@ -1,15 +1,24 @@
 version: '3.5'
 services:
-  app:
+  dev:
     env_file: .env
-    container_name: node_app
+    container_name: node_app_dev
     build:
       dockerfile: Dockerfile
       context: .
-    user: node
     volumes:
       - .:/app
       - /app/node_modules
       - /app
     ports:
       - '3000:3000'
+  test:
+    env_file: .env
+    container_name: node_app_test
+    build:
+      dockerfile: Dockerfile-test
+      context: .
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app
