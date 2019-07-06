@@ -8,6 +8,8 @@ services:
       context: .
     ports:
       - '${PORT}:5000'
+    volumes:
+      - .:/app
   test:
     env_file: .env
     container_name: node_app_test
