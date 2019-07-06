@@ -3,15 +3,16 @@ module.exports = {
     es6: true,
     node: true
   },
-  extends: ['eslint:recommended', 'plugin:prettier/recommended'],
+  extends: ['plugin:prettier/recommended'],
   parserOptions: {
     ecmaVersion: 2018
   },
   rules: {
-    indent: ['error', 2],
+    indent: 'off',
     'linebreak-style': ['error', 'unix'],
     quotes: ['error', 'single'],
     semi: ['error', 'always'],
-    'no-console': 'off'
+    'no-console': 'off',
+    'no-unused-vars': ['error', { args: 'none' }]
   }
 };
