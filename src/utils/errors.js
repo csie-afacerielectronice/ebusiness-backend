@@ -1,17 +1,22 @@
+class APIError extends Error {
+  constructor(message, status) {
+    super(message);
+    this.status = status || 500;
+    this.message = message;
+  }
+}
+
 module.exports = {
   NOT_FOUND: () => {
-    let err = new Error('Not Found');
-    err.status = 404;
-    return err;
+    return new APIError('Not Found', 404);
   },
-  UNPROCESSABLE_ENTITY: e => {
-    let err = new Error(e.message);
-    err.status = 422;
-    return err;
+  UNPROCESSABLE_ENTITY: message => {
+    return new APIError(message, 422);
   },
   FORBIDDEN: () => {
-    let err = new Error('Forbidden');
-    err.status = 403;
-    return err;
+    return new APIError('Forbidden', 403);
+  },
+  UNAUTHORIZED: () => {
+    return new APIError('Unauthorized', 401);
   }
 };
