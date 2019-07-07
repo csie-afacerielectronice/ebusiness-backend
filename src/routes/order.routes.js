@@ -1,27 +1,11 @@
 const router = require('express').Router();
-const yup = require('yup');
 const passport = require('./../config/passport');
 const orderController = require('../controllers/order.controller');
 const role = require('../utils/role');
 const orderMiddleware = require('../middlewares/order.middleware');
 const roleMiddleware = require('../middlewares/role.middleware');
 const validationMiddleware = require('../middlewares/validation.middleware');
-
-const postSchema = yup.object().shape({
-  deliveryAddressId: yup.string().required(),
-  receiptAddressId: yup.string().required(),
-  products: yup.array().of(
-    yup.object().shape({
-      productId: yup.string().required(),
-      quantity: yup.number().required()
-    })
-  )
-});
-
-const updateSchema = yup.object().shape({
-  deliveryAddressId: yup.string(),
-  receiptAddressId: yup.string()
-});
+const request = require('../requests/order.request');
 
 router.get(
   '/orders',
@@ -37,14 +21,14 @@ router.get(
 );
 router.post(
   '/orders',
-  validationMiddleware(postSchema),
+  validationMiddleware(request),
   passport.authenticate('jwt'),
   roleMiddleware([role.ADMIN, role.CLIENT]),
   orderController.postOrder
 );
 router.patch(
   '/orders/:id',
-  validationMiddleware(updateSchema),
+  validationMiddleware(request),
   passport.authenticate('jwt'),
   roleMiddleware([role.ADMIN]),
   orderMiddleware,

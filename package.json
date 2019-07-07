@@ -27,8 +27,7 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "sequelize": "^4.44.2",
-    "sqlite3": "^4.0.9",
-    "yup": "^0.26.10"
+    "sqlite3": "^4.0.9"
   },
   "devDependencies": {
     "cross-env": "^5.2.0",
