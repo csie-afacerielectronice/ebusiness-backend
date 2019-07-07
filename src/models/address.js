@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
       //   type: DataTypes.FLOAT,
       //   allowNull: false
       // },
-      clientId: {
+      userId: {
         type: DataTypes.UUID,
         allowNull: false
       }
@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   address.associate = function(models) {
-    address.belongsTo(models.client, { onDelete: 'CASCADE' });
+    address.belongsTo(models.user, { onDelete: 'CASCADE' });
     address.hasMany(models.order, { foreignKey: 'deliveryAddressId' });
     address.hasMany(models.order, { foreignKey: 'receiptAddressId' });
   };

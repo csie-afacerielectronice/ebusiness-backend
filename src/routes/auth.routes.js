@@ -15,12 +15,12 @@ router.post(
 );
 router.post(
   '/register/client',
-  validationMiddleware(request.client),
+  validationMiddleware(request.user),
   authController.registerClient
 );
 router.post(
   '/register/admin',
-  validationMiddleware(request.admin),
+  validationMiddleware(request.user),
   authController.registerAdmin
 );
 router.get(
@@ -53,7 +53,7 @@ router.patch(
 
 router.patch(
   '/users/:id',
-  validationMiddleware(updateSchema),
+  validationMiddleware(request.user),
   passport.authenticate('jwt'),
   userMiddleware,
   authController.patchUser

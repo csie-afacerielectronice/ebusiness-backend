@@ -21,14 +21,27 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false
       },
       role: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      telephone: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      avatar: DataTypes.STRING,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      surname: {
+        type: DataTypes.STRING,
+        allowNull: false
       }
     },
     {}
   );
   user.associate = function(models) {
-    user.hasOne(models.client);
-    user.hasOne(models.admin);
+    user.hasMany(models.address);
   };
 
   user.beforeCreate(async user => {

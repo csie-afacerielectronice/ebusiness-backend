@@ -16,8 +16,25 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      surname: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      avatar: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      telephone: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       role: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

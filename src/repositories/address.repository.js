@@ -15,7 +15,7 @@ module.exports = {
     try {
       const result = await address.findByPk(id);
       if (!result) {
-        throw NOT_FOUND();
+        NOT_FOUND();
       }
       return await result.update({
         ...data
@@ -28,7 +28,7 @@ module.exports = {
     try {
       const result = await address.findByPk(id);
       if (!result) {
-        throw NOT_FOUND();
+        NOT_FOUND();
       }
       await result.destroy();
     } catch (e) {
@@ -39,7 +39,7 @@ module.exports = {
     try {
       const result = await address.findByPk(id);
       if (result) return result;
-      throw NOT_FOUND();
+      NOT_FOUND();
     } catch (e) {
       throw e;
     }
