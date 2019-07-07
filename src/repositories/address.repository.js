@@ -50,5 +50,12 @@ module.exports = {
     } catch (e) {
       throw e;
     }
+  },
+  getAddressesByUserId: async userId => {
+    try {
+      return await address.findAll({ where: { userId } });
+    } catch (e) {
+      throw e;
+    }
   }
 };

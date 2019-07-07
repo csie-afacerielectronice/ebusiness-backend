@@ -31,12 +31,12 @@ module.exports = {
       //   type: Sequelize.FLOAT,
       //   allowNull: false
       // },
-      clientId: {
+      userId: {
         type: Sequelize.UUID,
         allowNull: false,
         onDelete: 'CASCADE',
         references: {
-          model: 'clients',
+          model: 'users',
           key: 'id'
         }
       },
