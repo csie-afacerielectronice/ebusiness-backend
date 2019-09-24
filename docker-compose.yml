@@ -1,18 +1,56 @@
 version: '3.5'
 services:
-  dev:
+  node:
     env_file: .env
-    container_name: node_app_dev
+    container_name: ebusiness-node
     build:
-      dockerfile: Dockerfile
+      dockerfile: ./containers/node/Dockerfile
       context: .
+    command: npm run dev
     ports:
       - '${PORT}:5000'
     volumes:
-      - .:/app
-  test:
-    env_file: .env
-    container_name: node_app_test
-    build:
-      dockerfile: Dockerfile-test
-      context: .
+      - .:/var/www/html
+  mailhog:
+    container_name: ebusiness-mailhog
+    image: mailhog/mailhog
+    ports:
+      - 1025:1025
+      - 84:8025
+  phpmyadmin:
+    container_name: ebusiness-phpmyadmin
+    depends_on:
+      - database
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 81:80
+    environment:
+      PMA_HOST: database
+      PMA_PORT: 3306
+  database:
+    container_name: ebusiness-mysql
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: "secret"
+      MYSQL_DATABASE: "ebusiness"
+      MYSQL_USER: "ebusiness"
+      MYSQL_PASSWORD: "secret"
+    volumes:
+      - ebusiness_mysql:/var/lib/mysql
+    ports:
+      - 33006:3306
+  npm:
+    container_name: ebusiness-npm
+    image: node:12-alpine
+    restart: 'no'
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+    entrypoint: npm
+
+volumes:
+  ebusiness_mysql:
+
+networks:
+  default:
+    name: ebusiness-network

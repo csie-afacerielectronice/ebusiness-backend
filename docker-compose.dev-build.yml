@@ -1,0 +1,11 @@
+version: '3.5'
+
+services:
+  npm:
+    container_name: ebusiness-npm-dev-build
+    image: node:12
+    restart: 'no'
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+    command: npm install

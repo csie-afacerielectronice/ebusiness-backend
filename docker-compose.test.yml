@@ -1,0 +1,26 @@
+version: "3.5"
+
+services:
+  jest:
+    container_name: ebusiness-jest
+    build:
+      context: .
+      dockerfile: ./containers/node/Dockerfile
+    volumes:
+      - .:/var/www/html
+    restart: 'no'
+    command: 'npm run test'
+  lint:
+    container_name: ebusiness-eslint
+    build:
+      context: .
+      dockerfile: containers/node/Dockerfile
+    volumes:
+      - .:/var/www/html
+    restart: 'no'
+    command: 'npm run test'
+
+networks:
+  default:
+    external:
+      name: tickety-network

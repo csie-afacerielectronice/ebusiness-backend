@@ -1,35 +1,32 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('reviews', {
+    return queryInterface.createTable('tokens', {
       id: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
-        primaryKey: true
-      },
-      productId: {
-        type: Sequelize.UUID,
         allowNull: false,
-        onDelete: 'CASCADE',
-        references: {
-          model: 'products',
-          key: 'id'
-        }
+        primaryKey: true,
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4
       },
       userId: {
         type: Sequelize.UUID,
-        allowNull: false,
         onDelete: 'CASCADE',
+        allowNull: false,
         references: {
           model: 'users',
           key: 'id'
         }
       },
-      content: {
-        type: Sequelize.STRING
+      token: {
+        type: Sequelize.TEXT,
+        allowNull: false
       },
-      score: {
-        type: Sequelize.INTEGER,
+      type: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      expiresAt: {
+        type: Sequelize.DATE,
         allowNull: false
       },
       createdAt: {
@@ -43,6 +40,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('reviews');
+    return queryInterface.dropTable('tokens');
   }
 };

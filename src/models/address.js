@@ -24,14 +24,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false
       },
-      // lat: {
-      //   type: DataTypes.FLOAT,
-      //   allowNull: false
-      // },
-      // lng: {
-      //   type: DataTypes.FLOAT,
-      //   allowNull: false
-      // },
+      lat: {
+        type: DataTypes.FLOAT,
+        allowNull: false
+      },
+      lng: {
+        type: DataTypes.FLOAT,
+        allowNull: false
+      },
       userId: {
         type: DataTypes.UUID,
         allowNull: false

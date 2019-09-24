@@ -5,15 +5,13 @@ const ExtractJWT = require('passport-jwt').ExtractJwt;
 const { user } = require('../models');
 
 const opts = {
-  jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme('JWT'),
+  jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
   secretOrKey: process.env.JWT_SECRET
 };
 
 passport.use(
   new JWTStrategy(opts, async (jwt_payload, done) => {
-    const userObj = await user.findOne({
-      where: { email: jwt_payload.context.email }
-    });
+    const userObj = await user.findById(jwt_payload.sub);
     if (!userObj) done(null, false, { message: 'token is not valid' });
     done(null, userObj);
   })

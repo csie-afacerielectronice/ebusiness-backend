@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'receiptAddressId',
       as: 'receipt'
     });
-    order.belongsTo(models.client);
+    order.belongsTo(models.user);
     order.belongsToMany(models.product, {
       through: {
         model: models.order_product,

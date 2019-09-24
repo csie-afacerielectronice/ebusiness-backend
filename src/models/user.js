@@ -1,6 +1,5 @@
 'use strict';
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 
 module.exports = (sequelize, DataTypes) => {
   const user = sequelize.define(
@@ -28,7 +27,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false
       },
-      avatar: DataTypes.STRING,
+      avatar: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
       name: {
         type: DataTypes.STRING,
         allowNull: false
@@ -42,6 +44,7 @@ module.exports = (sequelize, DataTypes) => {
   );
   user.associate = function(models) {
     user.hasMany(models.address);
+    user.hasMany(models.token);
   };
 
   user.beforeCreate(async user => {
@@ -58,28 +61,6 @@ module.exports = (sequelize, DataTypes) => {
 
     delete values.password;
     return values;
-  };
-
-  user.prototype.token = function() {
-    const today = new Date();
-    const exp = new Date(today);
-
-    exp.setDate(today.getDate() + 60);
-    const token = jwt.sign(
-      {
-        context: {
-          id: this.id,
-          email: this.email,
-          role: this.role
-        },
-        exp: parseInt(exp.getTime() / 1000)
-      },
-      process.env.JWT_SECRET
-    );
-
-    return {
-      token
-    };
   };
 
   return user;
