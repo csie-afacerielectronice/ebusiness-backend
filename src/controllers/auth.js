@@ -45,7 +45,7 @@ module.exports = {
     }
   },
   logout: async (req, res, next) => {
-    await authService.deleteRefreshToken(req.user.id);
+    await authService.deleteRefreshToken(req.cookies.refresh_token);
     res.clearCookie('refresh_token');
     res.sendStatus(204);
   },

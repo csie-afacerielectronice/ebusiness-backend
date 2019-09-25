@@ -1,10 +1,17 @@
 const jwt = require('jsonwebtoken');
 const { createHash } = require('crypto');
 const { DateTime } = require('luxon');
-const { token } = require('../models');
+const { token, user } = require('../models');
+const { FORBIDDEN } = require('../utils/errors');
 
 module.exports = {
   createAccessTokens: async userId => {
+    const userObj = user.findById(userId);
+
+    if (!userObj) {
+      throw new FORBIDDEN('User not found');
+    }
+
     const today = DateTime.local();
     const accessExp = today.plus({ hours: 1 });
     const refreshExp = today.plus({ weeks: 1 });
@@ -56,10 +63,10 @@ module.exports = {
       refreshToken
     };
   },
-  deleteRefreshToken: async userId => {
+  deleteRefreshToken: async refreshToken => {
     const dbToken = await token.findOne({
       where: {
-        userId
+        token: refreshToken
       }
     });
     await dbToken.destroy();

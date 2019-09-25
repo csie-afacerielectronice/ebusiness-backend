@@ -10,7 +10,8 @@ const data = async (props = {}) => {
     role: faker.random.objectElement(role),
     name: faker.name.firstName(),
     surname: faker.name.lastName(),
-    telephone: faker.phone.phoneNumber()
+    telephone: faker.phone.phoneNumber(),
+    avatar: faker.internet.avatar()
   };
 
   return { ...defaultProps, ...props };
