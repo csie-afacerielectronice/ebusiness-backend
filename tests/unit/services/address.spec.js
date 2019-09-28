@@ -1,56 +1,42 @@
 const db = require('../../../src/models');
 const role = require('../../../src/utils/role');
+const addressService = require('../../../src/services/address_service');
 const userFactory = require('../../factories/user');
 const addressFactory = require('../../factories/address');
 
 describe('Address service', () => {
-  test('default', () => {
-    expect(1).toBeTruthy();
+  let user;
+  let addressObject;
+  beforeEach(async done => {
+    user = await userFactory.factory({ role: role.CLIENT });
+    addressObject = await addressFactory.factory({ userId: user.id });
+    done();
   });
-  // let admin;
-  // let client;
-  // let userObject;
-  // let addressObject;
-  // beforeEach(async done => {
-  //   userObject = await userFactory.factory({ role: role.CLIENT });
-  //   client = await userFactory.factory({ role: role.CLIENT });
-  //   admin = await userFactory.factory({ role: role.ADMIN });
-  //   addressObject = await addressFactory.factory({ userId: userObject.id });
-  //   await addressFactory.factory({ userId: client.id });
-  //   done();
-  // });
-  // afterEach(async () => {
-  //   await db.address.destroy({ truncate: true });
-  // });
+  afterEach(async () => {
+    await db.address.truncate();
+  });
 
-  // test('it should return all addresses if the user is an admin', async done => {
-  //   expect(await addressService.getAddresses(admin)).toHaveLength(2);
-  //   done();
-  // });
+  test('it should return all addresses', async done => {
+    expect(await addressService.get({ userId: user.id })).toHaveLength(1);
+    done();
+  });
 
-  // test('it should return specific addresses if the user is an client', async done => {
-  //   expect(await addressService.getAddresses(userObject)).toHaveLength(1);
-  //   done();
-  // });
+  test('it should create a new address with the data provided', async done => {
+    const data = addressFactory.data();
+    const address = await addressService.save({ ...data, userId: user.id });
+    expect(address).toMatchObject(data);
+    done();
+  });
 
-  // test('it should create a new address with the data provided', async done => {
-  //   const data = await addressFactory.data();
-  //   const address = await addressService.postAddress(data, userObject);
-  //   expect(address).toMatchObject(data);
-  //   done();
-  // });
+  test('it should update an existing address with the data provided', async done => {
+    const data = addressFactory.data();
+    const address = await addressService.update(addressObject.id, data);
+    expect(address).toMatchObject(data);
+    done();
+  });
 
-  // test('it should update an existing address with the data provided', async done => {
-  //   const data = await addressFactory.data();
-  //   const address = await addressService.updateAddress(addressObject.id, data);
-  //   expect(address).toMatchObject(data);
-  //   done();
-  // });
-
-  // test('it should delete an address by id', async done => {
-  //   expect(
-  //     await addressService.deleteAddress(addressObject.id)
-  //   ).toBeUndefined();
-  //   done();
-  // });
+  test('it should delete an address by id', async done => {
+    expect(await addressService.destroy(addressObject.id)).toBeUndefined();
+    done();
+  });
 });

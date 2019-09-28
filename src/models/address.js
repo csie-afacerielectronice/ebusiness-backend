@@ -24,6 +24,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false
       },
+      isPrimary: {
+        type: DataTypes.STRING,
+        defaultValue: false
+      },
       lat: {
         type: DataTypes.FLOAT,
         allowNull: false

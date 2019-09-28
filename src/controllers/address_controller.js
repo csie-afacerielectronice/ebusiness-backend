@@ -1,9 +1,9 @@
-const addressService = require('../services/address_routes');
+const addressService = require('../services/address_service');
 
 module.exports = {
   getAddresses: async (req, res, next) => {
     try {
-      const addresses = await addressService.getAddresses(req.user);
+      const addresses = await addressService.get({ userId: req.user.id });
       res.status(200).send(addresses);
     } catch (e) {
       next(e);
@@ -11,18 +11,15 @@ module.exports = {
   },
   postAddress: async (req, res, next) => {
     try {
-      const address = await addressService.createAddress(req.body);
+      const address = await addressService.save(req.body);
       res.status(201).send(address);
     } catch (e) {
       next(e);
     }
   },
-  patchAddress: async (req, res, next) => {
+  putAddress: async (req, res, next) => {
     try {
-      const address = await addressService.updateAddress(
-        req.params.id,
-        req.body
-      );
+      const address = await addressService.update(req.params.id, req.body);
       res.status(200).send(address);
     } catch (e) {
       next(e);
@@ -30,7 +27,7 @@ module.exports = {
   },
   deleteAddress: async (req, res, next) => {
     try {
-      await addressService.deleteAddress(req.params.id);
+      await addressService.delete(req.params.id);
       res.sendStatus(204);
     } catch (e) {
       next(e);
@@ -38,7 +35,7 @@ module.exports = {
   },
   getAddress: async (req, res, next) => {
     try {
-      const address = await addressService.getAddress(req.params.id);
+      const address = await addressService.find(req.params.id);
       res.status(200).send(address);
     } catch (e) {
       next(e);

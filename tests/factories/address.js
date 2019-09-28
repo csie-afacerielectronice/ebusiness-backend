@@ -7,7 +7,10 @@ const data = (props = {}) => {
     street: faker.address.streetAddress(),
     city: faker.address.city(),
     county: faker.address.county(),
-    postalCode: faker.address.zipCode()
+    postalCode: faker.address.zipCode(),
+    lat: faker.address.latitude(),
+    lng: faker.address.longitude(),
+    isPrimary: faker.random.boolean()
   };
 
   return { ...defaultProps, ...props };

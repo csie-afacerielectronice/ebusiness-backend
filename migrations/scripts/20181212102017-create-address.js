@@ -23,6 +23,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      isPrimary: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
       lat: {
         type: Sequelize.FLOAT,
         allowNull: false

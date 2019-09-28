@@ -4,9 +4,11 @@ module.exports = Joi.object().keys({
   id: Joi.string(),
   street: Joi.string().required(),
   city: Joi.string().required(),
-  isPrimary: Joi.boolean().required(),
+  isPrimary: Joi.boolean(),
   county: Joi.string().required(),
-  postalCode: Joi.string().alphanum().required(),
+  postalCode: Joi.string()
+    .alphanum()
+    .required(),
   lat: Joi.number().required(),
   lng: Joi.number().required()
 });
