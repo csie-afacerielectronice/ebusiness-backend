@@ -24,4 +24,4 @@ services:
 networks:
   default:
     external:
-      name: tickety-network
+      name: ebusiness-network

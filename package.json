@@ -11,7 +11,7 @@
     "db:seed": "cross-env NODE_ENV=DEV ./node_modules/.bin/sequelize db:seed:all",
     "test:unit": "cross-env NODE_ENV=TEST jest ./tests/unit --runInBand",
     "test:integration": "cross-env NODE_ENV=TEST jest --runInBand ./tests/integration",
-    "test": "cross-env NODE_ENV=TEST jest --runInBand --coverage"
+    "test": "cross-env NODE_ENV=TEST jest --runInBand --setupTestFrameworkScriptFile=./tests/setupFramework.js"
   },
   "dependencies": {
     "@hapi/joi": "^16.1.4",
@@ -19,7 +19,6 @@
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
-    "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "express-paginate": "^1.0.0",
     "gravatar": "^1.8.0",
