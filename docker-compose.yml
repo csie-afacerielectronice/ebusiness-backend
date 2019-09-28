@@ -47,6 +47,7 @@ services:
     volumes:
       - .:/var/www/html
     entrypoint: npm
+    env_file: .env
 
 volumes:
   ebusiness_mysql:
