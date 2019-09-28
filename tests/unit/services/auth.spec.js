@@ -2,7 +2,7 @@ const db = require('../../../src/models');
 const role = require('../../../src/utils/role');
 const userFactory = require('../../factories/user');
 const tokenFactory = require('../../factories/token');
-const authService = require('../../../src/services/auth');
+const authService = require('../../../src/services/auth_routes');
 
 describe('Auth Service', () => {
   let user;

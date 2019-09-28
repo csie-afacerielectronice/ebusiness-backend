@@ -3,7 +3,7 @@ const faker = require('faker');
 const { user } = require('../../src/models');
 const role = require('../../src/utils/role');
 
-const data = async (props = {}) => {
+const data = (props = {}) => {
   const defaultProps = {
     email: faker.internet.email(),
     password: faker.internet.password(),
@@ -13,7 +13,6 @@ const data = async (props = {}) => {
     telephone: faker.phone.phoneNumber(),
     avatar: faker.internet.avatar()
   };
-
   return { ...defaultProps, ...props };
 };
 

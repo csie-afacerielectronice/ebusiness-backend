@@ -6,7 +6,7 @@ const { FORBIDDEN } = require('../utils/errors');
 
 module.exports = {
   createAccessTokens: async userId => {
-    const userObj = user.findById(userId);
+    const userObj = user.findByPk(userId);
 
     if (!userObj) {
       throw new FORBIDDEN('User not found');

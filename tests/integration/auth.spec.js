@@ -1,36 +1,60 @@
+const db = require('../../src/models');
+const role = require('../../src/utils/role');
+const userFactory = require('../factories/user');
+const tokenFactory = require('../factories/token');
 const app = require('../../src/app');
 const request = require('supertest');
 
 describe('Auth controller', () => {
-  test('it should return a token on register', done => {
-    return request(app)
-      .post('/register/client')
+  beforeEach(async done => {
+    await userFactory.factory({
+      email: 'test@test.com',
+      password: '123456',
+      role: role.CLIENT
+    });
+    done();
+  });
+
+  afterEach(async done => {
+    await db.token.destroy({ truncate: true });
+    await db.user.destroy({ truncate: true });
+    done();
+  });
+
+  test('it should return a token on register', async done => {
+    const data = userFactory.data({ password: '123456' });
+    const response = await request(app)
+      .post('/register')
+      .set('Accept', 'application/json')
       .send({
-        user: { email: 'ceva@ceva.com', password: '123456' },
-        client: { name: 'Ion', surname: 'Ion' }
-      })
-      .expect(201)
-      .then(response => {
-        expect(response.body).toHaveProperty('token');
-        done();
+        email: data.email,
+        password: data.password,
+        telephone: data.telephone,
+        name: data.name,
+        surname: data.surname
       });
+    expect(response.statusCode).toEqual(201);
+    expect(response.body).toHaveProperty('accessToken');
+    expect(response.header['set-cookie']).toBeTruthy();
+    done();
   });
 
-  test('it should return a token on login', done => {
-    return request(app)
+  test('it should return a token on login', async done => {
+    const response = await request(app)
       .post('/login')
-      .send({ email: 'ceva@ceva.com', password: '123456' })
-      .expect(200)
-      .then(response => {
-        expect(response.body).toHaveProperty('token');
-        done();
-      });
+      .set('Accept', 'application/json')
+      .send({ email: 'test@test.com', password: '123456' });
+    expect(response.statusCode).toEqual(200);
+    expect(response.body).toHaveProperty('accessToken');
+    expect(response.header['set-cookie']).toBeTruthy();
+    done();
   });
 
-  test('it should return an error on invalid password', done => {
-    return request(app)
+  test('it should return an error on invalid password', async done => {
+    const response = await request(app)
       .post('/login')
-      .send({ email: 'ceva@ceva.com', password: '12345678' })
-      .expect(401, done);
+      .send({ email: 'ceva@ceva.com', password: '12345678' });
+    expect(response.statusCode).toEqual(401);
+    done();
   });
 });

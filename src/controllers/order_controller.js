@@ -1,4 +1,4 @@
-const orderService = require('../services/order');
+const orderService = require('../services/order_routes');
 
 module.exports = {
   getOrders: async (req, res, next) => {

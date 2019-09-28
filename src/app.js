@@ -18,14 +18,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-app.use(require('./routes/product'));
-app.use(require('./routes/auth'));
-app.use(require('./routes/review'));
-app.use(require('./routes/address'));
-app.use(require('./routes/category'));
-app.use(require('./routes/order'));
-app.use(require('./routes/image'));
-app.use(require('./middlewares/error'));
+app.use(require('./routes/product_routes'));
+app.use(require('./routes/auth_routes'));
+app.use(require('./routes/review_routes'));
+app.use(require('./routes/address_routes'));
+app.use(require('./routes/category_routes'));
+app.use(require('./routes/order_routes'));
+app.use(require('./routes/image_routes'));
+app.use(require('./middlewares/error_middleware'));
 
 const dir = path.join(__dirname, '..', 'uploads');
 app.use(express.static(dir));

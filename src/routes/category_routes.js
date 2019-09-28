@@ -1,10 +1,10 @@
 const router = require('express').Router();
 const passport = require('../config/passport');
-const categoryController = require('../controllers/category');
+const categoryController = require('../controllers/category_controller');
 const role = require('../utils/role');
-const roleMiddleware = require('../middlewares/role');
-const validationMiddleware = require('../middlewares/validation');
-const request = require('../requests/category');
+const roleMiddleware = require('../middlewares/role_middleware');
+const validationMiddleware = require('../middlewares/validation_middleware');
+const request = require('../requests/category_request');
 
 router.get('/categories', categoryController.getCategories);
 router.get('/categories/:id', categoryController.getCategory);

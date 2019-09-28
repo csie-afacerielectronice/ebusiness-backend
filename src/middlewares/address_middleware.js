@@ -1,4 +1,4 @@
-const addressService = require('../services/address');
+const addressService = require('../services/address_routes');
 const role = require('../utils/role');
 
 module.exports = async (req, res, next) => {

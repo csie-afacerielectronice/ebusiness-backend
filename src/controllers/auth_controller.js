@@ -1,6 +1,6 @@
 const role = require('../utils/role');
-const authService = require('../services/auth');
-const userService = require('../services/user');
+const authService = require('../services/auth_routes');
+const userService = require('../services/user_routes');
 
 module.exports = {
   loginUser: async (req, res) => {

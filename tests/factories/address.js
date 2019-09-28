@@ -2,7 +2,7 @@ const faker = require('faker');
 
 const { address } = require('../../src/models');
 
-const data = async (props = {}) => {
+const data = (props = {}) => {
   const defaultProps = {
     street: faker.address.streetAddress(),
     city: faker.address.city(),

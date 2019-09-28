@@ -2,7 +2,6 @@ const db = require('../../../src/models');
 const role = require('../../../src/utils/role');
 const userFactory = require('../../factories/user');
 const addressFactory = require('../../factories/address');
-const addressService = require('../../../src/services/address');
 
 describe('Address service', () => {
   test('default', () => {

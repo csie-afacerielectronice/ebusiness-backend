@@ -10,6 +10,7 @@ services:
       - .:/var/www/html
     restart: 'no'
     command: 'npm run test'
+    env_file: .env.testing
   lint:
     container_name: ebusiness-eslint
     build:

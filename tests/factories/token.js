@@ -2,7 +2,7 @@ const faker = require('faker');
 
 const { token } = require('../../src/models');
 
-const data = async (props = {}) => {
+const data = (props = {}) => {
   const defaultProps = {
     token: 'test',
     expiresAt: faker.date.future(1, new Date()),

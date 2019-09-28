@@ -1,9 +1,9 @@
 const router = require('express').Router();
 const passport = require('../config/passport');
 const multer = require('../config/multer');
-const roleMiddleware = require('../middlewares/role');
+const roleMiddleware = require('../middlewares/role_middleware');
 const role = require('../utils/role');
-const imageController = require('../controllers/image');
+const imageController = require('../controllers/image_controller');
 
 router.post(
   '/products/:id/image',
