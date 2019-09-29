@@ -17,7 +17,7 @@ describe('Address service', () => {
   });
 
   test('it should return all addresses', async done => {
-    expect(await addressService.get({ userId: user.id })).toHaveLength(1);
+    expect(await addressService.get({ userId: user.id })).toHaveProperty('rows');
     done();
   });
 

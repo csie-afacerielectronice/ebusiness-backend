@@ -13,7 +13,7 @@ class Address extends ServiceHelper {
         id: { [Op.not]: addressObj.id }
       });
       await Promise.all(
-        addresses.map(item => item.update(item.id, { isPrimary: false }))
+        addresses.rows.map(item => item.update(item.id, { isPrimary: false }))
       );
     }
     return addressObj;
@@ -27,12 +27,11 @@ class Address extends ServiceHelper {
         id: { [Op.not]: addressObj.id }
       });
       await Promise.all(
-        addresses.map(item => item.update(item.id, { isPrimary: false }))
+        addresses.rows.map(item => item.update(item.id, { isPrimary: false }))
       );
     }
     return addressObj;
   }
 }
-const AddressService = new Address(address);
 
-module.exports = AddressService;
+module.exports = new Address(address);

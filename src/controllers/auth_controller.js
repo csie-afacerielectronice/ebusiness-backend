@@ -34,13 +34,12 @@ module.exports = {
       } = await authService.createAccessTokens(user.id);
 
       res.cookie('refresh_token', refreshToken, {
-        maxAge: 10080,
+        maxAge: 7 * 24 * 60 * 60 * 1000,
         httpOnly: true
       });
 
       res.status(201).send({ accessToken });
     } catch (e) {
-      console.log(e);
       next(e);
     }
   },

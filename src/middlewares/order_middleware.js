@@ -3,7 +3,9 @@ const role = require('../utils/role');
 
 module.exports = async (req, res, next) => {
   try {
-    if (req.user.role === role.ADMIN) return next();
+    if (req.user.role === role.ADMIN) {
+      return next();
+    }
     const findObject = {
       clientId: req.client.id
     };

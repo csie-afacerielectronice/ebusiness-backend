@@ -11,7 +11,7 @@
     "db:seed": "cross-env NODE_ENV=DEV ./node_modules/.bin/sequelize db:seed:all",
     "test:unit": "cross-env NODE_ENV=TEST jest ./tests/unit --runInBand",
     "test:integration": "cross-env NODE_ENV=TEST jest --runInBand ./tests/integration",
-    "test": "cross-env NODE_ENV=TEST jest --runInBand --setupTestFrameworkScriptFile=./tests/setupFramework.js"
+    "test": "cross-env NODE_ENV=TEST jest --runInBand --coverage --setupTestFrameworkScriptFile=./tests/setupFramework.js"
   },
   "dependencies": {
     "@hapi/joi": "^16.1.4",

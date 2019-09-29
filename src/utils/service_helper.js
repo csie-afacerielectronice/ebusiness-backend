@@ -10,7 +10,7 @@ class ServiceHelper {
   }
 
   async update(id, data, query = {}) {
-    const object = await this.model.findOne({ where: { id, ...query } });
+    const object = await this.model.findByPk(id, { where: { ...query } });
     if (!object) {
       NOT_FOUND();
     }
@@ -20,19 +20,22 @@ class ServiceHelper {
   }
 
   async find(id, query = {}) {
-    const object = await this.model.findOne({ where: { id, ...query } });
+    const object = await this.model.findByPk(id, { where: { ...query } });
     if (!object) {
       NOT_FOUND();
     }
     return object;
   }
 
-  async get(query = {}) {
-    return await this.model.findAll({ where: { ...query } });
+  async get(query = {}, pagination = {}) {
+    return await this.model.findAndCountAll({
+      where: { ...query },
+      ...pagination
+    });
   }
 
   async destroy(id, query = {}) {
-    const object = await this.model.findOne({ where: { id, ...query } });
+    const object = await this.model.findByPk(id, { where: { ...query } });
     if (!object) {
       NOT_FOUND();
     }

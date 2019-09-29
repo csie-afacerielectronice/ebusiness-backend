@@ -18,7 +18,7 @@ module.exports = {
 
     const accessToken = jwt.sign(
       {
-        sub: this.id,
+        sub: userId,
         iss: 'ebusiness',
         jti: createHash('md5').update(`${userId}${today.toSeconds()}`),
         iat: today.toSeconds(),
@@ -29,7 +29,7 @@ module.exports = {
 
     const refreshToken = jwt.sign(
       {
-        sub: this.id,
+        sub: userId,
         iss: 'ebusiness',
         jti: createHash('md5').update(`${userId}${today.toSeconds()}`),
         iat: today.toSeconds(),

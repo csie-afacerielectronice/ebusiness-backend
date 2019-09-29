@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const paginate = require('express-paginate');
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+// app.use(paginate.middleware(10, 50));
 app.use(require('./routes/product_routes'));
 app.use(require('./routes/auth_routes'));
 app.use(require('./routes/review_routes'));

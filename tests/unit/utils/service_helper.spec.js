@@ -1,7 +1,7 @@
 const ServiceHelper = require('../../../src/utils/service_helper');
 
 const dummyModel = {
-  findOne: () => ({
+  findByPk: () => ({
     id: 'test',
     update: jest.fn(() => ({
       id: 'test'
@@ -13,7 +13,7 @@ const dummyModel = {
       id: 'test'
     })
   ),
-  findAll: jest.fn(() =>
+  findAndCountAll: jest.fn(() =>
     Promise.resolve({
       id: 'test'
     })
