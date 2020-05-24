@@ -1,10 +1,10 @@
 const router = require('express').Router();
 const passport = require('../config/passport');
-const reviewController = require('../controllers/review_controller');
+const reviewController = require('../controllers/review.controller');
 const role = require('../utils/role');
-const roleMiddleware = require('../middlewares/role_middleware');
-const validationMiddleware = require('../middlewares/validation_middleware');
-const request = require('../requests/review_request');
+const roleMiddleware = require('../middlewares/role.middleware');
+const validationMiddleware = require('../middlewares/validation.middleware');
+const request = require('../requests/review.request');
 
 router.get('/products/:productId/reviews', reviewController.getReviews);
 router.get('/products/:productId/reviews/:id', reviewController.getReview);

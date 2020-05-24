@@ -8,21 +8,8 @@ module.exports = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4
       },
-      userId: {
-        type: Sequelize.UUID,
-        onDelete: 'CASCADE',
-        allowNull: false,
-        references: {
-          model: 'users',
-          key: 'id'
-        }
-      },
-      token: {
+      jti: {
         type: Sequelize.TEXT,
-        allowNull: false
-      },
-      type: {
-        type: Sequelize.STRING,
         allowNull: false
       },
       expiresAt: {

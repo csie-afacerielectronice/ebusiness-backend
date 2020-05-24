@@ -1,4 +1,4 @@
-const orderService = require('../services/order_service');
+const orderService = require('../services/order.service');
 const role = require('../utils/role');
 
 module.exports = async (req, res, next) => {

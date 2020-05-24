@@ -1,4 +1,3 @@
-const Joi = require('@hapi/joi');
 const { UNPROCESSABLE_ENTITY } = require('../utils/errors');
 
 module.exports = schema => (req, res, next) => {

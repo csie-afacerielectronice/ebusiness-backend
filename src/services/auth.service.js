@@ -26,12 +26,14 @@ module.exports = {
       },
       process.env.JWT_SECRET
     );
-
+    const refreshTokenJti = createHash('md5').update(
+      `${userId}${today.toSeconds()}`
+    );
     const refreshToken = jwt.sign(
       {
         sub: userId,
         iss: 'ebusiness',
-        jti: createHash('md5').update(`${userId}${today.toSeconds()}`),
+        jti: refreshTokenJti,
         iat: today.toSeconds(),
         exp: refreshExp.toSeconds()
       },
@@ -46,15 +48,14 @@ module.exports = {
 
     if (dbToken) {
       await dbToken.update({
-        token: refreshToken,
+        jti: refreshTokenJti,
         expiresAt: refreshExp.toSQL()
       });
     } else {
       await token.create({
-        token: refreshToken,
+        jti: refreshTokenJti,
         expiresAt: refreshExp.toSQL(),
-        userId,
-        type: 'refresh'
+        userId
       });
     }
 
@@ -64,9 +65,10 @@ module.exports = {
     };
   },
   deleteRefreshToken: async refreshToken => {
+    const { jti } = jwt.decode(refreshToken);
     const dbToken = await token.findOne({
       where: {
-        token: refreshToken
+        jti
       }
     });
     await dbToken.destroy();

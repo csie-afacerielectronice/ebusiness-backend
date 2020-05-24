@@ -1,10 +1,10 @@
 const router = require('express').Router();
 const passport = require('../config/passport');
-const productController = require('../controllers/product_controller');
+const productController = require('../controllers/product.controller');
 const role = require('../utils/role');
-const roleMiddleware = require('../middlewares/role_middleware');
-const validationMiddleware = require('../middlewares/validation_middleware');
-const request = require('../requests/product_request');
+const roleMiddleware = require('../middlewares/role.middleware');
+const validationMiddleware = require('../middlewares/validation.middleware');
+const request = require('../requests/product.request');
 
 router.get('/products', productController.getProducts);
 router.get('/products/:id', productController.getProduct);

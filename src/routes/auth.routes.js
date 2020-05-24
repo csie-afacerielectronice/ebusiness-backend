@@ -1,11 +1,11 @@
 const passport = require('../config/passport');
 const router = require('express').Router();
 const role = require('../utils/role');
-const userMiddleware = require('../middlewares/user_middleware');
-const roleMiddleware = require('../middlewares/role_middleware');
-const validationMiddleware = require('../middlewares/validation_middleware');
-const authController = require('../controllers/auth_controller');
-const request = require('../requests/auth_request');
+const userMiddleware = require('../middlewares/user.middleware');
+const roleMiddleware = require('../middlewares/role.middleware');
+const validationMiddleware = require('../middlewares/validation.middleware');
+const authController = require('../controllers/auth.controller');
+const request = require('../requests/auth.request');
 
 router.post(
   '/login',
@@ -20,7 +20,7 @@ router.post(
 );
 
 router.delete('/logout', passport.authenticate('jwt'), authController.logout);
-router.get('/refresh', passport.authenticate('jwt'), authController.refresh);
+router.get('/refresh', authController.refresh);
 
 router.get(
   '/users',

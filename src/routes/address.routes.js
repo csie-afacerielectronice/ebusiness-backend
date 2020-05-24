@@ -1,9 +1,9 @@
 const router = require('express').Router();
 const passport = require('../config/passport');
-const addressController = require('../controllers/address_controller');
-const addressMiddleware = require('../middlewares/address_middleware');
-const validationMiddleware = require('../middlewares/validation_middleware');
-const request = require('../requests/address_request');
+const addressController = require('../controllers/address.controller');
+const addressMiddleware = require('../middlewares/address.middleware');
+const validationMiddleware = require('../middlewares/validation.middleware');
+const request = require('../requests/address.request');
 
 router.get(
   '/addresses',

@@ -1,4 +1,4 @@
-const reviewService = require('../services/review_service');
+const reviewService = require('../services/review.service');
 
 module.exports = {
   getReviews: async (req, res, next) => {
