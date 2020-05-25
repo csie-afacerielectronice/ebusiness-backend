@@ -1,4 +1,4 @@
-const addressService = require('../services/address_service');
+const addressService = require('../services/address.service');
 
 module.exports = {
   getAddresses: async (req, res, next) => {
