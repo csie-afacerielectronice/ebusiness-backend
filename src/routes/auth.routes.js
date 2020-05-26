@@ -19,7 +19,7 @@ router.post(
   authController.register
 );
 
-router.delete("/logout", passport.authenticate("jwt"), authController.logout);
+
 router.get("/refresh", authController.refresh);
 
 router.get(

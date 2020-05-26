@@ -5,3 +5,7 @@ Dockerfile
 .git
 .gitignore
 *.sqlite
+.devcontainer
+docker-compose.*
+tests
+containers

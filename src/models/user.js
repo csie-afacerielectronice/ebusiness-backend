@@ -44,7 +44,6 @@ module.exports = (sequelize, DataTypes) => {
   );
   user.associate = function (models) {
     user.hasMany(models.address);
-    user.hasMany(models.token);
   };
 
   user.beforeCreate(async (user) => {
