@@ -1,37 +1,37 @@
-const router = require('express').Router();
-const passport = require('../config/passport');
-const addressController = require('../controllers/address.controller');
-const addressMiddleware = require('../middlewares/address.middleware');
-const validationMiddleware = require('../middlewares/validation.middleware');
-const request = require('../requests/address.request');
+const router = require("express").Router();
+const passport = require("../config/passport");
+const addressController = require("../controllers/address.controller");
+const addressMiddleware = require("../middlewares/address.middleware");
+const validationMiddleware = require("../middlewares/validation.middleware");
+const request = require("../requests/address.request");
 
 router.get(
-  '/addresses',
-  passport.authenticate('jwt'),
+  "/addresses",
+  passport.authenticate("jwt"),
   addressController.getAddresses
 );
 router.get(
-  '/addresses/:id',
-  passport.authenticate('jwt'),
+  "/addresses/:id",
+  passport.authenticate("jwt"),
   addressMiddleware,
   addressController.getAddress
 );
 router.post(
-  '/addresses',
+  "/addresses",
   validationMiddleware(request),
-  passport.authenticate('jwt'),
+  passport.authenticate("jwt"),
   addressController.postAddress
 );
 router.put(
-  '/addresses/:id',
+  "/addresses/:id",
   validationMiddleware(request),
-  passport.authenticate('jwt'),
+  passport.authenticate("jwt"),
   addressMiddleware,
   addressController.putAddress
 );
 router.delete(
-  '/addresses/:id',
-  passport.authenticate('jwt'),
+  "/addresses/:id",
+  passport.authenticate("jwt"),
   addressMiddleware,
   addressController.deleteAddress
 );

@@ -1,32 +1,32 @@
-'use strict';
+"use strict";
 module.exports = (sequelize, DataTypes) => {
   const review = sequelize.define(
-    'review',
+    "review",
     {
       id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
-        primaryKey: true
+        primaryKey: true,
       },
       productId: {
         type: DataTypes.UUID,
-        allowNull: false
+        allowNull: false,
       },
       userId: {
         type: DataTypes.UUID,
-        allowNull: false
+        allowNull: false,
       },
       content: DataTypes.STRING,
       score: {
         type: DataTypes.INTEGER,
-        allowNull: false
-      }
+        allowNull: false,
+      },
     },
     {}
   );
-  review.associate = function(models) {
-    review.belongsTo(models.user, { onDelete: 'CASCADE' });
-    review.belongsTo(models.product, { onDelete: 'CASCADE' });
+  review.associate = function (models) {
+    review.belongsTo(models.user, { onDelete: "CASCADE" });
+    review.belongsTo(models.product, { onDelete: "CASCADE" });
   };
   return review;
 };

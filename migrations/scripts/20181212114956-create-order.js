@@ -1,52 +1,52 @@
-'use strict';
+"use strict";
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('orders', {
+    return queryInterface.createTable("orders", {
       id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
-        primaryKey: true
+        primaryKey: true,
       },
       userId: {
         type: Sequelize.UUID,
         allowNull: false,
-        onDelete: 'CASCADE',
+        onDelete: "CASCADE",
         references: {
-          model: 'users',
-          key: 'id'
-        }
+          model: "users",
+          key: "id",
+        },
       },
       deliveryAddressId: {
         type: Sequelize.UUID,
         allowNull: false,
         references: {
-          model: 'addresses',
-          key: 'id'
-        }
+          model: "addresses",
+          key: "id",
+        },
       },
       receiptAddressId: {
         type: Sequelize.UUID,
         allowNull: false,
         references: {
-          model: 'addresses',
-          key: 'id'
-        }
+          model: "addresses",
+          key: "id",
+        },
       },
       status: {
         type: Sequelize.STRING,
-        default: 'received'
+        default: "received",
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('orders');
-  }
+  down: (queryInterface) => {
+    return queryInterface.dropTable("orders");
+  },
 };

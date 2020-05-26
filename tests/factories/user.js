@@ -1,7 +1,7 @@
-const faker = require('faker');
+const faker = require("faker");
 
-const { user } = require('../../src/models');
-const role = require('../../src/utils/role');
+const { user } = require("../../src/models");
+const role = require("../../src/utils/role");
 
 const data = (props = {}) => {
   const defaultProps = {
@@ -11,7 +11,7 @@ const data = (props = {}) => {
     name: faker.name.firstName(),
     surname: faker.name.lastName(),
     telephone: faker.phone.phoneNumber(),
-    avatar: faker.internet.avatar()
+    avatar: faker.internet.avatar(),
   };
   return { ...defaultProps, ...props };
 };
@@ -20,5 +20,5 @@ module.exports = {
   data,
   factory: async (props = {}) => {
     return user.create(await data(props));
-  }
+  },
 };

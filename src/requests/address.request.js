@@ -1,4 +1,4 @@
-const Joi = require('@hapi/joi');
+const Joi = require("@hapi/joi");
 
 module.exports = Joi.object().keys({
   id: Joi.string(),
@@ -8,5 +8,5 @@ module.exports = Joi.object().keys({
   county: Joi.string().required(),
   postalCode: Joi.string().required(),
   lat: Joi.number().required(),
-  lng: Joi.number().required()
+  lng: Joi.number().required(),
 });

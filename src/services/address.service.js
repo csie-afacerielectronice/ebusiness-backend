@@ -1,8 +1,8 @@
 const {
   address,
-  Sequelize: { Op }
-} = require('../models');
-const ServiceHelper = require('../utils/service_helper');
+  Sequelize: { Op },
+} = require("../models");
+const ServiceHelper = require("../utils/service_helper");
 
 class Address extends ServiceHelper {
   async save(data) {
@@ -10,10 +10,10 @@ class Address extends ServiceHelper {
     if (addressObj.isPrimary) {
       const addresses = await super.get({
         userId: addressObj.userId,
-        id: { [Op.not]: addressObj.id }
+        id: { [Op.not]: addressObj.id },
       });
       await Promise.all(
-        addresses.rows.map(item => item.update(item.id, { isPrimary: false }))
+        addresses.rows.map((item) => item.update(item.id, { isPrimary: false }))
       );
     }
     return addressObj;
@@ -24,10 +24,10 @@ class Address extends ServiceHelper {
     if (addressObj.isPrimary) {
       const addresses = await super.get({
         userId: addressObj.userId,
-        id: { [Op.not]: addressObj.id }
+        id: { [Op.not]: addressObj.id },
       });
       await Promise.all(
-        addresses.rows.map(item => item.update(item.id, { isPrimary: false }))
+        addresses.rows.map((item) => item.update(item.id, { isPrimary: false }))
       );
     }
     return addressObj;

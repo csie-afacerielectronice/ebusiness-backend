@@ -1,6 +1,6 @@
-const role = require('../utils/role');
-const authService = require('../services/auth.service');
-const userService = require('../services/user.service');
+const role = require("../utils/role");
+const authService = require("../services/auth.service");
+const userService = require("../services/user.service");
 
 module.exports = {
   loginUser: async (req, res) => {
@@ -19,7 +19,7 @@ module.exports = {
     try {
       const user = await userService.createUser({
         ...req.body,
-        role: role.CLIENT
+        role: role.CLIENT,
       });
       const { accessToken } = await authService.createAccessTokens(user.id);
 
@@ -28,7 +28,7 @@ module.exports = {
       next(e);
     }
   },
-  refresh: async (req, res, next) => {
+  refresh: async (req, res) => {
     const { accessToken } = await authService.createAccessTokens(req.user.id);
 
     res.status(200).send({ accessToken });
@@ -63,5 +63,5 @@ module.exports = {
     } catch (e) {
       next(e);
     }
-  }
+  },
 };

@@ -1,4 +1,4 @@
-const categoryService = require('../services/category.service');
+const categoryService = require("../services/category.service");
 
 module.exports = {
   getCategories: async (req, res, next) => {
@@ -43,5 +43,5 @@ module.exports = {
     } catch (e) {
       next(e);
     }
-  }
+  },
 };

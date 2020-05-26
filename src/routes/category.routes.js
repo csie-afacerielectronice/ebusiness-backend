@@ -1,30 +1,30 @@
-const router = require('express').Router();
-const passport = require('../config/passport');
-const categoryController = require('../controllers/category.controller');
-const role = require('../utils/role');
-const roleMiddleware = require('../middlewares/role.middleware');
-const validationMiddleware = require('../middlewares/validation.middleware');
-const request = require('../requests/category.request');
+const router = require("express").Router();
+const passport = require("../config/passport");
+const categoryController = require("../controllers/category.controller");
+const role = require("../utils/role");
+const roleMiddleware = require("../middlewares/role.middleware");
+const validationMiddleware = require("../middlewares/validation.middleware");
+const request = require("../requests/category.request");
 
-router.get('/categories', categoryController.getCategories);
-router.get('/categories/:id', categoryController.getCategory);
+router.get("/categories", categoryController.getCategories);
+router.get("/categories/:id", categoryController.getCategory);
 router.post(
-  '/categories',
+  "/categories",
   validationMiddleware(request),
-  passport.authenticate('jwt'),
+  passport.authenticate("jwt"),
   roleMiddleware([role.ADMIN]),
   categoryController.postCategory
 );
 router.patch(
-  '/categories/:id',
+  "/categories/:id",
   validationMiddleware(request),
-  passport.authenticate('jwt'),
+  passport.authenticate("jwt"),
   roleMiddleware([role.ADMIN]),
   categoryController.patchCategory
 );
 router.delete(
-  '/categories/:id',
-  passport.authenticate('jwt'),
+  "/categories/:id",
+  passport.authenticate("jwt"),
   roleMiddleware([role.ADMIN]),
   categoryController.deleteCategory
 );

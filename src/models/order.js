@@ -1,47 +1,47 @@
-'use strict';
+"use strict";
 module.exports = (sequelize, DataTypes) => {
   const order = sequelize.define(
-    'order',
+    "order",
     {
       id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
-        primaryKey: true
+        primaryKey: true,
       },
       clientId: {
         type: DataTypes.UUID,
-        allowNull: false
+        allowNull: false,
       },
       deliveryAddressId: {
         type: DataTypes.UUID,
-        allowNull: false
+        allowNull: false,
       },
       receiptAddressId: {
         type: DataTypes.UUID,
-        allowNull: false
+        allowNull: false,
       },
       status: {
         type: DataTypes.STRING,
-        default: 'received'
-      }
+        default: "received",
+      },
     },
     {}
   );
-  order.associate = function(models) {
+  order.associate = function (models) {
     order.belongsTo(models.address, {
-      foreignKey: 'deliveryAddressId',
-      as: 'delivery'
+      foreignKey: "deliveryAddressId",
+      as: "delivery",
     });
     order.belongsTo(models.address, {
-      foreignKey: 'receiptAddressId',
-      as: 'receipt'
+      foreignKey: "receiptAddressId",
+      as: "receipt",
     });
     order.belongsTo(models.user);
     order.belongsToMany(models.product, {
       through: {
         model: models.order_product,
-        as: 'products'
-      }
+        as: "products",
+      },
     });
   };
   return order;

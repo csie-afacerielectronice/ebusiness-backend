@@ -1,4 +1,4 @@
-const Joi = require('@hapi/joi');
+const Joi = require("@hapi/joi");
 module.exports = Joi.object().keys({
   id: Joi.string(),
   deliveryAddressId: Joi.string().required(),
@@ -6,7 +6,7 @@ module.exports = Joi.object().keys({
   products: Joi.array().items(
     Joi.object().keys({
       productId: Joi.string().required(),
-      quantity: Joi.number().required()
+      quantity: Joi.number().required(),
     })
-  )
+  ),
 });

@@ -1,6 +1,6 @@
-const faker = require('faker');
+const faker = require("faker");
 
-const { address } = require('../../src/models');
+const { address } = require("../../src/models");
 
 const data = (props = {}) => {
   const defaultProps = {
@@ -10,7 +10,7 @@ const data = (props = {}) => {
     postalCode: faker.address.zipCode(),
     lat: faker.address.latitude(),
     lng: faker.address.longitude(),
-    isPrimary: faker.random.boolean()
+    isPrimary: faker.random.boolean(),
   };
 
   return { ...defaultProps, ...props };
@@ -20,5 +20,5 @@ module.exports = {
   data,
   factory: async (props = {}) => {
     return address.create(await data(props));
-  }
+  },
 };

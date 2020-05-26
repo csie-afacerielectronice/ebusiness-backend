@@ -1,59 +1,59 @@
-const passport = require('../config/passport');
-const router = require('express').Router();
-const role = require('../utils/role');
-const userMiddleware = require('../middlewares/user.middleware');
-const roleMiddleware = require('../middlewares/role.middleware');
-const validationMiddleware = require('../middlewares/validation.middleware');
-const authController = require('../controllers/auth.controller');
-const request = require('../requests/auth.request');
+const passport = require("../config/passport");
+const router = require("express").Router();
+const role = require("../utils/role");
+const userMiddleware = require("../middlewares/user.middleware");
+const roleMiddleware = require("../middlewares/role.middleware");
+const validationMiddleware = require("../middlewares/validation.middleware");
+const authController = require("../controllers/auth.controller");
+const request = require("../requests/auth.request");
 
 router.post(
-  '/login',
+  "/login",
   validationMiddleware(request.login),
-  passport.authenticate('local'),
+  passport.authenticate("local"),
   authController.loginUser
 );
 router.post(
-  '/register',
+  "/register",
   validationMiddleware(request.user),
   authController.register
 );
 
-router.delete('/logout', passport.authenticate('jwt'), authController.logout);
-router.get('/refresh', authController.refresh);
+router.delete("/logout", passport.authenticate("jwt"), authController.logout);
+router.get("/refresh", authController.refresh);
 
 router.get(
-  '/users',
-  passport.authenticate('jwt'),
+  "/users",
+  passport.authenticate("jwt"),
   roleMiddleware([role.ADMIN]),
   authController.getUsers
 );
 
 router.get(
-  '/profile',
-  passport.authenticate('jwt'),
+  "/profile",
+  passport.authenticate("jwt"),
   roleMiddleware([role.CLIENT]),
   authController.getUser
 );
 
 router.put(
-  '/profile',
-  passport.authenticate('jwt'),
+  "/profile",
+  passport.authenticate("jwt"),
   roleMiddleware([role.CLIENT]),
   authController.putUser
 );
 
 router.put(
-  '/users/:id',
+  "/users/:id",
   validationMiddleware(request.user),
-  passport.authenticate('jwt'),
+  passport.authenticate("jwt"),
   userMiddleware,
   authController.putUser
 );
 
 router.delete(
-  '/users/:id',
-  passport.authenticate('jwt'),
+  "/users/:id",
+  passport.authenticate("jwt"),
   userMiddleware,
   authController.deleteUser
 );

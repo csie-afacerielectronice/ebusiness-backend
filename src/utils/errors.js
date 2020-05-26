@@ -7,15 +7,15 @@ class APIError extends Error {
 
 module.exports = {
   NOT_FOUND: () => {
-    throw new APIError('Not Found', 404);
+    throw new APIError("Not Found", 404);
   },
-  UNPROCESSABLE_ENTITY: message => {
+  UNPROCESSABLE_ENTITY: (message) => {
     throw new APIError(message, 422);
   },
   FORBIDDEN: () => {
-    throw new APIError('Forbidden', 403);
+    throw new APIError("Forbidden", 403);
   },
   UNAUTHORIZED: () => {
-    throw new APIError('Unauthorized', 401);
-  }
+    throw new APIError("Unauthorized", 401);
+  },
 };

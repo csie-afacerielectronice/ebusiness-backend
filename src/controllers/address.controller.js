@@ -1,11 +1,11 @@
-const addressService = require('../services/address.service');
+const addressService = require("../services/address.service");
 
 module.exports = {
   getAddresses: async (req, res, next) => {
     try {
       const addresses = await addressService.get(
         {
-          userId: req.user.id
+          userId: req.user.id,
         },
         { limit: req.query.limit, offset: req.skip }
       );
@@ -16,8 +16,8 @@ module.exports = {
         data: addresses.rows,
         meta: {
           pageCount,
-          itemCount
-        }
+          itemCount,
+        },
       });
     } catch (e) {
       next(e);
@@ -27,7 +27,7 @@ module.exports = {
     try {
       const address = await addressService.save({
         ...req.body,
-        userId: req.user.id
+        userId: req.user.id,
       });
       res.status(201).send({ data: address });
     } catch (e) {
@@ -57,5 +57,5 @@ module.exports = {
     } catch (e) {
       next(e);
     }
-  }
+  },
 };

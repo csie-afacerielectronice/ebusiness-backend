@@ -1,4 +1,4 @@
-const reviewService = require('../services/review.service');
+const reviewService = require("../services/review.service");
 
 module.exports = {
   getReviews: async (req, res, next) => {
@@ -14,7 +14,7 @@ module.exports = {
       const review = await reviewService.createReview({
         ...req.body,
         productId: req.params.productId,
-        clientId: req.client.id
+        clientId: req.client.id,
       });
       const reviewObj = await reviewService.getReview(review.id);
       res.status(201).send(reviewObj);
@@ -45,5 +45,5 @@ module.exports = {
     } catch (e) {
       next(e);
     }
-  }
+  },
 };

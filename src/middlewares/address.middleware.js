@@ -1,5 +1,5 @@
-const addressService = require('../services/address.service');
-const role = require('../utils/role');
+const addressService = require("../services/address.service");
+const role = require("../utils/role");
 
 module.exports = async (req, res, next) => {
   try {
@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
       return next();
     }
     await addressService.find(req.params.id, {
-      userId: req.user.id
+      userId: req.user.id,
     });
     next();
   } catch (e) {

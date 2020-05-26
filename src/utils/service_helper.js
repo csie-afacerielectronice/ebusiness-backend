@@ -1,4 +1,4 @@
-const { NOT_FOUND } = require('./errors');
+const { NOT_FOUND } = require("./errors");
 
 class ServiceHelper {
   constructor(model) {
@@ -15,7 +15,7 @@ class ServiceHelper {
       NOT_FOUND();
     }
     return await object.update({
-      ...data
+      ...data,
     });
   }
 
@@ -30,7 +30,7 @@ class ServiceHelper {
   async get(query = {}, pagination = {}) {
     return await this.model.findAndCountAll({
       where: { ...query },
-      ...pagination
+      ...pagination,
     });
   }
 

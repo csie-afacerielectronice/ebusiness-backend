@@ -1,5 +1,5 @@
-const orderService = require('../services/order.service');
-const role = require('../utils/role');
+const orderService = require("../services/order.service");
+const role = require("../utils/role");
 
 module.exports = async (req, res, next) => {
   try {
@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
       return next();
     }
     const findObject = {
-      clientId: req.client.id
+      clientId: req.client.id,
     };
     if (req.params.id) findObject.id = req.params.id;
     await orderService.findOrder(findObject);

@@ -1,62 +1,62 @@
-'use strict';
-const bcrypt = require('bcryptjs');
+"use strict";
+const bcrypt = require("bcryptjs");
 
 module.exports = (sequelize, DataTypes) => {
   const user = sequelize.define(
-    'user',
+    "user",
     {
       id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
-        primaryKey: true
+        primaryKey: true,
       },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       role: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       telephone: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       avatar: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       name: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       surname: {
         type: DataTypes.STRING,
-        allowNull: false
-      }
+        allowNull: false,
+      },
     },
     {}
   );
-  user.associate = function(models) {
+  user.associate = function (models) {
     user.hasMany(models.address);
     user.hasMany(models.token);
   };
 
-  user.beforeCreate(async user => {
+  user.beforeCreate(async (user) => {
     const hash = await bcrypt.hash(user.password, 10);
     user.password = hash;
   });
 
-  user.prototype.isPasswordValid = function(password) {
+  user.prototype.isPasswordValid = function (password) {
     return bcrypt.compareSync(password, this.password);
   };
 
-  user.prototype.toJSON = function() {
+  user.prototype.toJSON = function () {
     const values = { ...this.get() };
 
     delete values.password;

@@ -1,52 +1,52 @@
-'use strict';
+"use strict";
 module.exports = (sequelize, DataTypes) => {
   const address = sequelize.define(
-    'address',
+    "address",
     {
       id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
-        primaryKey: true
+        primaryKey: true,
       },
       street: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       city: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       county: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       postalCode: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       isPrimary: {
         type: DataTypes.STRING,
-        defaultValue: false
+        defaultValue: false,
       },
       lat: {
         type: DataTypes.FLOAT,
-        allowNull: false
+        allowNull: false,
       },
       lng: {
         type: DataTypes.FLOAT,
-        allowNull: false
+        allowNull: false,
       },
       userId: {
         type: DataTypes.UUID,
-        allowNull: false
-      }
+        allowNull: false,
+      },
     },
     {}
   );
-  address.associate = function(models) {
-    address.belongsTo(models.user, { onDelete: 'CASCADE' });
-    address.hasMany(models.order, { foreignKey: 'deliveryAddressId' });
-    address.hasMany(models.order, { foreignKey: 'receiptAddressId' });
+  address.associate = function (models) {
+    address.belongsTo(models.user, { onDelete: "CASCADE" });
+    address.hasMany(models.order, { foreignKey: "deliveryAddressId" });
+    address.hasMany(models.order, { foreignKey: "receiptAddressId" });
   };
   return address;
 };

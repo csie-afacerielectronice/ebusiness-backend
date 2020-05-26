@@ -1,4 +1,4 @@
-const orderService = require('../services/order.service');
+const orderService = require("../services/order.service");
 
 module.exports = {
   getOrders: async (req, res, next) => {
@@ -17,14 +17,14 @@ module.exports = {
         deliveryAddressId: req.body.deliveryAddressId,
         receiptAddressId: req.body.receiptAddressId,
         clientId: req.client.id,
-        status: 'received'
+        status: "received",
       });
-      req.body.products.forEach(async item => {
-        await orderProductService.createOrderProduct({
-          ...item,
-          orderId: order.id
-        });
-      });
+      // req.body.products.forEach(async (item) => {
+      //   await orderProductService.createOrderProduct({
+      //     ...item,
+      //     orderId: order.id,
+      //   });
+      // });
       const orderObj = await orderService.getOrder(order.id);
       res.status(201).send({ order: orderObj });
     } catch (e) {
@@ -54,5 +54,5 @@ module.exports = {
     } catch (e) {
       next(e);
     }
-  }
+  },
 };
