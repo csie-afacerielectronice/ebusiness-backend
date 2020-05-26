@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { createHash } = require('crypto');
 const { DateTime } = require('luxon');
-const { token, user } = require('../models');
+const { user } = require('../models');
 const { FORBIDDEN } = require('../utils/errors');
 
 module.exports = {
@@ -14,7 +14,6 @@ module.exports = {
 
     const today = DateTime.local();
     const accessExp = today.plus({ hours: 1 });
-    const refreshExp = today.plus({ weeks: 1 });
 
     const accessToken = jwt.sign(
       {
@@ -26,51 +25,9 @@ module.exports = {
       },
       process.env.JWT_SECRET
     );
-    const refreshTokenJti = createHash('md5').update(
-      `${userId}${today.toSeconds()}`
-    );
-    const refreshToken = jwt.sign(
-      {
-        sub: userId,
-        iss: 'ebusiness',
-        jti: refreshTokenJti,
-        iat: today.toSeconds(),
-        exp: refreshExp.toSeconds()
-      },
-      process.env.JWT_SECRET
-    );
-
-    const dbToken = await token.findOne({
-      where: {
-        userId
-      }
-    });
-
-    if (dbToken) {
-      await dbToken.update({
-        jti: refreshTokenJti,
-        expiresAt: refreshExp.toSQL()
-      });
-    } else {
-      await token.create({
-        jti: refreshTokenJti,
-        expiresAt: refreshExp.toSQL(),
-        userId
-      });
-    }
 
     return {
-      accessToken,
-      refreshToken
+      accessToken
     };
-  },
-  deleteRefreshToken: async refreshToken => {
-    const { jti } = jwt.decode(refreshToken);
-    const dbToken = await token.findOne({
-      where: {
-        jti
-      }
-    });
-    await dbToken.destroy();
   }
 };

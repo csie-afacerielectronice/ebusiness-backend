@@ -3,7 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-const paginate = require('express-paginate');
+
+// const paginate = require('express-paginate');
 
 const app = express();
 
@@ -20,14 +21,15 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 // app.use(paginate.middleware(10, 50));
-app.use(require('./routes/product_routes'));
-app.use(require('./routes/auth_routes'));
-app.use(require('./routes/review_routes'));
-app.use(require('./routes/address_routes'));
-app.use(require('./routes/category_routes'));
-app.use(require('./routes/order_routes'));
-app.use(require('./routes/image_routes'));
-app.use(require('./middlewares/error_middleware'));
+app.use(require('./config/admin_bro'));
+app.use(require('./routes/product.routes'));
+app.use(require('./routes/auth.routes'));
+app.use(require('./routes/review.routes'));
+app.use(require('./routes/address.routes'));
+app.use(require('./routes/category.routes'));
+app.use(require('./routes/order.routes'));
+app.use(require('./routes/image.routes'));
+app.use(require('./middlewares/error.middleware'));
 
 const dir = path.join(__dirname, '..', 'uploads');
 app.use(express.static(dir));

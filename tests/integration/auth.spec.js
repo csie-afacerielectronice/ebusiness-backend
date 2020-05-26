@@ -34,7 +34,6 @@ describe('Auth controller', () => {
       });
     expect(response.statusCode).toEqual(201);
     expect(response.body).toHaveProperty('accessToken');
-    expect(response.header['set-cookie']).toBeTruthy();
     done();
   });
 
@@ -45,7 +44,6 @@ describe('Auth controller', () => {
       .send({ email: 'test@test.com', password: '123456' });
     expect(response.statusCode).toEqual(200);
     expect(response.body).toHaveProperty('accessToken');
-    expect(response.header['set-cookie']).toBeTruthy();
     done();
   });
 
