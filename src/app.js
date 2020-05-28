@@ -1,7 +1,7 @@
+require("dotenv").config();
 const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
 // const paginate = require('express-paginate');
@@ -10,7 +10,6 @@ const app = express();
 
 require("./models");
 const passport = require("./config/passport");
-const { adminBro, router } = require("./config/admin_bro");
 
 app.use(passport.initialize());
 
@@ -21,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // app.use(paginate.middleware(10, 50));
-app.use(adminBro.options.rootPath, router);
+
 app.use(require("./routes/product.routes"));
 app.use(require("./routes/auth.routes"));
 app.use(require("./routes/review.routes"));
@@ -39,6 +38,8 @@ app.get("/healthz", (req, res) => {
 });
 
 if (process.env.NODE_ENV !== "TEST") {
+  const { adminBro, router } = require("./config/admin_bro");
+  app.use(adminBro.options.rootPath, router);
   const server = app.listen(5000, () => {
     console.log("Listening on port " + server.address().port);
   });

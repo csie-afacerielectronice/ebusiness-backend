@@ -15,7 +15,6 @@ describe("Auth controller", () => {
   });
 
   afterEach(async (done) => {
-    await db.token.truncate();
     await db.user.truncate();
     done();
   });

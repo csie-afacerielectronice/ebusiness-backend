@@ -1,6 +1,6 @@
 const db = require("../../../src/models");
 const role = require("../../../src/utils/role");
-const addressService = require("../../../src/services/address_service");
+const addressService = require("../../../src/services/address.service");
 const userFactory = require("../../factories/user");
 const addressFactory = require("../../factories/address");
 

@@ -1,8 +1,7 @@
 const db = require("../../../src/models");
 const role = require("../../../src/utils/role");
 const userFactory = require("../../factories/user");
-const tokenFactory = require("../../factories/token");
-const authService = require("../../../src/services/auth_service");
+const authService = require("../../../src/services/auth.service");
 
 describe("Auth Service", () => {
   let user;
@@ -13,28 +12,14 @@ describe("Auth Service", () => {
   });
 
   afterEach(async (done) => {
-    await db.token.truncate();
     await db.user.truncate();
     done();
   });
 
   it("should return an access and refresh token with a valid user id", async (done) => {
-    const { accessToken, refreshToken } = await authService.createAccessTokens(
-      user.id
-    );
+    const { accessToken } = await authService.createAccessTokens(user.id);
 
     expect(accessToken).toBeTruthy();
-    expect(refreshToken).toBeTruthy();
-    done();
-  });
-
-  it("should delete a refresh token with a valid token", async (done) => {
-    const token = await tokenFactory.factory({ userId: user.id });
-    await authService.deleteRefreshToken(token.token);
-
-    const tokens = await db.token.findAll();
-
-    expect(tokens).toHaveLength(0);
     done();
   });
 });

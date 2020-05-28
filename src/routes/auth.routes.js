@@ -19,7 +19,6 @@ router.post(
   authController.register
 );
 
-
 router.get("/refresh", authController.refresh);
 
 router.get(

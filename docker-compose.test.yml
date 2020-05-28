@@ -10,7 +10,11 @@ services:
       - .:/var/www/html
     restart: 'no'
     command: 'npm run test'
-    env_file: .env.testing
+    environment:
+      - NODE_ENV=TEST
+      - DB_DIALECT_=sqlite
+      - DB_STORAGE=./db_test.sqlite
+      - JWT_SECRET=123456
   lint:
     container_name: ebusiness-eslint
     build:
@@ -19,7 +23,7 @@ services:
     volumes:
       - .:/var/www/html
     restart: 'no'
-    command: 'npm run test'
+    command: 'npm run lint'
 
 networks:
   default:
