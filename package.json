@@ -9,10 +9,10 @@
     "seed:create": "cross-env NODE_ENV=DEV ./node_modules/.bin/sequelize seed:generate",
     "db:migrate": "cross-env NODE_ENV=DEV ./node_modules/.bin/sequelize db:migrate",
     "db:seed": "cross-env NODE_ENV=DEV ./node_modules/.bin/sequelize db:seed:all",
-    "test:unit": "cross-env NODE_ENV=TEST jest ./tests/unit --runInBand",
-    "test:integration": "cross-env NODE_ENV=TEST jest --runInBand ./tests/integration",
-    "test": "cross-env NODE_ENV=TEST jest --runInBand --coverage --setupTestFrameworkScriptFile=./tests/setupFramework.js",
-    "lint": "eslint --fix '**/*.js' --ignore-pattern node_modules/"
+    "test:unit": "cross-env NODE_ENV=TEST ./node_modules/.bin/jest ./tests/unit --runInBand",
+    "test:integration": "cross-env NODE_ENV=TEST ./node_modules/.bin/jest --runInBand ./tests/integration",
+    "test": "cross-env NODE_ENV=TEST ./node_modules/.bin/jest --runInBand --coverage --setupTestFrameworkScriptFile=./tests/setupFramework.js",
+    "lint": "./node_modules/.bin/eslint --fix '**/*.js' --ignore-pattern node_modules/"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
