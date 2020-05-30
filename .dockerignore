@@ -8,4 +8,4 @@ Dockerfile
 .devcontainer
 docker-compose.*
 tests
-containers
+.docker

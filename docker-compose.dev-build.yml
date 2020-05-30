@@ -1,0 +1,12 @@
+
+version: "3.5"
+
+services:
+  npm:
+    container_name: ebusiness-npm-dev-build
+    restart: "no"
+    image: node:13-alpine
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: npm install

@@ -28,7 +28,7 @@ app.use(require("./routes/address.routes"));
 app.use(require("./routes/category.routes"));
 app.use(require("./routes/order.routes"));
 app.use(require("./routes/image.routes"));
-// app.use(require("./middlewares/error.middleware"));
+app.use(require("./middlewares/error.middleware"));
 
 const dir = path.join(__dirname, "..", "uploads");
 app.use(express.static(dir));
