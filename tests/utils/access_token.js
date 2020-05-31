@@ -13,6 +13,6 @@ module.exports = (userId) => {
       iat: today.toSeconds(),
       exp: accessExp.toSeconds(),
     },
-    process.env.JWT_SECRET
+    process.env.APP_KEY
   );
 };

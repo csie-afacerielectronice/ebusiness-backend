@@ -1,12 +1,12 @@
 const jwt = require("jsonwebtoken");
 const { createHash } = require("crypto");
 const { DateTime } = require("luxon");
-const { user } = require("../models");
-const { FORBIDDEN } = require("../utils/errors");
+const { User } = require("../../../db");
+const { FORBIDDEN } = require("../../../utils/errors");
 
-module.exports = {
-  createAccessTokens: async (userId) => {
-    const userObj = user.findByPk(userId);
+class CreateTokensAction {
+  static execute(userId) {
+    const userObj = User.findByPk(userId);
 
     if (!userObj) {
       throw new FORBIDDEN("User not found");
@@ -23,11 +23,13 @@ module.exports = {
         iat: today.toSeconds(),
         exp: accessExp.toSeconds(),
       },
-      process.env.JWT_SECRET
+      process.env.APP_KEY
     );
 
     return {
       accessToken,
     };
-  },
-};
+  }
+}
+
+module.exports = CreateTokensAction;
