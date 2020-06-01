@@ -2,7 +2,7 @@ const {
   address,
   Sequelize: { Op },
 } = require("../models");
-const ServiceHelper = require("../utils/service_helper");
+const ServiceHelper = require("../../utils/service_helper");
 
 class Address extends ServiceHelper {
   async save(data) {

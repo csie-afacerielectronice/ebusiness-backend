@@ -1,7 +1,7 @@
 const gravatar = require("gravatar");
 
 class UserDto {
-  static fromDto(data) {
+  static fromRequest(data) {
     return {
       email: data.email,
       password: data.password,

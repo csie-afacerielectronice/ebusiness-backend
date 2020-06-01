@@ -7,14 +7,14 @@ const sequelize = new Sequelize(
   config
 );
 
-const User = require("../domains/auth/models/user");
-const Order = require("../domains/orders/models/order");
-const OrderProduct = require("../domains/orders/models/order_product");
-const Product = require("../domains/products/models/product");
-const Category = require("../domains/products/models/category");
-const Review = require("../domains/products/models/review");
-const Address = require("../domains/profile/models/address");
-const Profile = require("../domains/profile/models/profile");
+const User = require("../app/domains/auth/models/user");
+const Order = require("../app/domains/orders/models/order");
+const OrderProduct = require("../app/domains/orders/models/order_product");
+const Product = require("../app/domains/products/models/product");
+const Category = require("../app/domains/products/models/category");
+const Review = require("../app/domains/products/models/review");
+const Address = require("../app/domains/profile/models/address");
+const Profile = require("../app/domains/profile/models/profile");
 
 const models = {
   User: User.init(sequelize, Sequelize),
