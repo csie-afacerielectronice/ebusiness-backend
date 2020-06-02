@@ -1,15 +1,15 @@
-require("dotenv").config();
-const path = require("path");
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
+import dotenv from "dotenv";
+import path from "path";
+import express from "express";
+import bodyParser from "body-parser";
+import cors from "cors";
 
 // const paginate = require('express-paginate');
-
+dotenv.config();
 const app = express();
 
 require("./models");
-const passport = require("./config/passport");
+import passport from "./config/passport";
 
 app.use(passport.initialize());
 

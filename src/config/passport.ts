@@ -1,12 +1,11 @@
-const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
-const JWTStrategy = require("passport-jwt").Strategy;
-const ExtractJWT = require("passport-jwt").ExtractJwt;
-const { user } = require("../db");
+import passport from "passport";
+import { Strategy as LocalStrategy } from "passport-local";
+import { Strategy as JWTStrategy, ExtractJWT } from "passport-jwt";
+import { user } from "../db";
 
 const opts = {
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-  secretOrKey: process.env.APP_KEY,
+  secretOrKey: process.env.JWT_SECRET,
 };
 
 passport.use(
@@ -35,12 +34,4 @@ passport.use(
   )
 );
 
-passport.serializeUser((user, cb) => {
-  cb(null, user);
-});
-
-passport.deserializeUser((obj, cb) => {
-  cb(null, obj);
-});
-
-module.exports = passport;
+export default passport;
