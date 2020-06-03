@@ -3,6 +3,7 @@ import path from "path";
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
+import morgan from "morgan";
 
 // const paginate = require('express-paginate');
 dotenv.config();
@@ -15,7 +16,7 @@ app.use(passport.initialize());
 
 app.use(cors());
 
-app.use(require("morgan")("dev"));
+app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 

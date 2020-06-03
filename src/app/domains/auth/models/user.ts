@@ -1,41 +1,31 @@
-const Sequelize = require("sequelize");
-const bcrypt = require("bcryptjs");
+import bcrypt from "bcryptjs";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  OneToOne,
+} from "typeorm";
+import { Profile } from "../../profile/models/profile";
+import { Address } from "../../profile/models/address";
 
-class User extends Sequelize.Model {
-  static init(sequelize, DataTypes) {
-    return super.init(
-      {
-        id: {
-          type: DataTypes.UUID,
-          defaultValue: DataTypes.UUIDV4,
-          primaryKey: true,
-        },
-        email: {
-          type: DataTypes.STRING,
-          allowNull: false,
-          unique: true,
-        },
-        password: {
-          type: DataTypes.STRING,
-          allowNull: false,
-        },
-        role: {
-          type: DataTypes.STRING,
-          allowNull: false,
-        },
-      },
-      { sequelize }
-    );
-  }
+@Entity()
+export class User {
+  @PrimaryGeneratedColumn("uuid")
+  id!: string;
 
-  static associate(models) {
-    this.addresses = this.hasMany(models.Address);
-    this.profile = this.hasOne(models.Profile);
-  }
+  @Column()
+  email!: string;
 
-  isPasswordValid(password) {
-    return bcrypt.compareSync(password, this.password);
-  }
+  @Column()
+  password!: string;
+
+  @Column()
+  role!: string;
+
+  @OneToMany(() => Address, (address) => address.user)
+  addresses!: Address[];
+
+  @OneToOne(() => Profile)
+  profile!: Profile;
 }
-
-module.exports = User;
