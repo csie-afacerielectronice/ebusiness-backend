@@ -1,8 +1,17 @@
 import { Column, ManyToOne, PrimaryGeneratedColumn, Entity } from "typeorm";
 import { User } from "app/domains/auth/models/user";
 
+export interface AddressDTO {
+  id: string;
+  street: string;
+  city: string;
+  county: string;
+  postalCode: string;
+  isPrimary: boolean;
+  user: User;
+}
 @Entity()
-export class Address {
+export class Address implements AddressDTO {
   @PrimaryGeneratedColumn("uuid")
   id!: string;
 

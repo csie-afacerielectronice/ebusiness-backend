@@ -7,8 +7,17 @@ import {
 } from "typeorm";
 import { User } from "app/domains/auth/models/user";
 
+export interface ProfileDTO {
+  id: string;
+  name: string;
+  surname: string;
+  telephone: string;
+  avatar?: string;
+  user: User;
+}
+
 @Entity()
-export class Profile {
+export class Profile implements ProfileDTO {
   @PrimaryGeneratedColumn("uuid")
   id!: string;
 

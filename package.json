@@ -5,10 +5,7 @@
   "main": "./src/app.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=DEV nodemon src/app.js",
-    "model:create": "cross-env NODE_ENV=DEV ./node_modules/.bin/sequelize model:generate",
-    "seed:create": "cross-env NODE_ENV=DEV ./node_modules/.bin/sequelize seed:generate",
-    "db:migrate": "cross-env NODE_ENV=DEV ./node_modules/.bin/sequelize db:migrate",
-    "db:seed": "cross-env NODE_ENV=DEV ./node_modules/.bin/sequelize db:seed:all",
+    "typeorm:cli": "ts-node ./node_modules/typeorm/cli -f ./src/config/ormconfig.ts",
     "test:unit": "cross-env NODE_ENV=TEST ./node_modules/.bin/jest ./tests/unit --runInBand",
     "test:integration": "cross-env NODE_ENV=TEST ./node_modules/.bin/jest --runInBand ./tests/integration",
     "test": "cross-env NODE_ENV=TEST ./node_modules/.bin/jest --runInBand --coverage --setupTestFrameworkScriptFile=./tests/setupFramework.js",
@@ -46,7 +43,11 @@
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/cors": "^2.8.6",
+    "@types/gravatar": "^1.8.1",
+    "@types/luxon": "^1.24.0",
+    "@types/mkdirp": "^1.0.0",
     "@types/morgan": "^1.9.0",
+    "@types/multer": "^1.4.3",
     "@types/passport": "^1.0.3",
     "@types/passport-jwt": "^3.0.3",
     "@types/passport-local": "^1.0.33",
@@ -62,7 +63,8 @@
     "nodemon": "^2.0.4",
     "prettier": "^2.0.5",
     "sequelize-cli": "^5.5.1",
-    "supertest": "^4.0.2"
+    "supertest": "^4.0.2",
+    "ts-node": "^8.10.2"
   },
   "repository": {
     "type": "git",

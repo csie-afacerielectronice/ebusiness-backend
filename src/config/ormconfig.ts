@@ -1,16 +1,19 @@
-import "reflect-metadata";
-import { createConnection, ConnectionOptions } from "typeorm";
+import { ConnectionOptions } from "typeorm";
+import { UserSchema } from "app/domains/auth/models/user.schema";
 
 const config = {
   type: process.env.DB_DIALECT,
   host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
+  port: Number(process.env.DB_PORT),
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  entities: [],
+  entities: [UserSchema],
   synchronize: false,
   logging: process.env.NODE_ENV === "development",
+  cli: {
+    migrationsDir: "src/db/migrations",
+  },
 } as ConnectionOptions;
 
-export default createConnection(config);
+export = config;

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   ADMIN: "ADMIN",
   CLIENT: "CLIENT",
 };

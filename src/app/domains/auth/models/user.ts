@@ -1,31 +1,20 @@
-import bcrypt from "bcryptjs";
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToMany,
-  OneToOne,
-} from "typeorm";
-import { Profile } from "../../profile/models/profile";
-import { Address } from "../../profile/models/address";
-
-@Entity()
 export class User {
-  @PrimaryGeneratedColumn("uuid")
-  id!: string;
+  constructor(
+    private email: string,
+    private password: string,
+    private role: string,
+    private id?: string
+  ) {}
 
-  @Column()
-  email!: string;
+  get getEmail(): string {
+    return this.email;
+  }
 
-  @Column()
-  password!: string;
+  get getRole(): string {
+    return this.role;
+  }
 
-  @Column()
-  role!: string;
-
-  @OneToMany(() => Address, (address) => address.user)
-  addresses!: Address[];
-
-  @OneToOne(() => Profile)
-  profile!: Profile;
+  get getId(): string {
+    return this.id || "";
+  }
 }

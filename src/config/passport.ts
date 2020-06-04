@@ -1,7 +1,6 @@
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
-import { Strategy as JWTStrategy, ExtractJWT } from "passport-jwt";
-import { user } from "../db";
+import { Strategy as JWTStrategy, ExtractJwt } from "passport-jwt";
 
 const opts = {
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
@@ -10,7 +9,7 @@ const opts = {
 
 passport.use(
   new JWTStrategy(opts, async (jwt_payload, done) => {
-    const userObj = await user.findByPk(jwt_payload.sub);
+    const userObj = null;
     if (!userObj) done(null, false, { message: "token is not valid" });
     done(null, userObj);
   })
@@ -24,11 +23,13 @@ passport.use(
       session: false,
     },
     async (email, password, done) => {
-      const userObj = await user.findOne({ where: { email } });
-      if (!userObj || !userObj.isPasswordValid(password))
+      const userObj = null;
+      if (!userObj) {
         return done(null, false, {
           message: "passwords do not match",
         });
+      }
+
       return done(null, userObj);
     }
   )
