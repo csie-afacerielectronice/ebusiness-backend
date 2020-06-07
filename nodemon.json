@@ -1,9 +1,0 @@
-{
-  "watch": ["src"],
-  "ext": "ts",
-  "ignore": ["**/*.test.ts", "**/*.spec.ts", ".git", "node_modules"],
-  "verbose": true,
-  "execMap": {
-    "ts": "node --require ts-node/register"
-  }
-}
