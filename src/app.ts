@@ -35,7 +35,7 @@ app.get("/healthz", (req, res) => {
   res.status(200).send("OK");
 });
 
-if (process.env.NODE_ENV !== "TEST") {
+if (process.env.NODE_ENV !== "testing") {
   (async function () {
     try {
       await ormConnection();

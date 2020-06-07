@@ -1,19 +1,19 @@
-import { UserDTO, User } from "../models/user";
+import { plainToClass, classToPlain } from "class-transformer";
+import { User } from "../models/user";
+
+export interface UserDTO {
+  id: string;
+  email: string;
+  password?: string;
+  role: string;
+}
 
 export class UserDtoImpl {
-  static fromRequest(data: UserDTO): User {
-    return new User(
-      data.email,
-      data.password as string,
-      data.role ? data.role : "client"
-    );
+  static fromRequest(data: Record<string, unknown>): User {
+    return plainToClass(User, data);
   }
 
   static toJSON(model: User): UserDTO {
-    return {
-      id: model.id,
-      email: model.email,
-      role: model.role,
-    };
+    return classToPlain(model) as UserDTO;
   }
 }

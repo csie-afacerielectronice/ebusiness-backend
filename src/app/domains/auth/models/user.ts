@@ -10,21 +10,8 @@ import {
 import { Profile } from "../../profile/models/profile";
 import { Address } from "../../profile/models/address";
 
-export interface UserDTO {
-  id: string;
-  email: string;
-  password?: string;
-  role: string;
-}
-
 @Entity("users")
-export class User implements UserDTO {
-  constructor(email: string, password: string, role: string) {
-    this.email = email;
-    this.password = password;
-    this.role = role;
-  }
-
+export class User {
   @PrimaryGeneratedColumn("uuid")
   id!: string;
 
