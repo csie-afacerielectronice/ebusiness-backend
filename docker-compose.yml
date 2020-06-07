@@ -1,4 +1,4 @@
-version: '3.5'
+version: "3.5"
 services:
   node:
     env_file: .env
@@ -8,7 +8,7 @@ services:
       context: .
     command: npm run dev
     ports:
-      - '5000:5000'
+      - "5000:5000"
     volumes:
       - .:/var/www/html
   mailhog:
@@ -41,8 +41,8 @@ services:
       - 33006:3306
   npm:
     container_name: ebusiness-npm
-    image: node:12-alpine
-    restart: 'no'
+    image: node:13-alpine
+    restart: "no"
     working_dir: /var/www/html
     volumes:
       - .:/var/www/html

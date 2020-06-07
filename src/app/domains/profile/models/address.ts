@@ -1,5 +1,5 @@
 import { Column, ManyToOne, PrimaryGeneratedColumn, Entity } from "typeorm";
-import { User } from "app/domains/auth/models/user";
+import { User } from "../../auth/models/user";
 
 export interface AddressDTO {
   id: string;

@@ -1,5 +1,7 @@
 import { ConnectionOptions } from "typeorm";
-import { UserSchema } from "app/domains/auth/models/user.schema";
+import { User } from "../app/domains/auth/models/user";
+import { Address } from "../app/domains/profile/models/address";
+import { Profile } from "../app/domains/profile/models/profile";
 
 const config = {
   type: process.env.DB_DIALECT,
@@ -8,9 +10,10 @@ const config = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  entities: [UserSchema],
+  entities: [User, Address, Profile],
   synchronize: false,
   logging: process.env.NODE_ENV === "development",
+  migrations: ["src/db/migrations/*.ts"],
   cli: {
     migrationsDir: "src/db/migrations",
   },

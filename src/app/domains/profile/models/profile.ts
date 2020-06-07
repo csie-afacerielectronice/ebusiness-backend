@@ -5,7 +5,7 @@ import {
   JoinColumn,
   OneToOne,
 } from "typeorm";
-import { User } from "app/domains/auth/models/user";
+import { User } from "../../auth/models/user";
 
 export interface ProfileDTO {
   id: string;

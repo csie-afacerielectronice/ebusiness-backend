@@ -4,13 +4,16 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import morgan from "morgan";
+import passport from "passport";
+
+import ormConnection from "./db";
 
 // const paginate = require('express-paginate');
 dotenv.config();
 const app = express();
 
-require("./models");
-import passport from "./config/passport";
+import { ErrorMiddleware } from "./app/api/middlewares/error.middleware";
+import { AuthController } from "./app/api/controllers/auth.controller";
 
 app.use(passport.initialize());
 
@@ -22,28 +25,27 @@ app.use(bodyParser.json());
 
 // app.use(paginate.middleware(10, 50));
 
-app.use(require("./routes/product.routes"));
-app.use(require("./routes/auth.routes"));
-app.use(require("./routes/review.routes"));
-app.use(require("./routes/address.routes"));
-app.use(require("./routes/category.routes"));
-app.use(require("./routes/order.routes"));
-app.use(require("./routes/image.routes"));
-app.use(require("./middlewares/error.middleware"));
-
 const dir = path.join(__dirname, "..", "uploads");
 app.use(express.static(dir));
+
+new AuthController().register(app);
+app.use(ErrorMiddleware.execute);
 
 app.get("/healthz", (req, res) => {
   res.status(200).send("OK");
 });
 
 if (process.env.NODE_ENV !== "TEST") {
-  const { adminBro, router } = require("./config/admin_bro");
-  app.use(adminBro.options.rootPath, router);
-  const server = app.listen(5000, () => {
-    console.log("Listening on port " + server.address().port);
-  });
+  (async function () {
+    try {
+      await ormConnection();
+      app.listen(5000, () => {
+        console.log("Listening on port " + 5000);
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  })();
 }
 
 module.exports = app;
