@@ -1,27 +1,15 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "moduleResolution": "node",
-    "pretty": true,
-    "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": "./src",
-    "esModuleInterop": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
     "declaration": true,
     "removeComments": true,
-    "typeRoots": ["src/@types", "node_modules/@types"],
-    "allowSyntheticDefaultImports": true,
-    "noEmit": true,
-    "skipLibCheck": true,
-    "resolveJsonModule": true,
-    "strict": true,
-    "target": "ES2015"
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules"],
-  "ts-node": {
-    "transpileOnly": true
-  }
+  "exclude": ["node_modules", "dist"]
 }
