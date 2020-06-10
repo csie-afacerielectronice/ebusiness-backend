@@ -1,4 +1,12 @@
-import { NextFunction, Request, Response, Application } from "express";
+import { NextFunction, Request, Response } from "express";
+import { inject } from "inversify";
+import {
+  controller,
+  httpPost,
+  BaseHttpController,
+} from "inversify-express-utils";
+
+import { TYPES } from "../types";
 
 import passport from "../../../config/passport";
 
@@ -6,27 +14,31 @@ import { CreateTokensAction } from "../../domains/auth/actions/createTokens.acti
 import { CreateUserAction } from "../../domains/auth/actions/createUser.action";
 
 import { AuthRequest } from "../requests/auth.request";
-import { ValidationMiddleware } from "../middlewares/validation.middleware";
 
-export class AuthController {
-  public register(app: Application): void {
-    app.post(
-      "/login",
-      ValidationMiddleware.execute(AuthRequest.login()),
-      passport.authenticate("local"),
-      this.login
-    );
-    app.post(
-      "/register",
-      ValidationMiddleware.execute(AuthRequest.register()),
-      this.registerUser
-    );
+@controller("")
+export class AuthController extends BaseHttpController {
+  constructor(
+    @inject(TYPES.requests.AuthRequest) private authRequest: AuthRequest
+  ) {
+    super();
   }
-  private async login(req: Request, res: Response): Promise<void> {
-    const accessToken = await CreateTokensAction.execute(req.user.id);
-    res.status(200).send({ accessToken });
+
+  @httpPost("/login", passport.authenticate("local"))
+  public async login(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const accessToken = await CreateTokensAction.execute(req.user.id);
+      res.status(200).send({ accessToken });
+    } catch (e) {
+      next(e);
+    }
   }
-  private async registerUser(
+
+  @httpPost("/register")
+  public async register(
     req: Request,
     res: Response,
     next: NextFunction

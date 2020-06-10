@@ -1,5 +1,7 @@
 import Joi, { ObjectSchema } from "@hapi/joi";
+import { injectable } from "inversify";
 
+@injectable()
 export class AuthRequest {
   static register(): ObjectSchema {
     return Joi.object().keys({
