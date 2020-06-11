@@ -8,14 +8,15 @@ import { AppService } from "./app.service";
 import { AuthModule } from "./auth/auth.module";
 import { StoreModule } from "./store/store.module";
 
-import configuration from "./config/configuration";
+import app from "./config/app.config";
+import database from "./config/database.config";
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: [".env.development.local", ".env.development"],
       isGlobal: true,
-      load: [configuration],
+      load: [app, database],
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
