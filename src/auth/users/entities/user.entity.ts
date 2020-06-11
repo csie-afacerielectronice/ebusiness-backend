@@ -29,7 +29,7 @@ export class User {
     () => Address,
     address => address.user,
   )
-  addresses!: Address[];
+  addresses: Address[];
 
   @OneToOne(() => Profile)
   profile: Profile;

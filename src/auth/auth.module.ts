@@ -7,13 +7,19 @@ import { UsersService } from "./users/users.service";
 import { ProfileService } from "./profile/profile.service";
 import { AddressesService } from "./addresses/addresses.service";
 
-import { Profile } from "./profile/entities/profile.entity";
-import { Address } from "./addresses/entities/address.entity";
 import { UserRepository } from "./users/repositories/user.repository";
+import { AddressRepository } from "./addresses/repositories/address.repository";
+import { ProfileRepository } from "./profile/repositories/profile.repository";
 
 @Module({
   controllers: [AuthController],
   providers: [UsersService, ProfileService, AddressesService],
-  imports: [TypeOrmModule.forFeature([UserRepository, Profile, Address])],
+  imports: [
+    TypeOrmModule.forFeature([
+      AddressRepository,
+      ProfileRepository,
+      UserRepository,
+    ]),
+  ],
 })
 export class AuthModule {}
