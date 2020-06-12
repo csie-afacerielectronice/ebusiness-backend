@@ -13,19 +13,17 @@ import database from "./config/database.config";
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      envFilePath: [".env.development.local", ".env.development"],
-      isGlobal: true,
-      load: [app, database],
-    }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: async (config: ConfigService) => ({
-        ...config.get("database"),
-        entities: [__dirname + "/**/*.entity{.ts,.js}"],
-      }),
+      useFactory: async (config: ConfigService) => config.get("database"),
     }),
+    ConfigModule.forRoot({
+      envFilePath: ".env",
+      isGlobal: true,
+      load: [app, database],
+    }),
+
     AuthModule,
     StoreModule,
   ],
