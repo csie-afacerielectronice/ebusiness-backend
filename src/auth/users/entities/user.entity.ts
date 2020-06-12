@@ -6,7 +6,7 @@ import {
   OneToOne,
   BeforeInsert,
 } from "typeorm";
-import * as bcrypt from "bcryptjs";
+import * as bcrypt from "bcrypt";
 
 import { Address } from "../../addresses/entities/address.entity";
 import { Profile } from "../../profile/entities/profile.entity";
