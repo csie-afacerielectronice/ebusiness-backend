@@ -20,6 +20,7 @@ import { Profile } from "./profile/entities/profile.entity";
 
 import { LocalStrategy } from "./strategies/local.strategy";
 import { JwtStrategy } from "./strategies/jwt.strategy";
+import { RefreshJwtStrategy } from "./strategies/refresh-jwt.strategy";
 
 @Module({
   controllers: [AuthController],
@@ -30,6 +31,7 @@ import { JwtStrategy } from "./strategies/jwt.strategy";
     AuthService,
     LocalStrategy,
     JwtStrategy,
+    RefreshJwtStrategy,
   ],
   imports: [
     TypeOrmModule.forFeature([

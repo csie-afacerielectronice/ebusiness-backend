@@ -10,6 +10,7 @@ import { StoreModule } from "./store/store.module";
 
 import app from "./config/app.config";
 import database from "./config/database.config";
+import jwt from "./config/jwt.config";
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import database from "./config/database.config";
     ConfigModule.forRoot({
       envFilePath: ".env",
       isGlobal: true,
-      load: [app, database],
+      load: [app, database, jwt],
     }),
 
     AuthModule,

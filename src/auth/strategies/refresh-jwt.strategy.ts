@@ -6,12 +6,18 @@ import { Strategy } from "passport-jwt";
 import { UsersService } from "../users/users.service";
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
+export class RefreshJwtStrategy extends PassportStrategy(
+  Strategy,
+  "refresh-jwt",
+) {
   constructor(
     private usersService: UsersService,
     private config: ConfigService,
   ) {
-    super(config.get("jwt"));
+    super({
+      ...config.get("jwt"),
+      ignoreExpiration: true,
+    });
   }
 
   async validate(payload: any) {

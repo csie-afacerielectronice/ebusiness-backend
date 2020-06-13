@@ -23,6 +23,7 @@ export class User1591901779914 implements MigrationInterface {
           {
             name: "role",
             type: "varchar",
+            default: "'client'",
           },
         ],
       }),

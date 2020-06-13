@@ -22,7 +22,7 @@ export class User {
   @Column()
   password: string;
 
-  @Column()
+  @Column({ default: "client" })
   role: string;
 
   @OneToMany(
@@ -35,11 +35,11 @@ export class User {
   profile: Profile;
 
   @BeforeInsert()
-  setPassword(): void {
-    this.password = bcrypt.hashSync(this.password, 10);
+  async setPassword(): Promise<void> {
+    this.password = await bcrypt.hash(this.password, 10);
   }
 
-  verifyPassword(password: string): boolean {
-    return bcrypt.compareSync(password, this.password);
+  async verifyPassword(password: string): Promise<boolean> {
+    return await bcrypt.compareSync(password, this.password);
   }
 }
