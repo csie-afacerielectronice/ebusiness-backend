@@ -31,6 +31,7 @@ export class Profile1591965873487 implements MigrationInterface {
           {
             name: "avatar",
             type: "varchar",
+            isNullable: true,
           },
           {
             name: "userId",

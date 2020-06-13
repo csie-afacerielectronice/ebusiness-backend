@@ -31,11 +31,7 @@ export class User1591901779914 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    const table = await queryRunner.getTable("users");
-    const foreignKey = table.foreignKeys.find(
-      fk => fk.columnNames.indexOf("userId") !== -1,
-    );
-    await queryRunner.dropForeignKey("users", foreignKey);
+    await queryRunner.getTable("users");
     await queryRunner.dropTable("users");
   }
 }

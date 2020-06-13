@@ -8,13 +8,8 @@ services:
       dockerfile: ./containers/node/Dockerfile
     volumes:
       - .:/var/www/html
-    restart: 'no'
-    command: 'npm run test'
-    environment:
-      - NODE_ENV=TEST
-      - DB_DIALECT_=sqlite
-      - DB_STORAGE=./db_test.sqlite
-      - APP_KEY=123456
+    restart: "no"
+    command: "npm run test:e2e"
   lint:
     container_name: ebusiness-eslint
     build:
@@ -22,8 +17,8 @@ services:
       dockerfile: containers/node/Dockerfile
     volumes:
       - .:/var/www/html
-    restart: 'no'
-    command: 'npm run lint'
+    restart: "no"
+    command: "npm run lint"
 
 networks:
   default:
