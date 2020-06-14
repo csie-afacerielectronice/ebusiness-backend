@@ -6,22 +6,21 @@ import {
   Body,
   Get,
   HttpCode,
+  UseInterceptors,
+  ClassSerializerInterceptor,
 } from "@nestjs/common";
 
-import { LocalAuthGuard } from "./guards/local-auth.guard";
-import { RefreshJwtAuthGuard } from "./guards/refresh-jwt.guard";
+import { LocalAuthGuard } from "./auth/guards/local-auth.guard";
+import { RefreshJwtAuthGuard } from "./auth/guards/refresh-jwt.guard";
 
-import { AuthService } from "./auth.service";
-import { UsersService } from "./users/users.service";
+import { AuthService } from "./auth/auth.service";
 
-import { RegisterDto } from "./users/dtos/register.dto";
+import { RegisterDto } from "./auth/dtos/register.dto";
 
 @Controller("auth")
+@UseInterceptors(ClassSerializerInterceptor)
 export class AuthController {
-  constructor(
-    private authService: AuthService,
-    private usersService: UsersService,
-  ) {}
+  constructor(private authService: AuthService) {}
 
   @UseGuards(LocalAuthGuard)
   @HttpCode(200)
@@ -32,8 +31,7 @@ export class AuthController {
 
   @Post("/register")
   async register(@Body() dto: RegisterDto) {
-    const user = await this.usersService.createUser(dto);
-    return this.authService.login(user);
+    return this.authService.register(dto);
   }
 
   @UseGuards(RefreshJwtAuthGuard)

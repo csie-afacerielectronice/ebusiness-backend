@@ -5,7 +5,7 @@ import {
   JoinColumn,
   OneToOne,
 } from "typeorm";
-import { User } from "../../users/entities/user.entity";
+import { User } from "../../auth/entities/user.entity";
 
 @Entity("profiles")
 export class Profile {
@@ -21,10 +21,13 @@ export class Profile {
   @Column()
   telephone: string;
 
-  @Column()
+  @Column({ nullable: true })
   avatar?: string;
 
-  @OneToOne(() => User)
+  @Column()
   @JoinColumn()
+  userId: string;
+
+  @OneToOne(() => User)
   user: User;
 }

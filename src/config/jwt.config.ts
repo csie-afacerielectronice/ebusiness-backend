@@ -5,7 +5,4 @@ export default registerAs("jwt", () => ({
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   ignoreExpiration: false,
   secretOrKey: process.env.APP_KEY,
-  jsonWebTokenOptions: {
-    expiresIn: "1d",
-  },
 }));

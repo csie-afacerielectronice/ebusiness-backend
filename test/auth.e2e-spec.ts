@@ -4,10 +4,10 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { ConfigModule } from "@nestjs/config";
 import * as request from "supertest";
 
-import { AuthModule } from "./../src/auth/auth.module";
+import { CoreModule } from "../src/core/core.module";
 
-import { AuthService } from "./../src/auth/auth.service";
-import { UsersService } from "./../src/auth/users/users.service";
+import { AuthService } from "../src/core/auth/auth.service";
+import { UsersService } from "../src/core/auth/users.service";
 
 import jwt from "./../src/config/jwt.config";
 
@@ -46,7 +46,7 @@ describe("AuthController (e2e)", () => {
           autoLoadEntities: true,
           synchronize: true,
         }),
-        AuthModule,
+        CoreModule,
       ],
     })
       .overrideProvider(AuthService)

@@ -5,7 +5,7 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { AppController } from "./app.controller";
 
 import { AppService } from "./app.service";
-import { AuthModule } from "./auth/auth.module";
+import { CoreModule } from "./core/core.module";
 import { StoreModule } from "./store/store.module";
 
 import app from "./config/app.config";
@@ -25,7 +25,7 @@ import jwt from "./config/jwt.config";
       load: [app, database, jwt],
     }),
 
-    AuthModule,
+    CoreModule,
     StoreModule,
   ],
   controllers: [AppController],

@@ -6,6 +6,7 @@ import {
   OneToOne,
   BeforeInsert,
 } from "typeorm";
+import { Exclude } from "class-transformer";
 import * as bcrypt from "bcrypt";
 
 import { Address } from "../../addresses/entities/address.entity";
@@ -40,6 +41,6 @@ export class User {
   }
 
   async verifyPassword(password: string): Promise<boolean> {
-    return await bcrypt.compareSync(password, this.password);
+    return await bcrypt.compare(password, this.password);
   }
 }

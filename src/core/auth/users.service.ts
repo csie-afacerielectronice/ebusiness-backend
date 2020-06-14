@@ -19,7 +19,7 @@ export class UsersService {
     return await this.userRepository.findOne({ ...query });
   }
 
-  async createUser(data: RegisterDto) {
+  async create(data: Record<string, unknown>) {
     const user = this.userRepository.create({ ...data });
     return await this.userRepository.save(user);
   }
