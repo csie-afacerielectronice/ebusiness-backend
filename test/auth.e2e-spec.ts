@@ -23,12 +23,7 @@ describe("AuthController (e2e)", () => {
   };
 
   const usersService = {
-    findById: () => {
-      return { email: "user" };
-    },
-    findByEmail: () => {
-      return { email: "user" };
-    },
+    updatePassword: () => null,
   };
 
   beforeAll(async () => {

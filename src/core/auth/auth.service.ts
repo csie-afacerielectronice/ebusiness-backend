@@ -5,8 +5,10 @@ import { UsersService } from "./users.service";
 import { ProfileService } from "../profile/profile.service";
 
 import { RegisterDto } from "./dtos/register.dto";
+import { UpdateProfileDto } from "../profile/dtos/updateProfile.dto";
 
 import { AuthSerializer } from "./serializers/auth.serializer";
+import { UserSerializer } from "./serializers/user.serializer";
 
 @Injectable()
 export class AuthService {
@@ -43,5 +45,21 @@ export class AuthService {
     });
 
     return this.login(user);
+  }
+
+  async getProfile(userId: string) {
+    const user = await this.usersService.findById(userId);
+    const profile = await this.profileService.findByUserId(userId);
+    return new UserSerializer({ ...profile, ...user, profileId: profile.id });
+  }
+
+  async updateProfile(userId: string, data: UpdateProfileDto) {
+    const user = await this.usersService.updateEmail(userId, data.email);
+    const profile = await this.profileService.updateByUserId(userId, {
+      name: data.name,
+      surname: data.surname,
+      telephone: data.telephone,
+    });
+    return new UserSerializer({ ...profile, ...user, profileId: profile.id });
   }
 }

@@ -9,4 +9,20 @@ export class ProfileService {
     const profile = this.profileRepository.create({ ...data });
     return await this.profileRepository.save(profile);
   }
+
+  async update(data: Record<string, unknown>) {
+    return await this.profileRepository.put(data);
+  }
+
+  async findByUserId(userId: string) {
+    return await this.profileRepository.findOneOrFail({ userId });
+  }
+
+  async updateByUserId(userId: string, data: Record<string, unknown>) {
+    const profile = await this.profileRepository.findOneOrFail({ userId });
+    Object.keys(data).forEach((key: string) => {
+      profile[key] = data[key];
+    });
+    return await this.profileRepository.save(profile);
+  }
 }
