@@ -21,19 +21,14 @@ export class UsersService {
   }
 
   async create(data: Record<string, unknown>) {
-    const user = this.userRepository.create({ ...data });
-    return await this.userRepository.save(user);
+    return await this.userRepository.persist(data);
   }
 
   async updateEmail(id: string, email: string) {
-    const user = await this.userRepository.findOneOrFail(id);
-    user.email = email;
-    return await this.userRepository.save(user);
+    return await this.userRepository.put({ id, email });
   }
 
   async updatePassword(id: string, data: UpdatePasswordDto) {
-    const user = await this.userRepository.findOneOrFail(id);
-    user.password = data.password;
-    await this.userRepository.save(user);
+    await this.userRepository.put({ id, password: data.password });
   }
 }

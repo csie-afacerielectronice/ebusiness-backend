@@ -6,8 +6,7 @@ export class ProfileService {
   constructor(private profileRepository: ProfileRepository) {}
 
   async create(data: Record<string, unknown>) {
-    const profile = this.profileRepository.create({ ...data });
-    return await this.profileRepository.save(profile);
+    return await this.profileRepository.persist(data);
   }
 
   async update(data: Record<string, unknown>) {
