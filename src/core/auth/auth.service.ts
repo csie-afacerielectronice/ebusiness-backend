@@ -1,6 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 
+import { User } from "./entities/user.entity";
+
 import { UsersService } from "./users.service";
 import { ProfileService } from "../profile/profile.service";
 
@@ -59,6 +61,13 @@ export class AuthService {
       name: data.name,
       surname: data.surname,
       telephone: data.telephone,
+    });
+    return new UserSerializer({ ...profile, ...user, profileId: profile.id });
+  }
+
+  async updateAvatar(user: User, avatar: string) {
+    const profile = await this.profileService.updateByUserId(user.id, {
+      avatar,
     });
     return new UserSerializer({ ...profile, ...user, profileId: profile.id });
   }

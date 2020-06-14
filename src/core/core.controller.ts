@@ -10,7 +10,12 @@ import {
   ClassSerializerInterceptor,
   Put,
   Patch,
+  UploadedFile,
 } from "@nestjs/common";
+
+import { FileInterceptor } from "@nestjs/platform-express";
+
+import { diskStorage } from "multer";
 
 import { LocalAuthGuard } from "./auth/guards/local-auth.guard";
 import { RefreshJwtAuthGuard } from "./auth/guards/refresh-jwt.guard";
@@ -22,6 +27,8 @@ import { UsersService } from "./auth/users.service";
 import { RegisterDto } from "./auth/dtos/register.dto";
 import { UpdateProfileDto } from "./profile/dtos/updateProfile.dto";
 import { UpdatePasswordDto } from "./auth/dtos/updatePassword.dto";
+
+import { editFileName, imageFileFilter } from "src/utils/file-uploading.utils";
 
 @Controller("auth")
 @UseInterceptors(ClassSerializerInterceptor)
@@ -70,8 +77,18 @@ export class AuthController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @UseInterceptors(
+    FileInterceptor("avatar", {
+      storage: diskStorage({
+        destination: "./public/assets/avatars",
+        filename: editFileName,
+      }),
+      fileFilter: imageFileFilter,
+    }),
+  )
   @Patch("/avatar")
-  async updateAvatar(@Request() req: any) {
-    return null;
+  async updateAvatar(@Request() req: any, @UploadedFile() file: any) {
+    const path = "assets/avatars";
+    return this.authService.updateAvatar(req.user, `${path}/${file.filename}`);
   }
 }
