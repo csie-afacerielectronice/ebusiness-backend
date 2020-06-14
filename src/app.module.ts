@@ -7,6 +7,7 @@ import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { CoreModule } from "./core/core.module";
 import { StoreModule } from "./store/store.module";
+import { AddressesModule } from './addresses/addresses.module';
 
 import app from "./config/app.config";
 import database from "./config/database.config";
@@ -27,6 +28,7 @@ import jwt from "./config/jwt.config";
 
     CoreModule,
     StoreModule,
+    AddressesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

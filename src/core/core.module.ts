@@ -7,15 +7,12 @@ import { AuthController } from "./core.controller";
 
 import { UsersService } from "./auth/users.service";
 import { ProfileService } from "./profile/profile.service";
-import { AddressesService } from "./addresses/addresses.service";
 import { AuthService } from "./auth/auth.service";
 
 import { UserRepository } from "./auth/repositories/user.repository";
-import { AddressRepository } from "./addresses/repositories/address.repository";
 import { ProfileRepository } from "./profile/repositories/profile.repository";
 
 import { User } from "./auth/entities/user.entity";
-import { Address } from "./addresses/entities/address.entity";
 import { Profile } from "./profile/entities/profile.entity";
 
 import { LocalStrategy } from "./auth/strategies/local.strategy";
@@ -27,7 +24,6 @@ import { RefreshJwtStrategy } from "./auth/strategies/refresh-jwt.strategy";
   providers: [
     UsersService,
     ProfileService,
-    AddressesService,
     AuthService,
     LocalStrategy,
     JwtStrategy,
@@ -36,10 +32,8 @@ import { RefreshJwtStrategy } from "./auth/strategies/refresh-jwt.strategy";
   imports: [
     TypeOrmModule.forFeature([
       User,
-      Address,
       Profile,
       UserRepository,
-      AddressRepository,
       ProfileRepository,
     ]),
     PassportModule,

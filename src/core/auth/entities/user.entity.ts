@@ -6,10 +6,9 @@ import {
   OneToOne,
   BeforeInsert,
 } from "typeorm";
-import { Exclude } from "class-transformer";
 import * as bcrypt from "bcrypt";
 
-import { Address } from "../../addresses/entities/address.entity";
+import { Address } from "../../../addresses/entities/address.entity";
 import { Profile } from "../../profile/entities/profile.entity";
 
 @Entity("users")
