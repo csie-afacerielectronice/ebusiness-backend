@@ -19,10 +19,9 @@
 
 ``` docker-compose up -d dev ``` spins up a development container, API accessible at http://localhost:3000
 
+### Tests
+
 ``` docker-compose up test ``` spins up a testing container
-
-
-
 
 ### Local dev
 
